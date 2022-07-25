@@ -1,0 +1,46 @@
+.login-card-header {
+    height: 80px;
+    background-color: #6da647 !important;
+    text-align: center;
+    line-height: 65px;
+    color: #ffffff !important;
+    font-size: 22px;
+    font-weight: lighter;
+    border-bottom: solid #59887E 2px !important;
+}
+
+.login-card-body {
+    background-color: #eaeaec !important;
+}
+
+.login-card-body input {
+    border: none;
+    border-radius: 0px;
+    background-color: #ffffff;
+}
+
+.login-card-body input:focus {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: none;
+}
+
+.login-card-footer {
+    background-color: #ffffff;
+    height: 140px;
+}
+
+.btn-login {
+    width: 100%;
+    background-color: #6da647 !important;   
+    border: none !important;
+    border-radius: 3px !important;
+}
+
+.forgot-password {
+    color: #000000;
+}
+
+.btn-forgot-password {
+    color: #7ba7cd !important;
+}
