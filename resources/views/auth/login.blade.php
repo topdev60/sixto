@@ -36,7 +36,7 @@
                             <button type="submit" class="btn btn-primary btn-login mt-3">
                                 {{ __('Sign me in') }}
                             </button>
-    
+
                             @if (Route::has('password.request'))
                                 <div class="forgot-password mt-4 text-right">
                                     {{ __('Forgot Password?') }}
@@ -45,7 +45,7 @@
                                     </a>
                                 </div>
                             @endif
-                        </div>  
+                        </div>
                     </div>
                 </form>
             </div>

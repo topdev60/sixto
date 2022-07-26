@@ -25,7 +25,8 @@
 </head>
 <body>
     <div id="app">
-        @include('Backend.includes.header')
+        @include('Frontend.includes.header')
+        {{-- @include('Frontend.includes.sidebar') --}}
         <main>
             @yield('content')
         </main>

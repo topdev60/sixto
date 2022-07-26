@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminDashboardController;
+use App\Http\Controllers\Frontend\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -16,6 +17,13 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::group(['middleware' => ['role']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function(){
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
+
+Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
+    Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+});
+
+
+

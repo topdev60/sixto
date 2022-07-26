@@ -16,11 +16,12 @@ class IsAdmin
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {   
+    {
         if(Auth::user() && Auth::user()->role == 1){
             return $next($request);
+        }else{
+            return redirect('/user/dashboard')->with('error', 'You have not admin access');
         }
 
-        return redirect('home')->with('error', 'You have not admin access');
     }
 }

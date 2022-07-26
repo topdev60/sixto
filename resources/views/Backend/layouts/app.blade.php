@@ -12,12 +12,12 @@
     <!-- Scripts -->
     <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}" defer></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}" defer></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" media="all">
     <!-- Styles -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
@@ -25,10 +25,12 @@
 </head>
 <body>
     <div id="app">
+        @include('Backend.includes.sidebar')
         @include('Backend.includes.header')
         <main>
             @yield('content')
         </main>
     </div>
 </body>
+@yield('after-script')
 </html>

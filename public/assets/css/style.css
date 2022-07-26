@@ -66,6 +66,7 @@
 .sidebar .nav-list{
   margin-top: 20px;
   height: 100%;
+  padding: 0;
 }
 .sidebar li{
   position: relative;
@@ -231,7 +232,8 @@
   transition: all 0.5s ease;
   z-index: 2;
 }
-.sidebar.open ~ .home-section{
+.sidebar.open .home-section{
+  background: #000;
   left: 180px;
   width: calc(100% - 180px);
 }
@@ -246,4 +248,20 @@
   .sidebar li .tooltip{
     display: none;
   }
+}
+
+/**
+
+Customize Styles
+
+*/
+
+.nav-title {
+  color: #ffffff !important;
+}
+
+.navbar{
+  margin-left: 0px;
+  position: relative;
+  left: 78px;
 }
