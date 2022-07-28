@@ -38,7 +38,7 @@
                                 @foreach ($projects as $project)
                                 <tr>
                                     <td>
-                                        <a href="{{route('user.project.selectProject', $project->ProjectID)}}">
+                                        <a href="{{route('user.project.select', $project->ProjectID)}}">
                                             <i class="far fa-square"></i>
                                         </a>
                                     </td>
