@@ -73,6 +73,30 @@
   margin: 8px 0;
   list-style: none;
 }
+.sidebar li .submenu {
+  position: absolute;
+  background: inherit;
+  left: 100%;
+  right: auto;
+  width: 100%;
+  top: 0;
+}
+
+.sidebar li .marker {
+  position: absolute;
+  background-color: forestgreen;
+  z-index: 2;
+  left: calc(100% + 5px);
+  top: 0;
+  width: 10px;
+  height: 100%;
+  opacity: 0;
+}
+
+.sidebar li.selected .marker {
+  opacity: 1;
+}
+
 .sidebar li .tooltip{
   position: absolute;
   top: -20px;
@@ -95,6 +119,9 @@
   transition: all 0.4s ease;
   top: 50%;
   transform: translateY(-50%);
+}
+.sidebar li:hover .marker {
+  opacity: 1;
 }
 .sidebar.open li .tooltip{
   display: none;
@@ -224,7 +251,7 @@
 }
 .home-section{
   position: relative;
-  background: #E4E9F7;
+  /* background: #E4E9F7; */
   min-height: 100vh;
   top: 0;
   left: 78px;
@@ -251,17 +278,17 @@
 }
 
 /**
-
 Customize Styles
-
 */
 
 .nav-title {
   color: #ffffff !important;
 }
 
-.navbar{
-  margin-left: 0px;
-  position: relative;
-  left: 78px;
+.navbar {
+  border-bottom: 1px solid #6c6f80 !important;
+}
+
+.fa-mr-1 {
+  margin-right: 3%;
 }

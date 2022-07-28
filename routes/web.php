@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminDashboardController;
+use App\Http\Controllers\Frontend\ProjectController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Monolog\Handler\RotatingFileHandler;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,12 +20,20 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function(){
-    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'isAdmin']], function(){
+    Route::get('project/index', 'ProjectController@index')->name('project.index');
+    Route::resource('project', 'ProjectController');
+    Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
+    Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
+    Route::post('project/update', 'ProjectController@update')->name('project.update');
 });
 
-Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
-    Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], function(){
+    Route::get('project/index', 'ProjectController@index')->name('project.index');
+    Route::resource('project', 'ProjectController');
+    Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
+    Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
+    Route::post('project/update', 'ProjectController@update')->name('project.update');
 });
 
 

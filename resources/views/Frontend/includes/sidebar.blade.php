@@ -14,7 +14,7 @@
         <li @if ($module == "Projects")
             class={{'selected'}}
         @endif>
-            <a href="#">
+            <a href="{{route('user.project.index')}}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">{{__('Projects')}}</span>
             </a>
