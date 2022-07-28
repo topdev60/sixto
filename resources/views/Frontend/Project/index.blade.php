@@ -37,7 +37,7 @@
                             <tbody>
                                 @foreach ($projects as $project)
                                 <tr>
-                                    <td class="text-center">
+                                    <td class="text-center"> 
                                         <a href="{{route('user.project.select', $project->ProjectID)}}">
                                             @if (session()->get('projectId') == $project->ProjectID)
                                                 <i class="far fa-check-square"></i>
