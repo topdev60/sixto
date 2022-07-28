@@ -7,7 +7,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-
+                @if (isset($selectedProject))
+                    <li class="nav-item">
+                        {{__($selectedProject->project_name)}}
+                    </li    
+                @endif
+                >
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -17,12 +17,15 @@ class ProjectController extends Controller
     protected $module = 'Projects';
     public function index()
     {
+        if(Session::has('projectId')){
+            $selectedProject = WellInfo::find(Session::get('projectId'));
+        }
         if(Auth::user()->role == 1){
             $projects = WellInfo::all();
-            return view('Backend.Project.index')->with('projects', $projects)->with('module', $this->module) ;
+            return view('Backend.Project.index')->with('projects', $projects)->with('module', $this->module)->with('selectedProject', $selectedProject);
         }else {
             $projects = WellInfo::where('UserID', Auth::id())->get();
-            return view('Frontend.Project.index')->with('projects', $projects)->with('module', $this->module) ;
+            return view('Frontend.Project.index')->with('projects', $projects)->with('module', $this->module)->with('selectedProject', $selectedProject);
         }
     }
 
@@ -144,7 +147,7 @@ class ProjectController extends Controller
         }else {
             WellInfo::where('UserID', Auth::id())->where('ProjectID', $request->id)->delete();
         }
-
+        Session::forget('projectId');
         return redirect()->back();
     }
 }
