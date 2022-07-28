@@ -1,4 +1,4 @@
-@extends('Backend.layouts.app')
+@extends('Frontend.layouts.app')
 @section('content')
 <section class="home-section" id="home-section">
     <div class="container-fluid">
@@ -37,28 +37,32 @@
                             <tbody>
                                 @foreach ($projects as $project)
                                 <tr>
-                                    <td>
+                                    <td class="text-center"> 
                                         <a href="{{route('user.project.select', $project->ProjectID)}}">
-                                            <i class="far fa-square"></i>
+                                            @if (session()->get('projectId') == $project->ProjectID)
+                                                <i class="far fa-check-square"></i>
+                                            @else
+                                                <i class="far fa-square"></i>
+                                            @endif
                                         </a>
                                     </td>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$project->project_name}}</td>
-                                    <td>{{$project->location}}</td>
-                                    <td>{{$project->field}}</td>
-                                    <td>{{$project->lease}}</td>
-                                    <td>{{$project->operator}}</td>
-                                    <td>{{$project->rigname}}</td>
-                                    <td>
-                                        @if ($project->rig_type == '1' || $project->rig_type == 1)
+                                    <td class="text-center">{{$loop->iteration}}</td>
+                                    <td class="text-center">{{$project->project_name}}</td>
+                                    <td class="text-center">{{$project->location}}</td>
+                                    <td class="text-center">{{$project->field}}</td>
+                                    <td class="text-center">{{$project->lease}}</td>
+                                    <td class="text-center">{{$project->operator}}</td>
+                                    <td class="text-center">{{$project->rigname}}</td>
+                                    <td class="text-center">
+                                        @if ($project->rigtype == '1' || $project->rigtype == 1)
                                             <span class="badge bg-success text-primary">Yes</span>
                                         @else
                                             <span class="badge bg-danger">No</span>
                                         @endif
                                     </td>
-                                    <td>{{$project->rigcontroller}}</td>
-                                    <td>{{$project->wellname}}</td>
-                                    <td>
+                                    <td class="text-center">{{$project->rigcontroller}}</td>
+                                    <td class="text-center">{{$project->wellname}}</td>
+                                    <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                               data-bs-target="#delete{{$project->ProjectID}}">

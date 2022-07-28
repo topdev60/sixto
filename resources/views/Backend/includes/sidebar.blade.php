@@ -14,7 +14,7 @@
         <li @if ($module == "Projects")
             class={{'selected'}}
         @endif>
-            <a href="#">
+            <a href="{{route('user.project.index')}}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">{{__('Projects')}}</span>
             </a>
@@ -111,6 +111,18 @@
             <span class="tooltip">{{__('Units')}}</span>
             <span class="marker"></span>
         </li>
+        @if (session()->get('projectId'))
+        <li @if ($module == "Details")
+            class={{'selected'}}
+        @endif>
+            <a href="#">
+                <i class='bx bx-detail'></i>
+                <span class="links_name">{{__('Details')}}</span>
+            </a>
+            <span class="tooltip">{{__('Details')}}</span>
+            <span class="marker"></span>
+        </li>
+        @endif
         </ul>
     </div>
     <script>

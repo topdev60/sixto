@@ -7,7 +7,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-
+                @if (isset($selectedProject))
+                    <li class="nav-item">
+                        {{__($selectedProject->project_name)}}
+                    </li    
+                @endif
+                >
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -28,18 +33,18 @@
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle nav-title" data-toggle="dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <img src="{{asset('assets/image/users/user.jpg')}}" alt="avatar" class="rounded-circle img-fluid" style="max-width: 30px;">
+                            {{ Auth::user()->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#"><i class="fas fa-user-circle mr-1 "></i>{{__('Profile')}}</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-users mr-1"></i>{{__('Users')}}</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-cog mr-1 "></i>{{__('Settings')}}</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-user-circle fa-mr-1"></i>{{__('Profile')}}</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog fa-mr-1"></i>{{__('Settings')}}</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out mr-1 "></i>{{ __('Logout') }}
+                                {{ __('Logout') }}
                             </a>
+
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
