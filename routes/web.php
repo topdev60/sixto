@@ -26,6 +26,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'i
     Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
     Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
     Route::post('project/update', 'ProjectController@update')->name('project.update');
+    Route::resource('survey', 'SurveyController');
 });
 
 Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], function(){
@@ -34,6 +35,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
     Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
     Route::post('project/update', 'ProjectController@update')->name('project.update');
+    Route::resource('survey', 'SurveyController');
 });
 
 

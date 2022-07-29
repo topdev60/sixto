@@ -20,7 +20,7 @@ class IsAdmin
         if(Auth::user() && Auth::user()->role == 1){
             return $next($request);
         }else{
-            return redirect('/user/dashboard')->with('error', 'You have not admin access');
+            return redirect('/user/project')->with('error', 'You have not admin access');
         }
 
     }

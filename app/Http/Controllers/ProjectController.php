@@ -19,14 +19,10 @@ class ProjectController extends Controller
     {
         if(Auth::user()->role == 1){
             $projects = WellInfo::all();
+            return view('Backend.Project.index')->with('projects', $projects)->with('module', $this->module);
         }else {
             $projects = WellInfo::where('UserID', Auth::id())->get();
-        }
-        if(Session::has('projectId')){
-            $selectedProject = WellInfo::find(Session::get('projectId'));
-            return view('Backend.Project.index')->with('projects', $projects)->with('module', $this->module)->with('selectedProject', $selectedProject);
-        }else {
-            return view('Backend.Project.index')->with('projects', $projects)->with('module', $this->module);
+            return view('Frontend.Project.index')->with('projects', $projects)->with('module', $this->module);
         }
     }
 
@@ -145,7 +141,10 @@ class ProjectController extends Controller
      */
 
     public function selectproject($id){
+        $project = WellInfo::where('projectID',$id)->first();
+        $projectName = $project->project_name;
         Session::put('projectId', $id);
+        Session::put('projectName', $projectName);
         return redirect()->back();
     }
 
@@ -163,6 +162,7 @@ class ProjectController extends Controller
             WellInfo::where('UserID', Auth::id())->where('ProjectID', $request->id)->delete();
         }
         Session::forget('projectId');
+        Session::forget('projectName');
         return redirect()->back();
     }
 }

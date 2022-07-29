@@ -21,14 +21,14 @@
             <span class="tooltip">{{__('Projects')}}</span>
             <span class="marker"></span>
         </li>
-        <li @if ($module == "Trojectory")
+        <li @if ($module == "Survey")
             class={{'selected'}}
         @endif>
-        <a href="#">
+        <a href="{{route('user.survey.index')}}">
             <i class='bx bx-command' ></i>
-            <span class="links_name">{{__('Trojectory')}}</span>
+            <span class="links_name">{{__('Trajectory')}}</span>
         </a>
-        <span class="tooltip">{{__('Trojectory')}}</span>
+        <span class="tooltip">{{__('Trajectory')}}</span>
         <span class="marker"></span>
         </li>
         <li @if ($module == "Formation")

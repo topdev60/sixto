@@ -7,9 +7,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                @if (isset($selectedProject))
+                @if (session()->has('projectId'))
                     <li class="nav-item">
-                        {{__($selectedProject->project_name)}}
+                        {{__(session()->get('projectName'))}}
                     </li>
                 @endif
             </ul>

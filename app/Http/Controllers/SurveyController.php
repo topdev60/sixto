@@ -3,19 +3,32 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
-use App\Models\Surevey;
+use App\Models\Survey;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class SureveyController extends Controller
+class SurveyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    protected $module = 'Survey';
     public function index()
     {
-        //
+        if(Auth::user()->role == 1){
+            if(Session::has('projectId')){
+                $trajactories = Survey::where('projectID', Session::get('projectId'));
+            }else {
+                $trajactories = Survey::all();
+            }
+            return view('Backend.Trajectory.index')->with('trojactories', $trajactories)->with('module', $this->module);
+        }else {
+            $trajactories = Survey::where('projectID', Session::get('projectId'));
+            return view('Frontend.Trajectory.index')->with('trojactories', $trajactories)->with('module', $this->module);
+        }
     }
 
     /**
@@ -45,7 +58,7 @@ class SureveyController extends Controller
      * @param  \App\Models\Surevey  $surevey
      * @return \Illuminate\Http\Response
      */
-    public function show(Surevey $surevey)
+    public function show(Survey $survey)
     {
         //
     }
@@ -56,7 +69,7 @@ class SureveyController extends Controller
      * @param  \App\Models\Surevey  $surevey
      * @return \Illuminate\Http\Response
      */
-    public function edit(Surevey $surevey)
+    public function edit(Survey $survey)
     {
         //
     }
@@ -68,7 +81,7 @@ class SureveyController extends Controller
      * @param  \App\Models\Surevey  $surevey
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Surevey $surevey)
+    public function update(Request $request, Survey $survey)
     {
         //
     }
@@ -79,7 +92,7 @@ class SureveyController extends Controller
      * @param  \App\Models\Surevey  $surevey
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Surevey $surevey)
+    public function destroy(Survey $survey)
     {
         //
     }

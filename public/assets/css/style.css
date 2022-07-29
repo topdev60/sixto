@@ -121,7 +121,7 @@
   transform: translateY(-50%);
 }
 .sidebar li:hover .marker {
-  opacity: 1;
+  opacity: 0.4;
 }
 .sidebar.open li .tooltip{
   display: none;
