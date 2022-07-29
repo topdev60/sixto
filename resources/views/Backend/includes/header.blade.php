@@ -7,10 +7,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                @if (isset($selectedProject))
+                @if (session()->has('projectId'))
                     <li class="nav-item">
-                        {{__($selectedProject->project_name)}}
-                    </li>    
+                        {{__(session()->get('projectName'))}}
+                    </li>
                 @endif
             </ul>
 
@@ -37,6 +37,7 @@
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#"><i class="fas fa-user-circle fa-mr-1"></i>{{__('Profile')}}</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-users fa-mr-1"></i>{{__('Users')}}</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-cog fa-mr-1"></i>{{__('Settings')}}</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();

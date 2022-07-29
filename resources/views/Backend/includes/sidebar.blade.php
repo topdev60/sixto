@@ -7,14 +7,14 @@
             <i class='bx bx-log-in' id="btn" ></i>
         </div>
         <li>
-            <i class='bx bx-search' ></i>
+            <i class='bx bx-search'></i>
             <input type="text" placeholder="Search...">
             <span class="tooltip">Search</span>
         </li>
         <li @if ($module == "Projects")
             class={{'selected'}}
         @endif>
-            <a href="{{route('user.project.index')}}">
+            <a href="{{route('admin.project.index')}}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">{{__('Projects')}}</span>
             </a>
@@ -24,7 +24,7 @@
         <li @if ($module == "Survey")
             class={{'selected'}}
         @endif>
-        <a href="{{route('user.survey.index')}}">
+        <a href="{{route('admin.survey.index')}}">
             <i class='bx bx-command' ></i>
             <span class="links_name">{{__('Trajectory')}}</span>
         </a>

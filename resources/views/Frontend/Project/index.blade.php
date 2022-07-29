@@ -20,7 +20,7 @@
                         <table id="dataTable" class="table table-responsive">
                             <thead>
                                 <tr>
-                                    <th><i class="fas fa-grip-vertical"></i></th>
+                                    <th class="text-center"><i class="fas fa-grip-vertical"></i></th>
                                     <th class="text-center">#</th>
                                     <th class="text-center">{{__('Project Name')}}</th>
                                     <th class="text-center">{{__('Location')}}</th>
