@@ -103,6 +103,20 @@ class ProjectController extends Controller
     public function update(Request $request)
     {
         //
+        if(Auth::user()->role == 1){
+            $wellinfo = WellInfo::where('ProjectID', $request->id)->update([
+                'project_name' => $request->name,
+                'location' => $request->location,
+                'field' => $request->field,
+                'lease' => $request->lease,
+                'operator' => $request->operation,
+                'rigcontroller' => $request->rig_controller,
+                'wellname' => $request->well_name,
+                'rigname' => $request->rig_name,
+                'rigtype' => $request->rig_type,
+            ]);
+        
+        }
         $wellinfo = WellInfo::where('UserID', Auth::id())->where('ProjectID', $request->id)->update([
             'project_name' => $request->name,
             'location' => $request->location,

@@ -10,9 +10,8 @@
                 @if (isset($selectedProject))
                     <li class="nav-item">
                         {{__($selectedProject->project_name)}}
-                    </li    
+                    </li>    
                 @endif
-                >
             </ul>
 
             <!-- Right Side Of Navbar -->
