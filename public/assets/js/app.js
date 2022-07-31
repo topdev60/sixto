@@ -4,7 +4,6 @@ $(document).ready(function () {
 })
 
 function drawChart(id){
-    var res;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
