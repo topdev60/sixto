@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\Models\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WellInfo;
@@ -57,7 +58,15 @@ class ProjectController extends Controller
             'rigname' => $request->rig_name,
             'rigtype' => $request->rig_type,
         ]);
-
+        Survey::insert([
+            'ProjectID' => $wellinfo->ProjectID,
+            'MD' => 0,
+            'Inc' => 0,
+            'Azimuth' => 0,
+            'TVD' => 0,
+            'North' => 0,
+            'East' => 0,
+        ]);
         if($wellinfo){
             $output = 'Successed Create Project';
         }else {
@@ -111,7 +120,7 @@ class ProjectController extends Controller
                 'rigname' => $request->rig_name,
                 'rigtype' => $request->rig_type,
             ]);
-        
+
         }
         $wellinfo = WellInfo::where('UserID', Auth::id())->where('ProjectID', $request->id)->update([
             'project_name' => $request->name,
@@ -124,7 +133,6 @@ class ProjectController extends Controller
             'rigname' => $request->rig_name,
             'rigtype' => $request->rig_type,
         ]);
-
         if($wellinfo){
             $output = 'Successed Create Project';
         }else {
@@ -135,9 +143,9 @@ class ProjectController extends Controller
     }
 
     /**
-     * 
+     *
      * @param int $ProjectID
-     * 
+     *
      */
 
     public function selectproject($id){
@@ -146,6 +154,22 @@ class ProjectController extends Controller
         Session::put('projectId', $id);
         Session::put('projectName', $projectName);
         return redirect()->back();
+    }
+
+    public function getChartsData(Request $request) {
+        $selectedProjectId = $request->projectId;
+        $trajectories = Survey::where('ProjectID', $selectedProjectId)->get();
+        $tvd = [];
+        $north = [];
+        foreach ($trajectories as $key => $traj) {
+            array_push($tvd, $traj->TVD);
+            array_push($north, $traj->North);
+        }
+        $data = [
+            'x' => $north,
+            'y' => $tvd
+        ];
+        return response()->json($data);
     }
 
     /**
@@ -158,8 +182,10 @@ class ProjectController extends Controller
     {
         if(Auth::user()->role == 1){
             WellInfo::where('ProjectID', $request->id)->delete();
+            Survey::where('ProjectID', $request->id)->delete();
         }else {
             WellInfo::where('UserID', Auth::id())->where('ProjectID', $request->id)->delete();
+            Survey::where('ProjectID', $request->id)->delete();
         }
         Session::forget('projectId');
         Session::forget('projectName');

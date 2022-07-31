@@ -11,7 +11,7 @@
         </div>
         {{---title---}}
         <div class="row gy-4">
-            <div class="col-md-12 col-lg-8">
+            <div class="col-md-12 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <div>{{$module}} Table</div>
@@ -183,10 +183,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-4">
+            <div class="col-md-12 col-lg-6">
                 <div class="bg-secondary rounded p-3">
                   DIV PLOT
                 </div>
+                <div id="divplot"></div>
             </div>
         </div>
     </div>

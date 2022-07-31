@@ -10,10 +10,14 @@
     <title>{{ config('app.name', 'DrillApp') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}" defer></script>
+    <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+    <script src='https://cdn.plot.ly/plotly-2.12.1.min.js'></script>
+    <script src="{{ asset('assets/js/2d-plotly.js') }}"></script>
+    <script src="{{ asset('assets/js/3d-plotly.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

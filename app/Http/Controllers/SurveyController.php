@@ -20,14 +20,14 @@ class SurveyController extends Controller
     {
         if(Auth::user()->role == 1){
             if(Session::has('projectId')){
-                $trajactories = Survey::where('projectID', Session::get('projectId'));
+                $trajactories = Survey::where('projectID', Session::get('projectId'))->get();
             }else {
                 $trajactories = Survey::all();
             }
-            return view('Backend.Trajectory.index')->with('trojactories', $trajactories)->with('module', $this->module);
+            return view('Backend.Trajectory.index')->with('trajectories', $trajactories)->with('module', $this->module);
         }else {
-            $trajactories = Survey::where('projectID', Session::get('projectId'));
-            return view('Frontend.Trajectory.index')->with('trojactories', $trajactories)->with('module', $this->module);
+            $trajactories = Survey::where('projectID', Session::get('projectId'))->get();
+            return view('Frontend.Trajectory.index')->with('trajectories', $trajactories)->with('module', $this->module);
         }
     }
 
@@ -49,7 +49,17 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $projectId = Session::get('projectId');
+        $new = Survey::insert([
+            'ProjectID' => $projectId,
+            'MD' => $request->md,
+            'Inc' => $request->inc,
+            'Azimuth' => $request->azi,
+            'TVD' => $request->tvd,
+            'North' => $request->north,
+            'East' => $request->east,
+        ]);
+        if($new) return redirect()->back();
     }
 
     /**
@@ -92,8 +102,10 @@ class SurveyController extends Controller
      * @param  \App\Models\Surevey  $surevey
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Survey $survey)
+    public function destroy(Request $request)
     {
-        //
+        $trajId = $request->id;
+        Survey::where('id', $trajId)->delete();
+        return redirect()->back();
     }
 }

@@ -6,6 +6,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
+            <input type="hidden" id="projectId" value="{{session()->get('projectId')}}">
             <ul class="navbar-nav me-auto">
                 @if (session()->has('projectId'))
                     <li class="nav-item">
