@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Fgpressure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class FgpressureController extends Controller
 {
@@ -36,7 +37,17 @@ class FgpressureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $temp = Fgpressure::insert([
+            'ProjectID' => Session::get('projectId'),
+            'TVD' => $request->tvd,
+            'FG' => $request->fg,
+            'Pressure' => $request->pressure,
+        ]);
+        if ($temp) {
+            return redirect()->back();
+        }else {
+            return 'Error';
+        }
     }
 
     /**
@@ -79,8 +90,10 @@ class FgpressureController extends Controller
      * @param  \App\Models\Fgpressure  $fgpressure
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fgpressure $fgpressure)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        Fgpressure::where('FG_ID', $id)->delete();
+        return redirect()->back();
     }
 }

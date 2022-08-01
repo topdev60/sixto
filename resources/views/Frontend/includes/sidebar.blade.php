@@ -34,7 +34,7 @@
         <li @if ($module == "Formation")
             class={{'selected'}}
         @endif>
-        <a href="#">
+        <a href="{{route('user.formation.index')}}">
             <i class='bx bxs-keyboard'></i>
             <span class="links_name">{{__('Formation')}}</span>
         </a>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Temperature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class TemperatureController extends Controller
 {
@@ -37,6 +38,18 @@ class TemperatureController extends Controller
     public function store(Request $request)
     {
         //
+        $temp = Temperature::insert([
+            'ProjectID' => Session::get('projectId'),
+            'TVD' => $request->tvd,
+            'TG' => $request->tg,
+            'Temperature' => $request->temperature,
+        ]);
+        if ($temp) {
+            return redirect()->back();
+        }else {
+            return 'Error';
+        }
+        
     }
 
     /**
@@ -79,8 +92,11 @@ class TemperatureController extends Controller
      * @param  \App\Models\Temperature  $temperature
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Temperature $temperature)
+    public function destroy(Request $request)
     {
         //
+        $id = $request->id;
+        Temperature::where('TempID', $id)->delete();
+        return redirect()->back();
     }
 }

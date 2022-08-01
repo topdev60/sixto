@@ -1,5 +1,6 @@
  function threed_plotly_chart_draw(data) { 
     var c = 1;
+    var position = 'divplot';
     var tracedata = {
         x : data.x,
         y : data.y,
@@ -30,5 +31,5 @@
         },
         height: 690,
     };
-    Plotly.newPlot('divplot', trace, layout);
+    Plotly.newPlot(position, trace, layout);
 }

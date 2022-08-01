@@ -31,6 +31,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'i
     Route::resource('survey', 'SurveyController');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
     Route::resource('formation', 'FormationController');
+    Route::resource('formation', 'FormationController');
+    Route::resource('fgpressure', 'FgpressureController');
+    Route::resource('porepressure', 'PorepressureController');
+    Route::resource('temperature', 'TemperatureController');
+    Route::resource('lithology', 'LithologyController');
+    Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
+    Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
+    Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
+    Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
 });
 
 Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], function(){
@@ -42,6 +51,14 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     Route::resource('survey', 'SurveyController');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
     Route::resource('formation', 'FormationController');
+    Route::resource('fgpressure', 'FgpressureController');
+    Route::resource('porepressure', 'PorepressureController');
+    Route::resource('temperature', 'TemperatureController');
+    Route::resource('lithology', 'LithologyController');
+    Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
+    Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
+    Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
+    Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
 });
 Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.getChartsData');
 

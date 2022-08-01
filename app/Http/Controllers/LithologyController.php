@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Lithology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LithologyController extends Controller
 {
@@ -35,7 +36,16 @@ class LithologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $temp = Lithology::insert([
+            'ProjectID' => Session::get('projectId'),
+            'MD' => $request->md,
+            'TVD' => $request->tvd,
+            'TC' => $request->tc,
+            'SH' => $request->sh,
+        ]);
+        if ($temp) {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -78,8 +88,10 @@ class LithologyController extends Controller
      * @param  \App\Models\Lithology  $lithology
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lithology $lithology)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        Lithology::where('LithoID', $id)->delete();
+        return redirect()->back();
     }
 }

@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\WellInfo;
 use Illuminate\Support\Facades\Session;
 
+use App\Models\Popressure;
+use App\Models\Fgpressure;
+use App\Models\Temperature;
+use App\Models\Lithology;
+
 class ProjectController extends Controller
 {
     /**
@@ -158,19 +163,52 @@ class ProjectController extends Controller
 
     public function getChartsData(Request $request) {
         $selectedProjectId = $request->projectId;
-        $trajectories = Survey::where('ProjectID', $selectedProjectId)->get();
-        $tvd = [];
-        $north = [];
-        $east = [];
-        foreach ($trajectories as $key => $traj) {
-            array_push($tvd, $traj->TVD);
-            array_push($north, $traj->North);
-            array_push($east, $traj->East);
+        $chartDataType = $request->chartDataType;
+        if ($chartDataType == 0) {
+            $x = [];$y = [];$z = [];
+            $trajectories = Survey::where('ProjectID', $selectedProjectId)->get();
+            foreach ($trajectories as $key => $traj) {
+                array_push($x, $traj->TVD);
+                array_push($y, $traj->North);
+                array_push($z, $traj->East);
+            }
+        }elseif ($chartDataType == 1) {
+            $x = [];$y = [];$z = [];
+            $porepressure = Popressure::where('ProjectID', $selectedProjectId)->get();
+            foreach ($porepressure as $key => $traj) {
+                array_push($x, $traj->TVD);
+                array_push($y, $traj->PP);
+                array_push($z, $traj->Pressure);
+            }
+        }elseif ($chartDataType == 2) {
+            $x = [];$y = [];$z = [];
+            $fgpressure = Fgpressure::where('ProjectID', $selectedProjectId)->get();
+            foreach ($fgpressure as $key => $traj) {
+                array_push($x, $traj->TVD);
+                array_push($y, $traj->FG);
+                array_push($z, $traj->Pressure);
+            }
+        }elseif ($chartDataType == 3) {
+            $x = [];$y = [];$z = [];
+            $temperatures = Temperature::where('ProjectID', $selectedProjectId)->get();
+            foreach ($temperatures as $key => $traj) {
+                array_push($x, $traj->TVD);
+                array_push($y, $traj->TG);
+                array_push($z, $traj->Temperature);
+            }
+        }elseif ($chartDataType == 4) {
+            $x = [];$y = [];$z = [];
+            $lithologies = Lithology::where('ProjectID', $selectedProjectId)->paginate(10);
+            foreach ($lithologies as $key => $traj) {
+                array_push($x, $traj->TVD);
+                array_push($y, $traj->TC);
+                array_push($z, $traj->SH);
+            }
         }
         $data = [
-            'x' => $north,
-            'y' => $tvd,
-            'z' => $east
+            'x' => $x,
+            'y' => $y,
+            'z' => $z
         ];
         return response()->json($data);
     }

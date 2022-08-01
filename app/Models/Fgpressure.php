@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Fgpressure extends Model
 {
     use HasFactory;
+    protected $table = 'fgpressure';
+    protected $primaryKey = 'FG_ID';
 }

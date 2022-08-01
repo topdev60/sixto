@@ -1,15 +1,19 @@
 var statusChart = false; // 2D: false, 3D: true 
 $(document).ready(function () {
+    var chartDataType = 0;
+    if ($('#chartDataType').val()) {
+        chartDataType = $('#chartDataType').val();
+    }
     var selectedProjectId = $('#projectId').val();
     if(selectedProjectId){
-        drawChart(selectedProjectId, statusChart);
+        drawChart(selectedProjectId, statusChart, chartDataType);
     }
 
     $('#switchCharts').on('click', function () {
         $('#divplot').children().remove();
         var selectedProjectId = $('#projectId').val();
         statusChart = !statusChart;
-        drawChart(selectedProjectId, statusChart);
+        drawChart(selectedProjectId, statusChart, '');
         
     })
 })
@@ -18,7 +22,7 @@ $(document).ready(function () {
  * 
  * @param {*selected project ID} id, statusChart 
  */
-function drawChart(id, statusChart){
+function drawChart(id, statusChart, chartDataType){
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -27,15 +31,16 @@ function drawChart(id, statusChart){
     $.ajax({
         data: {
             'projectId': id,
+            'chartDataType': chartDataType,
         },
         type: 'POST',
         url: '/getChartsData',
         dataType: 'json',
         success: function (response) {
             if(statusChart){
-                threed_plotly_chart_draw(response);
+                threed_plotly_chart_draw(response, chartDataType);
             }else {
-                twod_plotly_chart_draw(response);
+                twod_plotly_chart_draw(response, chartDataType);
             }
         }
     })

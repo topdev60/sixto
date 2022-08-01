@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Popressure extends Model
 {
     use HasFactory;
+    protected $table = 'porepressure';
+    protected $primaryKey = 'PP_ID';
 }

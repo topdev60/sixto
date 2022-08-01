@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Popressure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PorepressureController extends Controller
 {
@@ -36,7 +37,17 @@ class PorepressureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $temp = Popressure::insert([
+            'ProjectID' => Session::get('projectId'),
+            'TVD' => $request->tvd,
+            'PP' => $request->pp,
+            'Pressure' => $request->pressure,
+        ]);
+        if ($temp) {
+            return redirect()->back();
+        }else {
+            return 'Error';
+        }
     }
 
     /**
@@ -79,8 +90,10 @@ class PorepressureController extends Controller
      * @param  \App\Models\Popressure  $popressure
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Popressure $popressure)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        Popressure::where('PP_ID', $id)->delete();
+        return redirect()->back();
     }
 }
