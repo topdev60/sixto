@@ -16,7 +16,7 @@
                     <div class="card-header">
                         <div>{{$module}} Table</div>
                     </div>
-                    <div class="card-body overflow-auto">
+                    <div class="card-body overflow-auto clearfix">
                         <table id="dataTable" class="table table-responsive">
                             <thead>
                                 <tr>
@@ -180,6 +180,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="float-end">
+                            {{$projects->links()}}
+                        </div>
                     </div>
                 </div>
             </div>

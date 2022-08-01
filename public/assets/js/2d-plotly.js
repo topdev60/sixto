@@ -25,6 +25,7 @@ var twod_plotly_chart_draw = function(data){
             title: 'North axis',
         },
         paper_bgcolor: '#2b2e43',
+        height: 700,
         // yaxis2: {
         // title: 'yaxis2 title',
         // titlefont: {color: 'rgb(148, 103, 189)'},

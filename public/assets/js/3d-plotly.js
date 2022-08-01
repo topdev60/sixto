@@ -1,22 +1,34 @@
- function threed_plotly_chart_draw(data) {
-
-    var x = data.x;
-    var y = data.y;
-    var z = data.z;
+ function threed_plotly_chart_draw(data) { 
     var c = 1;
-    Plotly.newPlot('divplot_1', [{
-    type: 'scatter3d',
-    mode: 'lines',
-    x: x,
-    y: y,
-    z: z,
-    opacity: 1,
-    line: {
-        width: 6,
-        color: c,
-        reversescale: false
-    }
-    }], {
-    height: 640
-    });
+    var tracedata = {
+        x : data.x,
+        y : data.y,
+        z : data.z,
+        name: 'Survey 3D Charts',
+        type: 'scatter3d',
+        mode: 'lines',
+        opacity: 1,
+        line: {
+            width: 6,
+            color: c,
+            reversescale: false
+        }
+    };
+
+    var trace = [tracedata];
+
+    var layout = {
+        title: 'Double Y Axis Example',
+        yaxis: {
+            title: 'TVD axis',
+        },
+        xaxis: {
+            title: 'North axis',
+        },
+        zaxis: {
+            title: 'East axis'
+        },
+        height: 690,
+    };
+    Plotly.newPlot('divplot', trace, layout);
 }

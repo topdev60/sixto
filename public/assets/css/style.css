@@ -293,6 +293,18 @@ Customize Styles
   margin-right: 3%;
 }
 
-/* #divplot {
-    background-color: #1d1b31;
-} */
+.select-page {
+  height: 35px;
+  line-height: 35px;
+  font-size: 15px;
+  width: 20%;
+}
+
+.select-page select {
+  display: inline-block;
+  width: 30% !important;
+}
+
+.background-color {
+  background-color: #2b2e43 !important;
+}

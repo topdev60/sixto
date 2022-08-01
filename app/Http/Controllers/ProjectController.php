@@ -19,10 +19,10 @@ class ProjectController extends Controller
     public function index()
     {
         if(Auth::user()->role == 1){
-            $projects = WellInfo::all();
+            $projects = WellInfo::paginate(10);
             return view('Backend.Project.index')->with('projects', $projects)->with('module', $this->module);
         }else {
-            $projects = WellInfo::where('UserID', Auth::id())->get();
+            $projects = WellInfo::where('UserID', Auth::id())->paginate(10);
             return view('Frontend.Project.index')->with('projects', $projects)->with('module', $this->module);
         }
     }
@@ -161,13 +161,16 @@ class ProjectController extends Controller
         $trajectories = Survey::where('ProjectID', $selectedProjectId)->get();
         $tvd = [];
         $north = [];
+        $east = [];
         foreach ($trajectories as $key => $traj) {
             array_push($tvd, $traj->TVD);
             array_push($north, $traj->North);
+            array_push($east, $traj->East);
         }
         $data = [
             'x' => $north,
-            'y' => $tvd
+            'y' => $tvd,
+            'z' => $east
         ];
         return response()->json($data);
     }

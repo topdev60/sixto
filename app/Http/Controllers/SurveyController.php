@@ -20,13 +20,13 @@ class SurveyController extends Controller
     {
         if(Auth::user()->role == 1){
             if(Session::has('projectId')){
-                $trajactories = Survey::where('projectID', Session::get('projectId'))->get();
+                $trajactories = Survey::where('projectID', Session::get('projectId'))->paginate(10);
             }else {
                 $trajactories = Survey::all();
             }
             return view('Backend.Trajectory.index')->with('trajectories', $trajactories)->with('module', $this->module);
         }else {
-            $trajactories = Survey::where('projectID', Session::get('projectId'))->get();
+            $trajactories = Survey::where('projectID', Session::get('projectId'))->paginate(10);
             return view('Frontend.Trajectory.index')->with('trajectories', $trajactories)->with('module', $this->module);
         }
     }

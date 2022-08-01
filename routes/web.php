@@ -18,6 +18,8 @@ use Monolog\Handler\RotatingFileHandler;
 |
 */
 
+Route::get('/', 'Auth\LoginController@showLoginForm');
+
 Auth::routes();
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'isAdmin']], function(){
@@ -28,6 +30,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'i
     Route::post('project/update', 'ProjectController@update')->name('project.update');
     Route::resource('survey', 'SurveyController');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
+    Route::resource('formation', 'FormationController');
 });
 
 Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], function(){
@@ -38,6 +41,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     Route::post('project/update', 'ProjectController@update')->name('project.update');
     Route::resource('survey', 'SurveyController');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
+    Route::resource('formation', 'FormationController');
 });
 Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.getChartsData');
 

@@ -7,7 +7,7 @@
             <div class="h4 mb-0">
                 {{$module}}
             </div>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addModal"> Switch 2D/3D {{$module}} </button>
+            <a class="btn btn-secondary" id="switchCharts"> Switch 2D/3D {{$module}} </a>
         </div>
         {{---title---}}
         <div class="row gy-4">
@@ -17,7 +17,7 @@
                         <div class="float-start">{{__('Survey Points')}}</div>
                         <div class="float-end"><button type="button" data-bs-toggle="modal" data-bs-target="#addTrajectoryModal" class="btn btn-primary"><i class="fas fa-plus"></i> Add</button></div>
                     </div>
-                    <div class="card-body overflow-auto">
+                    <div class="card-body overflow-auto clearfix">
                         <table id="dataTable" class="table table-responsive">
                             <thead>
                                 <tr>
@@ -84,6 +84,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="float-end">
+                            {{ $trajectories->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
