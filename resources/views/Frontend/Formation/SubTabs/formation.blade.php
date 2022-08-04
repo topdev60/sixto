@@ -97,15 +97,15 @@
             </div>
             <div class="modal-body">
                 <div class="row gy-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="" class="form-label">TVD</label>
                     <input type="text" class="form-control" name="tvd" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="" class="form-label">TG</label>
                     <input type="text" class="form-control" name="tg" required>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <label for="" class="form-label">Temperature</label>
                     <input type="text" class="form-control" name="temperature" required>
                 </div>

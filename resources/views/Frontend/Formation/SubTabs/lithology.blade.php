@@ -99,19 +99,19 @@
             </div>
             <div class="modal-body">
                 <div class="row gy-3">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="" class="form-label">MD</label>
                     <input type="text" class="form-control" name="md" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="" class="form-label">TVD</label>
                     <input type="text" class="form-control" name="tvd" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="" class="form-label">TC</label>
                     <input type="text" class="form-control" name="tc" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="" class="form-label">SH</label>
                     <input type="text" class="form-control" name="sh" required>
                 </div>

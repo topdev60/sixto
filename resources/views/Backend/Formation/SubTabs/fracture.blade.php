@@ -9,7 +9,6 @@
                         {{__('Fracture Pressure')}}
                     </div>
                     <div class="float-end">
-                        <button type="button" class="btn btn-primary p-0"><i class="fas fa-cog"></i></button>
                     </div>
                 </div>
                 <div class="card-body overflow-auto clearfix">
@@ -20,22 +19,74 @@
                                 <th class="text-center">{{__('Fracture Gradient')}}</th>
                                 <th class="text-center">{{__('Pressure')}}</th>
                                 <th class="text-center">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#addModal" class="btn btn-primary p-0"><i class="fas fa-plus"></i></button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#addTrajectoryModal" class="btn btn-primary p-0"><i class="fas fa-plus"></i></button>
                                 </th>
                             </tr>
                             <tr>
-                                <th class="text-center">{{'m'}}</th>
-                                <th class="text-center">{{'sg'}}</th>
-                                <th class="text-center">{{'bar'}}</th>
-                                <th class="text-center">{{' '}}</th>
+                                @php
+                                    if(session()->has('unitIds')){
+                                        $unitIds = json_decode(session()->get('unitIds'));
+                                        if(isset($unitIds->fracture)) $fractureIds = $unitIds->fracture;
+                                    }
+                                @endphp
+                                <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
+                                    @csrf
+                                    <input type="hidden" name="tab" value="{{$tab}}">
+                                    <th class="text-center">
+                                        <select name="tvdUnit" id="setUnit">
+                                            @foreach ($lengthUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($fractureIds))
+                                                        if($item->id == $fractureIds->tvd) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="fractGradUnit" id="setUnit">
+                                            @foreach ($densityUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($fractureIds))
+                                                        if($item->id == $fractureIds->fractGrad) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="pressureUnit" id="setUnit">
+                                            @foreach ($pressureUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($fractureIds))
+                                                        if($item->id == $fractureIds->pressureUnit) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                    </th>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                if(session()->has('unitValues')){
+                                    $unitValues = json_decode(session()->get('unitValues'));
+                                    if (isset($unitValues->fracture)) {
+                                        $fractureValues = $unitValues->fracture;
+                                    }
+                                }
+                            @endphp
                             @foreach ($fgpressure as $item)
                                 <tr>
-                                    <td class="text-center"> {{$item->TVD}} </td>
-                                    <td class="text-center"> {{$item->FG}} </td>
-                                    <td class="text-center"> {{$item->Pressure}} </td>
+                                    <td class="text-center"> @if(isset($fractureValues)) {{$item->TVD * $fractureValues->tvd}} @else {{$item->TVD}} @endif </td>
+                                    <td class="text-center"> @if(isset($fractureValues)) {{$item->FG * $fractureValues->fractGrad}} @else {{$item->FG}} @endif </td>
+                                    <td class="text-center"> @if(isset($fractureValues)) {{$item->Pressure * $fractureValues->pressureUnit}} @else {{$item->Pressure}} @endif </td>
                                     <td class="text-center"> 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->FG_ID}}"><i class="fas fa-minus"></i></button>
                                         <div class="modal fade" id="delete{{ $item->FG_ID }}" data-bs-backdrop="static"
@@ -82,36 +133,6 @@
         </div>
         <div class="col-md-12 col-lg-6">
             <div id="divplot"></div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <form action="{{ route('admin.fgpressure.store') }}" method="post">
-            @csrf
-            <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Temperature') }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row gy-3">
-                <div class="col-md-6">
-                    <label for="" class="form-label">TVD</label>
-                    <input type="text" class="form-control" name="tvd" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="" class="form-label">FG</label>
-                    <input type="text" class="form-control" name="fg" required>
-                </div>
-                <div class="col-md-12">
-                    <label for="" class="form-label">Pressure</label>
-                    <input type="text" class="form-control" name="pressure" required>
-                </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-            </form>
         </div>
     </div>
 </div>

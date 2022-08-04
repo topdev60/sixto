@@ -1,7 +1,7 @@
-@extends('Frontend.Formation.index')
+@extends('Backend.Formation.index')
 @section('tab-content')
-<div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-    <div class="row">
+<div class="row">
+        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="col-md-12 col-lg-6">
             <div class="card">
                 <div class="card-header clearfix">
@@ -24,9 +24,27 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th class="text-center">{{'m'}}</th>
-                                <th class="text-center">{{'sg'}}</th>
-                                <th class="text-center">{{'bar'}}</th>
+                                <th class="text-center">
+                                    <select name="tvdUnit" id="tvdUnit">
+                                        @foreach ($lengthUnits as $item)
+                                            <option value="{{$item->id}}"> {{$item->name}} </option>
+                                        @endforeach
+                                    </select>
+                                </th>
+                                <th class="text-center">
+                                    <select name="fractGradUnit" id="fractGradUnit">
+                                        @foreach ($densityUnits as $item)
+                                            <option value="{{$item->id}}"> {{$item->name}} </option>
+                                        @endforeach
+                                    </select>
+                                </th>
+                                <th class="text-center">
+                                    <select name="pressureUnit" id="pressureUnit">
+                                        @foreach ($pressureUnits as $item)
+                                            <option value="{{$item->id}}"> {{$item->name}} </option>
+                                        @endforeach
+                                    </select>
+                                </th>
                                 <th class="text-center">{{' '}}</th>
                             </tr>
                         </thead>
@@ -44,7 +62,7 @@
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                <form action="{{ route('user.fgpressure.destroy') }}" method="post" id="delete{{ $item->FG_ID }}">
+                                                <form action="{{ route('admin.fgpressure.destroy') }}" method="post" id="delete{{ $item->FG_ID }}">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $item->FG_ID }}">
                                                     <div class="p-4 text-center">
@@ -88,7 +106,7 @@
 <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="{{ route('user.fgpressure.store') }}" method="post">
+            <form action="{{ route('admin.fgpressure.store') }}" method="post">
             @csrf
             <div class="modal-header">
                 <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Fracture') }}</h5>
@@ -97,15 +115,15 @@
             <div class="modal-body">
                 <div class="row gy-3">
                 <div class="col-md-4">
-                    <label for="" class="form-label">TVD</label>
+                    <label for="TVD" class="form-label">TVD</label>
                     <input type="text" class="form-control" name="tvd" required>
                 </div>
                 <div class="col-md-4">
-                    <label for="" class="form-label">FG</label>
+                    <label for="FG" class="form-label">FG</label>
                     <input type="text" class="form-control" name="fg" required>
                 </div>
                 <div class="col-md-4">
-                    <label for="" class="form-label">Pressure</label>
+                    <label for="Pressure" class="form-label">Pressure</label>
                     <input type="text" class="form-control" name="pressure" required>
                 </div>
             <div class="modal-footer">

@@ -24,18 +24,71 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th class="text-center">{{'m'}}</th>
-                                <th class="text-center">{{'sg'}}</th>
-                                <th class="text-center">{{'bar'}}</th>
-                                <th class="text-center">{{' '}}</th>
+                                @php
+                                    if(session()->has('unitIds')){
+                                        $unitIds = json_decode(session()->get('unitIds'));
+                                        if (isset($unitIds->porepressure)) {
+                                            $porepressureIds = $unitIds->porepressure;
+                                        }
+                                    }
+                                @endphp
+                                <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
+                                    @csrf
+                                    <input type="hidden" name="tab" value="{{$tab}}">
+                                    <th class="text-center">
+                                        <select name="tvdUnit" id="setUnit">
+                                            @foreach ($lengthUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($porepressureIds))
+                                                        if($item->id == $porepressureIds->tvd) $selected = 'selected';
+                                                @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="pressureGradientUnit" id="setUnit">
+                                            @foreach ($densityUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($porepressureIds))
+                                                        if($item->id == $porepressureIds->pressureGradient) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="pressureUnit" id="setUnit">
+                                            @foreach ($pressureUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($porepressureIds))
+                                                        if($item->id == $porepressureIds->pressure) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">{{' '}}</th>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                if(session()->has('unitValues')){
+                                    $unitValues = json_decode(session()->get('unitValues'));
+                                    if (isset($unitValues->porepressure)) {
+                                        $porepressureValues = $unitValues->porepressure;
+                                    }
+                                }
+                            @endphp
                             @foreach ($porepressure as $item)
                                 <tr>
-                                    <td class="text-center"> {{$item->TVD}} </td>
-                                    <td class="text-center"> {{$item->PP}} </td>
-                                    <td class="text-center"> {{$item->Pressure}} </td>
+                                    <td class="text-center"> @if(isset($porepressureValues)) {{$item->TVD * $porepressureValues->tvd}} @else {{$item->TVD}} @endif</td>
+                                    <td class="text-center"> @if(isset($porepressureValues)) {{$item->PP * $porepressureValues->pressureGradient}} @else {{$item->PP}} @endif</td>
+                                    <td class="text-center"> @if(isset($porepressureValues)) {{$item->Pressure * $porepressureValues->pressure}} @else {{$item->Pressure}} @endif</td>
                                     <td class="text-center"> 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->PP_ID}}"><i class="fas fa-minus"></i></button>
                                         {{-- delete modal --}}
@@ -93,20 +146,20 @@
             <form action="{{ route('admin.porepressure.store') }}" method="post">
             @csrf
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Lithology') }}</h5>
+                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Pore Pressure') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row gy-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="" class="form-label">TVD</label>
                     <input type="text" class="form-control" name="tvd" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="" class="form-label">PP</label>
                     <input type="text" class="form-control" name="pp" required>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <label for="" class="form-label">Pressure</label>
                     <input type="text" class="form-control" name="pressure" required>
                 </div>

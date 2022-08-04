@@ -44,7 +44,7 @@
         <li @if ($module == "Wellbore")
             class={{'selected'}}
         @endif>
-        <a href="#">
+        <a href="{{route('admin.wellbore.index')}}">
             <i class='bx bx-slider'></i>
             <span class="links_name">{{__('Wellbore')}}</span>
         </a>

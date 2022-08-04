@@ -1,8 +1,8 @@
 var statusChart = false; // 2D: false, 3D: true 
 $(document).ready(function () {
     var chartDataType = 0;
-    if ($('#chartDataType').val()) {
-        chartDataType = $('#chartDataType').val();
+    if ($('#tabType').val()) {
+        chartDataType = $('#tabType').val();
     }
     var selectedProjectId = $('#projectId').val();
     if(selectedProjectId){

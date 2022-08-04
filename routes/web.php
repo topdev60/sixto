@@ -40,6 +40,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'i
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
+    Route::resource('wellbore', 'WellboreController');
 });
 
 Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], function(){
@@ -59,7 +60,9 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
+    Route::resource('wellbore', 'WellboreController');
 });
+Route::post('setunit', 'FormationController@setunit')->name('formation.setunit');
 Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.getChartsData');
 
 

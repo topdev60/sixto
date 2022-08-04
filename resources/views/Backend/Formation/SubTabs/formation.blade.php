@@ -24,18 +24,69 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th class="text-center">{{'m'}}</th>
-                                <th class="text-center">{{'sg'}}</th>
-                                <th class="text-center">{{'bar'}}</th>
-                                <th class="text-center">{{' '}}</th>
+                                @php
+                                    if(session()->has('unitIds')){
+                                        $unitIds = json_decode(session()->get('unitIds'));
+                                        if(isset($unitIds->formation)) $formationIds = $unitIds->formation;
+                                    }
+                                @endphp
+                                <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
+                                    @csrf
+                                    <input type="hidden" name="tab" value="{{$tab}}">
+                                    <th class="text-center">
+                                        <select name="tvdUnit" id="setUnit">
+                                            @foreach ($lengthUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($formationIds))
+                                                        if($item->id == $formationIds->tvd) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="tempGradientUnit" id="setUnit">
+                                            @foreach ($tempUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($formationIds))
+                                                        if($item->id == $formationIds->tempGrad) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="tempUnit" id="setUnit">
+                                            @foreach ($tempUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($formationIds))
+                                                        if($item->id == $formationIds->temp) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center"></th>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                if(session()->has('unitValues')){
+                                    $unitValues = json_decode(session()->get('unitValues'));
+                                    if (isset($unitValues->formation)) {
+                                        $formationValues = $unitValues->formation;
+                                    }
+                                }
+                            @endphp
                             @foreach ($temperatures as $item)
                                 <tr>
-                                    <td class="text-center"> {{$item->TVD}} </td>
-                                    <td class="text-center"> {{$item->TG}} </td>
-                                    <td class="text-center"> {{$item->Temperature}} </td>
+                                    <td class="text-center"> @if(isset($formationValues)) {{$item->TVD * $formationValues->tvd}} @else {{$item->TVD}} @endif</td>
+                                    <td class="text-center"> @if(isset($formationValues)) {{$item->TG * $formationValues->tempGrad}} @else {{$item->TG}} @endif </td>
+                                    <td class="text-center"> @if(isset($formationValues)) {{$item->TVD * $formationValues->temp}} @else {{$item->Temperature}} @endif </td>
                                     <td class="text-center"> 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->TempID}}"><i class="fas fa-minus"></i></button>
                                         <div class="modal fade" id="delete{{ $item->TempID }}" data-bs-backdrop="static"
@@ -85,7 +136,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -97,15 +147,15 @@
             </div>
             <div class="modal-body">
                 <div class="row gy-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="" class="form-label">TVD</label>
                     <input type="text" class="form-control" name="tvd" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="" class="form-label">TG</label>
                     <input type="text" class="form-control" name="tg" required>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <label for="" class="form-label">Temperature</label>
                     <input type="text" class="form-control" name="temperature" required>
                 </div>

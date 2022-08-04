@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class WellBore extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'WellboreID';
+    protected $table = 'wellbore';
 }

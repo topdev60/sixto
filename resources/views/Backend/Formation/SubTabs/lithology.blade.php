@@ -25,20 +25,82 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th class="text-center">{{'m'}}</th>
-                                <th class="text-center">{{'sg'}}</th>
-                                <th class="text-center">{{'bar'}}</th>
-                                <th class="text-center">{{'bar'}}</th>
-                                <th class="text-center">{{' '}}</th>
+                                @php
+                                    if(session()->has('unitIds')){
+                                        $unitIds = json_decode(session()->get('unitIds'));
+                                        if(isset($unitIds->lithology)) $lithologyIds = $unitIds->lithology;
+                                    }
+                                @endphp
+                                <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
+                                    @csrf
+                                    <input type="hidden" name="tab" value="{{$tab}}">
+                                    <th class="text-center">
+                                        <select name="mdUnit" id="setUnit">
+                                            @foreach ($lengthUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($lithologyIds))
+                                                        if($item->id == $lithologyIds->md) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="tvdUnit" id="setUnit">
+                                            @foreach ($lengthUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($lithologyIds))
+                                                    if($item->id == $lithologyIds->tvd) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="tcUnit" id="setUnit">
+                                            @foreach ($pressureUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($lithologyIds))
+                                                    if($item->id == $lithologyIds->tc) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="shUnit" id="setUnit">
+                                            @foreach ($pressureUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($lithologyIds))
+                                                    if($item->id == $lithologyIds->sh) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">{{' '}}</th>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                if(session()->has('unitValues')){
+                                    $unitValues = json_decode(session()->get('unitValues'));
+                                    if (isset($unitValues->lithology)) {
+                                        $lithologyValues = $unitValues->lithology;
+                                    }
+                                }
+                            @endphp
                             @foreach ($lithologies as $item)
                                 <tr>
-                                    <td class="text-center"> {{$item->MD}} </td>
-                                    <td class="text-center"> {{$item->TVD}} </td>
-                                    <td class="text-center"> {{$item->TC}} </td>
-                                    <td class="text-center"> {{$item->SH}} </td>
+                                    <td class="text-center"> @if(isset($lithologyValues)) {{$item->MD * $lithologyValues->md}} @else {{$item->MD}} @endif </td>
+                                    <td class="text-center"> @if(isset($lithologyValues)) {{$item->TVD * $lithologyValues->tvd}} @else {{$item->TVD}} @endif </td>
+                                    <td class="text-center"> @if(isset($lithologyValues)) {{$item->TC * $lithologyValues->tc}} @else {{$item->TC}} @endif </td>
+                                    <td class="text-center"> @if(isset($lithologyValues)) {{$item->SH * $lithologyValues->sh}} @else {{$item->SH}} @endif </td>
                                     <td class="text-center"> 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->LithoID}}"><i class="fas fa-minus"></i></button>
                                         <div class="modal fade" id="delete{{ $item->LithoID }}" data-bs-backdrop="static"
@@ -99,19 +161,19 @@
             </div>
             <div class="modal-body">
                 <div class="row gy-3">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="" class="form-label">MD</label>
                     <input type="text" class="form-control" name="md" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="" class="form-label">TVD</label>
                     <input type="text" class="form-control" name="tvd" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="" class="form-label">TC</label>
                     <input type="text" class="form-control" name="tc" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="" class="form-label">SH</label>
                     <input type="text" class="form-control" name="sh" required>
                 </div>

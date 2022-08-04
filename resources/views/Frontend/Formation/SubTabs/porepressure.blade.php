@@ -93,20 +93,20 @@
             <form action="{{ route('user.porepressure.store') }}" method="post">
             @csrf
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Lithology') }}</h5>
+                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Pore Pressure') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row gy-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="" class="form-label">TVD</label>
                     <input type="text" class="form-control" name="tvd" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="" class="form-label">PP</label>
                     <input type="text" class="form-control" name="pp" required>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <label for="" class="form-label">Pressure</label>
                     <input type="text" class="form-control" name="pressure" required>
                 </div>

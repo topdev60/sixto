@@ -1,7 +1,8 @@
 @extends('Backend.layouts.app')
 @section('content')
+<script src="{{ asset('assets/js/formation.js') }}"></script>
 @if (isset($tab))
-    <input type="hidden" id="chartDataType" value="{{$tab}}">
+    <input type="hidden" id="tabType" value="{{$tab}}">
 @endif
 <section class="home-section" id="home-section">
     <div class="container-fluid">
