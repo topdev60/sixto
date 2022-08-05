@@ -13,6 +13,6 @@ class DsComp extends Model
 
     public function drillstring()
     {
-        return $this->belongsTo(Drillstring::class);
+        return $this->belongsTo(Drillstring::class, 'DS_ID');
     }
 }

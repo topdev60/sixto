@@ -83,8 +83,9 @@
                             }
                         @endphp
                         <div class="card">
-                            <div class="card-header">
-                                {{__('Bit Information')}}
+                            <div class="card-header clearfix">
+                                <div class="float-start">{{__('Bit Information')}}</div>
+                                <div class="float-end">{{'Section: '}}@if(isset($selectedDrillStringInfo)) {{$selectedDrillStringInfo->Description}} @endif</div>
                             </div>
                             <div class="card-body overflow-auto clearfix">
                                 <form name="selectDsDesc" action="{{route('admin.drillstring.getdrillstringData')}}" id="selectDsDesc" method="POST">
@@ -207,7 +208,7 @@
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <div class="row gy-3">
-                                                                        <div class="col-md-6">
+                                                                        <div class="col-md-12">
                                                                             <label for="" class="form-label">Size</label>
                                                                             <input type="text" class="form-control" name="size" value="{{ $item->size }}"
                                                                             required>
@@ -412,7 +413,7 @@
             </div>
             <div class="modal-body">
                 <div class="row gy-3">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="" class="form-label">SIZE</label>
                         <input type="text" class="form-control" name="size" required>
                     </div>

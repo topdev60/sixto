@@ -10,7 +10,24 @@
         <div class="row gy-4">
             <div class="col-md-12 col-lg-8">
                 <div class="card">
-                    <div class="card-header"> {{__('Drill String (Top to Bottom)')}} </div>
+                    <div class="card-header clearfix">
+                        <div class="float-start m-3 mt-0 mb-0">
+                            {{'Section'}}
+                        </div>
+                        <div class="float-start">
+                            <select name="selectDrillstring" id="selectDrillstring" class="form-control p-0">
+                                @foreach ($drillStrings as $item)
+                                    <option value="{{$item->DS_ID}}">{{$item->Description}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="float-end">
+                            <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal"
+                                data-bs-target="#addDrillstringModal">
+                                + Add
+                            </button>
+                        </div>
+                    </div>
                     <div class="card-body overflow-auto clearfix">
                         <table id="dataTable" class="table table-responsive">
                             <thead>
@@ -25,7 +42,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                {{-- @foreach ($drill as $item)
+                                    
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>

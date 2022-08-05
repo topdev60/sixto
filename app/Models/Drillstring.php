@@ -13,6 +13,6 @@ class Drillstring extends Model
 
     public function dscomp()
     {
-        return $this->hasMany(DsComp::class);
+        return $this->hasMany(DsComp::class, 'DS_ID');
     }
 }

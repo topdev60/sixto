@@ -23,14 +23,16 @@ class DrillstringController extends Controller
     {
         $location = '';
         $selectedProjectId = Session::get('projectId');
+        $drillStrings = Drillstring::where('ProjectID', $selectedProjectId)->get();
         // $dscomp = DsComp::where('')
         if ( Auth::user()->role == 1 ) {
             $location = 'Backend';
         }else{
             $location = 'Frontend';
         }
-
-        return view($location.'.Drillstring.index')->with('module', $this->module);
+        return view($location.'.Drillstring.index')
+            ->with('module', $this->module)
+            ->with('drillStrings', $drillStrings);
     }
 
     /**
