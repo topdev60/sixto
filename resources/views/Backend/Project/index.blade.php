@@ -57,11 +57,7 @@
                                     <td class="text-center">{{$project->operator}}</td>
                                     <td class="text-center">{{$project->rigname}}</td>
                                     <td class="text-center">
-                                        @if ($project->rigtype == '1' || $project->rigtype == 1)
-                                            <span class="badge bg-success text-primary">Yes</span>
-                                        @else
-                                            <span class="badge bg-danger">No</span>
-                                        @endif
+                                        {{$rigtypes[$project->rigtype]}}
                                     </td>
                                     <td class="text-center">{{$project->rigcontroller}}</td>
                                     <td class="text-center">{{$project->wellname}}</td>
@@ -83,7 +79,7 @@
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                <form action="{{ route('user.project.destroy') }}" method="post" id="delete{{ $project->ProjectID }}">
+                                                <form action="{{ route('admin.project.destroy') }}" method="post" id="delete{{ $project->ProjectID }}">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $project->ProjectID }}">
                                                     <div class="p-4 text-center">
@@ -114,7 +110,7 @@
                                             data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                             <div class="modal-content">
-                                                <form action="{{ route('user.project.update') }}" method="post">
+                                                <form action="{{ route('admin.project.update') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $project->ProjectID }}">
                                                 <div class="modal-header">
@@ -199,9 +195,6 @@
                 </div>
             </div>
             <div class="col-md-12 col-lg-6">
-                <div class="bg-secondary rounded p-3">
-                  DIV PLOT
-                </div>
                 <div id="divplot"></div>
             </div>
         </div>
@@ -210,7 +203,7 @@
 <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="{{ route('user.project.store') }}" method="post">
+            <form action="{{ route('admin.project.store') }}" method="post">
             @csrf
             <input type="hidden" name="user_id" value="{{ 'Auth::user()->id' }}">
             <div class="modal-header">

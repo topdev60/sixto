@@ -33,4 +33,8 @@ $(document).ready(function () {
             }
         })
     })
+
+    $('select#selectDrillstring').on('change', function () {
+        $('#drillsForm').submit();
+    })
 })

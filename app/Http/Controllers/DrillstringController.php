@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\DsComp;
 use Illuminate\Support\Facades\Session;
+use Laravel\Ui\Presets\React;
 
 class DrillstringController extends Controller
 {
@@ -24,7 +25,11 @@ class DrillstringController extends Controller
         $location = '';
         $selectedProjectId = Session::get('projectId');
         $drillStrings = Drillstring::where('ProjectID', $selectedProjectId)->get();
-        // $dscomp = DsComp::where('')
+
+        if(!Session::has('dsInfo')){
+            $dsInfo = Drillstring::where('DS_ID', 1)->first();
+            Session::put('dsInfo', $dsInfo);
+        }
         if ( Auth::user()->role == 1 ) {
             $location = 'Backend';
         }else{
@@ -53,7 +58,17 @@ class DrillstringController extends Controller
      */
     public function store(Request $request)
     {
-        
+        DsComp::insert([
+            'DS_ID' => $request->ds_id,
+            'Description' => $request->comp_decription,
+            'OD' => $request->comp_od,
+            'ID' => $request->comp_id,
+            'TJ' => $request->comp_tj,
+            'Weight' => $request->comp_weight,
+            'Length' => $request->comp_length,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -62,9 +77,14 @@ class DrillstringController extends Controller
      * @param  \App\Models\Drillstring  $drillstring
      * @return \Illuminate\Http\Response
      */
-    public function show(Drillstring $drillstring)
+    public function show(Request $request)
     {
-        //
+        $ds_id = $request->selectDrillstring;
+        $dsInfo = Drillstring::where('DS_ID', $ds_id)->first();
+        Session::put('dsInfo', $dsInfo);
+        $location = 'user';
+        if(Auth::user()->role == 1) $location = 'admin';
+        return redirect()->route($location.'.drillstring.index');
     }
 
     /**
@@ -85,9 +105,19 @@ class DrillstringController extends Controller
      * @param  \App\Models\Drillstring  $drillstring
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Drillstring $drillstring)
+    public function update(Request $request)
     {
-        
+        DsComp::where('Comp_ID', $request->id)->update([
+            'DS_ID' => $request->ds_id,
+            'Description' => $request->comp_decription,
+            'OD' => $request->comp_od,
+            'ID' => $request->comp_id,
+            'TJ' => $request->comp_tj,
+            'Weight' => $request->comp_weight,
+            'Length' => $request->comp_length,
+        ]);
+
+        return redirect()->back();
     }
 
     public function getDrillStringData(Request $request)
@@ -108,8 +138,9 @@ class DrillstringController extends Controller
      * @param  \App\Models\Drillstring  $drillstring
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Drillstring $drillstring)
+    public function destroy(Request $request)
     {
-        //
+        DsComp::where('Comp_ID', $request->id)->delete();
+        return redirect()->back();
     }
 }

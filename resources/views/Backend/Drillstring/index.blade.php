@@ -1,5 +1,6 @@
 @extends('Backend.layouts.app')
 @section('content')
+<script src="{{ asset('assets/js/wellbore.js') }}"></script>
 <section class="home-section" id="home-section">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between mb-3">
@@ -15,15 +16,28 @@
                             {{'Section'}}
                         </div>
                         <div class="float-start">
-                            <select name="selectDrillstring" id="selectDrillstring" class="form-control p-0">
-                                @foreach ($drillStrings as $item)
-                                    <option value="{{$item->DS_ID}}">{{$item->Description}}</option>
-                                @endforeach
-                            </select>
+                            @php
+                                if (session()->has('dsInfo')) {
+                                    $dsInfo = session()->get('dsInfo');
+                                    $comps = $dsInfo->dscomp()->paginate('10');
+                                }
+                            @endphp
+                            <form action="{{route('admin.drillstring.show')}}" id="drillsForm" method="POST">
+                                @csrf
+                                <select name="selectDrillstring" id="selectDrillstring" class="form-control p-0">
+                                    @foreach ($drillStrings as $item)
+                                        @php
+                                            $selected = '';
+                                            if($item->DS_ID == $dsInfo->DS_ID) $selected = 'selected';
+                                        @endphp
+                                        <option value="{{$item->DS_ID}}" {{$selected}}>{{$item->Description}}</option>
+                                    @endforeach
+                                </select>
+                            </form>
                         </div>
                         <div class="float-end">
                             <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal"
-                                data-bs-target="#addDrillstringModal">
+                                data-bs-target="#addModal">
                                 + Add
                             </button>
                         </div>
@@ -42,15 +56,182 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($drill as $item)
-                                    
-                                @endforeach --}}
+                                @foreach ($comps as $item)
+                                    <tr>
+                                        <td class="text-center">{{$item->Description}}</td>
+                                        <td class="text-center">{{$item->ID}}</td>
+                                        <td class="text-center">{{$item->OD}}</td>
+                                        <td class="text-center">{{$item->Weight}}</td>
+                                        <td class="text-center">{{$item->Length}}</td>
+                                        <td class="text-center">{{$item->TJ}}</td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#delete{{$item->Comp_ID}}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#editModal{{$item->Comp_ID}}">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </button>
+                                            </div>
+                                            {{-- delete modal --}}
+                                            <div class="modal fade" id="delete{{ $item->Comp_ID }}" data-bs-backdrop="static"
+                                                data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                    <form action="{{ route('admin.drillstring.destroy') }}" method="post" id="delete{{ $item->Comp_ID }}">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $item->Comp_ID }}">
+                                                        <div class="p-4 text-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor"
+                                                            class="bi bi-exclamation-circle text-danger" viewBox="0 0 16 16">
+                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                            <path
+                                                            d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                                                        </svg>
+                                                        <div class="h3 text-danger mt-3">Are you sure?</div>
+                                                        <p class="mb-4">
+                                                            You will lose all data that is related to this project
+                                                        </p>
+                                                        <div class="d-flex align-items-center justify-content-center">
+                                                            <button type="button" class="btn btn-success me-4 px-5"
+                                                            data-bs-dismiss="modal">No</button>
+                                                            <button type="submit" class="btn btn-danger px-5">Yes</button>
+                                                        </div>
+                                                        </div>
+                                                    </form>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            {{-- delete modal --}}
+                                            {{-- edit modal --}}
+                                            <div class="modal fade" id="editModal{{ $item->Comp_ID }}" data-bs-backdrop="static"
+                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                <div class="modal-content">
+                                                    <form action="{{ route('admin.drillstring.update') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $item->Comp_ID }}">
+                                                    <input type="hidden" name="ds_id" value="{{ $dsInfo->DS_ID }}">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel">Edit {{ __('DrillString Component') }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row gy-3">
+                                                            <div class="col-md-6">
+                                                                <label for="" class="form-label">Description</label>
+                                                                <input type="text" class="form-control" name="comp_decription" value="{{ $item->Description }}"
+                                                                required>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="" class="form-label">OD</label>
+                                                                <input type="text" class="form-control" name="comp_od" value="{{ $item->OD }}"
+                                                                required>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="" class="form-label">ID</label>
+                                                                <input type="text" class="form-control" name="comp_id" value="{{ $item->ID }}"
+                                                                required>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="" class="form-label">TJ</label>
+                                                                <input type="text" class="form-control" name="comp_tj" value="{{ $item->TJ }}"
+                                                                required>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="" class="form-label">Weight</label>
+                                                                <input type="text" class="form-control" name="comp_weight"
+                                                                value="{{ $item->Weight }}" required>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="" class="form-label">Length</label>
+                                                                <input type="text" class="form-control" name="comp_length" value="{{ $item->Length }}"
+                                                                required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            {{-- edit modal --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        <div class="float-end">
+                            {{$comps->links()}}
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <div id="divplot"></div>
             </div>
         </div>
     </div>
 </section>
+
+{{----Add modal----}}
+<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form action="{{ route('admin.drillstring.store') }}" method="post">
+            @csrf
+            <input type="hidden" name="ds_id" value="{{ $dsInfo->DS_ID }}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('$module') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="comp_decription"
+                        required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">OD</label>
+                        <input type="text" class="form-control" name="comp_od"
+                        required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">ID</label>
+                        <input type="text" class="form-control" name="comp_id"
+                        required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">TJ</label>
+                        <input type="text" class="form-control" name="comp_tj"
+                        required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Weight</label>
+                        <input type="text" class="form-control" name="comp_weight"
+                     required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Length</label>
+                        <input type="text" class="form-control" name="comp_length"
+                        required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{----Add modal----}}
 @endsection

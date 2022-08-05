@@ -35,6 +35,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $rigtypes = ['Onshore', 'Jack Up', 'Platform', 'Floater', 'Drillship'];
+                                @endphp
                                 @foreach ($projects as $project)
                                 <tr>
                                     <td class="text-center"> 
@@ -54,11 +57,7 @@
                                     <td class="text-center">{{$project->operator}}</td>
                                     <td class="text-center">{{$project->rigname}}</td>
                                     <td class="text-center">
-                                        @if ($project->rigtype == '1' || $project->rigtype == 1)
-                                            <span class="badge bg-success text-primary">Yes</span>
-                                        @else
-                                            <span class="badge bg-danger">No</span>
-                                        @endif
+                                        {{$rigtypes[$project->rigtype]}}
                                     </td>
                                     <td class="text-center">{{$project->rigcontroller}}</td>
                                     <td class="text-center">{{$project->wellname}}</td>
@@ -152,8 +151,17 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="" class="form-label">Rig Type</label>
-                                                        <input type="text" class="form-control" name="rig_type" value="{{ $project->rigtype }}"
-                                                        required>
+                                                        <select class="form-control" name="rig_type" required>
+                                                            @foreach ($rigtypes as $key => $item)
+                                                                @php
+                                                                    $selected = '';
+                                                                    if ($key == $project->rigtype) {
+                                                                        $selected = 'selected';
+                                                                    }
+                                                                @endphp
+                                                                <option value="{{$key}}" {{$selected}}>{{__($item)}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="" class="form-label">Rig Controller</label>
@@ -187,9 +195,6 @@
                 </div>
             </div>
             <div class="col-md-12 col-lg-6">
-                <div class="bg-secondary rounded p-3">
-                  DIV PLOT
-                </div>
                 <div id="divplot"></div>
             </div>
         </div>
@@ -233,7 +238,11 @@
                 </div>
                 <div class="col-md-6">
                     <label for="" class="form-label">Rig Type</label>
-                    <input type="text" class="form-control" name="rig_type" required>
+                    <select class="form-control" name="rig_type" required>
+                        @foreach($rigtypes as $key => $item)
+                            <option value="{{$key}}"> {{__($item)}} </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-md-6">
                     <label for="" class="form-label">Rig Controller</label>
