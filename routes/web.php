@@ -41,6 +41,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'i
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::resource('wellbore', 'WellboreController');
+    Route::resource('drillstring', 'DrillstringController');
+    Route::post('getdrillstring', 'DrillstringController@getDrillStringData')->name('drillstring.getdrillstringData');
+    Route::post('surfpiping/store', 'SurfpipingController@store')->name('surfpiping.store');
+    Route::post('surfpiping/update', 'SurfpipingController@update')->name('surfpiping.update');
+    Route::post('surfpiping/destroy', 'SurfpipingController@destroy')->name('surfpiping.destroy');
+    Route::post('nozzle', 'NozzleController@store')->name('nozzle.store');
+    Route::post('nozzle/update', 'NozzleController@update')->name('nozzle.update');
+    Route::post('nozzle/destory', 'NozzleController@destroy')->name('nozzle.destroy');
 });
 
 Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], function(){
@@ -61,7 +69,16 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::resource('wellbore', 'WellboreController');
+    Route::resource('drillstring', 'DrillstringController');
+    Route::post('getdrillstring', 'DrillstringController@getDrillStringData')->name('drillstring.getdrillstringData');
+    Route::post('surfpiping/store', 'SurfpipingController@store')->name('surfpiping.store');
+    Route::post('surfpiping/update', 'SurfpipingController@update')->name('surfpiping.update');
+    Route::post('surfpiping/destroy', 'SurfpipingController@destroy')->name('surfpiping.destroy');
+    Route::post('nozzle', 'NozzleController@store')->name('nozzle.store');
+    Route::post('nozzle/update', 'NozzleController@update')->name('nozzle.update');
+    Route::post('nozzle/destory', 'NozzleController@destroy')->name('nozzle.destroy');
 });
+Route::post('/drillStringUpdate', 'WellboreController@drillStringUpdate');
 Route::post('setunit', 'FormationController@setunit')->name('formation.setunit');
 Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.getChartsData');
 

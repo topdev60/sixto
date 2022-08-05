@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Drillstring;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+use App\Models\DsComp;
+use Illuminate\Support\Facades\Session;
 
 class DrillstringController extends Controller
 {
@@ -13,9 +18,19 @@ class DrillstringController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $module = 'DrillString';
     public function index()
     {
-        //
+        $location = '';
+        $selectedProjectId = Session::get('projectId');
+        // $dscomp = DsComp::where('')
+        if ( Auth::user()->role == 1 ) {
+            $location = 'Backend';
+        }else{
+            $location = 'Frontend';
+        }
+
+        return view($location.'.Drillstring.index')->with('module', $this->module);
     }
 
     /**
@@ -36,7 +51,7 @@ class DrillstringController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -70,7 +85,19 @@ class DrillstringController extends Controller
      */
     public function update(Request $request, Drillstring $drillstring)
     {
-        //
+        
+    }
+
+    public function getDrillStringData(Request $request)
+    {
+        $drillstringId = $request->drillstringId;
+        $selectedDrillString = Drillstring::where('DS_ID', $drillstringId)->first();
+        Session::put('selectedDrillString', $selectedDrillString);
+
+        $nozzles = DB::table('nozzle')->where('DS_ID', $drillstringId)->get();
+        Session::put('nozzles', $nozzles);
+        
+        return redirect()->back();
     }
 
     /**

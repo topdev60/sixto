@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Surfpiping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SurfpipingController extends Controller
 {
@@ -36,7 +37,16 @@ class SurfpipingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $projectid = Session::get('projectId');
+        $id = $request->id;
+        $length = $request->length;
+        $surf = Surfpiping::insert([
+            'ProjectID' => $projectid,
+            'ID' => $id,
+            'Length' => $length,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -68,9 +78,18 @@ class SurfpipingController extends Controller
      * @param  \App\Models\Surfpiping  $surfpiping
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Surfpiping $surfpiping)
+    public function update(Request $request)
     {
-        //
+        $projectid = Session::get('projectId');
+        $id = $request->id;
+        $length = $request->length;
+        $surf = Surfpiping::where('SurfID', $request->surfId)->update([
+            'ProjectID' => $projectid,
+            'ID' => $id,
+            'Length' => $length,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -79,8 +98,9 @@ class SurfpipingController extends Controller
      * @param  \App\Models\Surfpiping  $surfpiping
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Surfpiping $surfpiping)
+    public function destroy(Request $request)
     {
-        //
+        Surfpiping::where('SurfID', $request->surfid)->delete();
+        return redirect()->back();
     }
 }

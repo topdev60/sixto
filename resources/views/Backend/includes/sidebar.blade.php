@@ -54,7 +54,7 @@
         <li @if ($module == "DrillString")
             class={{'selected'}}
         @endif>
-        <a href="#">
+        <a href="{{route('admin.drillstring.index')}}">
             <i class='bx bx-dialpad-alt'></i>
             <span class="links_name">{{__('DrillString')}}</span>
         </a>
