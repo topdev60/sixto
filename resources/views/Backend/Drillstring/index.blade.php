@@ -16,16 +16,17 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"> {{__('Description')}} </th>
-                                    <th class="text-center"> {{__('OD(in)')}} </th>
                                     <th class="text-center"> {{__('ID(in)')}} </th>
+                                    <th class="text-center"> {{__('OD(in)')}} </th>
                                     <th class="text-center"> {{__('Weight(lb/ft)')}} </th>
                                     <th class="text-center"> {{__('Length(ft)')}} </th>
-                                    <th class="text-center"> {{__('Used(ft)')}} </th>
-                                    <th class="text-center"> {{__('Press Drop Known')}} </th>
-                                    <th class="text-center"> {{__('Press Drop(psi)')}} </th>
-                                    <th class="text-center"> {{__('Img')}} </th>
+                                    <th class="text-center"> {{__('TJ(ft)')}} </th>
+                                    <th class="text-center"> {{__('Action')}} </th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                
+                            </tbody>
                         </table>
                     </div>
                 </div>
