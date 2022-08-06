@@ -56,7 +56,7 @@ class DrillstringController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function comp_store(Request $request)
     {
         DsComp::insert([
             'DS_ID' => $request->ds_id,
@@ -66,6 +66,22 @@ class DrillstringController extends Controller
             'TJ' => $request->comp_tj,
             'Weight' => $request->comp_weight,
             'Length' => $request->comp_length,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function store(Request $request)
+    {
+        Drillstring::insert([
+            'ProjectID' => $request->projectId,
+            'Description' => $request->decription,
+            'Bit_type' => $request->bit_type,
+            'Bit_position' => $request->bit_position,
+            'Bit_Size' => $request->bit_size,
+            'Bit_TFA' => $request->bit_tfa,
+            'PWD_Distance' => $request->pwd_distance,
+            'PWD_Drop' => $request->pwd_drop,
         ]);
 
         return redirect()->back();
@@ -105,7 +121,7 @@ class DrillstringController extends Controller
      * @param  \App\Models\Drillstring  $drillstring
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function comp_update(Request $request)
     {
         DsComp::where('Comp_ID', $request->id)->update([
             'DS_ID' => $request->ds_id,

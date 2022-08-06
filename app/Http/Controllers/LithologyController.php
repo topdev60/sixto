@@ -38,6 +38,7 @@ class LithologyController extends Controller
     {
         $temp = Lithology::insert([
             'ProjectID' => Session::get('projectId'),
+            'Description' => $request->description,
             'MD' => $request->md,
             'TVD' => $request->tvd,
             'TC' => $request->tc,

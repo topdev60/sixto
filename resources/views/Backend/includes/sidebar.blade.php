@@ -14,7 +14,7 @@
         <li @if ($module == "Projects")
             class={{'selected'}}
         @endif>
-            <a href="{{route('admin.project.index')}}">
+            <a href="{{route('admin.project.index')}}" id="elementSidebar">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">{{__('Projects')}}</span>
             </a>
@@ -24,7 +24,7 @@
         <li @if ($module == "Survey")
             class={{'selected'}}
         @endif>
-        <a href="{{route('admin.survey.index')}}">
+        <a href="{{route('admin.survey.index')}}" id="elementSidebar">
             <i class='bx bx-command' ></i>
             <span class="links_name">{{__('Trajectory')}}</span>
         </a>
@@ -34,7 +34,7 @@
         <li @if ($module == "Formation")
             class={{'selected'}}
         @endif>
-        <a href="{{route('admin.formation.index')}}">
+        <a href="{{route('admin.formation.index')}}" id="elementSidebar">
             <i class='bx bxs-keyboard'></i>
             <span class="links_name">{{__('Formation')}}</span>
         </a>
@@ -44,7 +44,7 @@
         <li @if ($module == "Wellbore")
             class={{'selected'}}
         @endif>
-        <a href="{{route('admin.wellbore.index')}}">
+        <a href="{{route('admin.wellbore.index')}}" id="elementSidebar">
             <i class='bx bx-slider'></i>
             <span class="links_name">{{__('Wellbore')}}</span>
         </a>
@@ -54,7 +54,7 @@
         <li @if ($module == "DrillString")
             class={{'selected'}}
         @endif>
-        <a href="{{route('admin.drillstring.index')}}">
+        <a href="{{route('admin.drillstring.index')}}" id="elementSidebar">
             <i class='bx bx-dialpad-alt'></i>
             <span class="links_name">{{__('DrillString')}}</span>
         </a>
@@ -64,7 +64,7 @@
         <li @if ($module == "Fluids")
             class={{'selected'}}
         @endif>
-        <a href="#">
+        <a href="#" id="elementSidebar">
             <i class='bx bx-droplet'></i>
             <span class="links_name">{{__('Fluids')}}</span>
         </a>
@@ -74,7 +74,7 @@
         <li @if ($module == "Simulation")
             class={{'selected'}}
         @endif>
-        <a href="#">
+        <a href="#" id="elementSidebar">
             <i class='bx bx-package'></i>
             <span class="links_name">{{__('Simulation')}}</span>
         </a>
@@ -84,7 +84,7 @@
         <li @if ($module == "Analystics")
             class={{'selected'}}
         @endif>
-            <a href="#">
+            <a href="#" id="elementSidebar">
                 <i class='bx bx-analyse' ></i>
                 <span class="links_name">{{__('Analystics')}}</span>
             </a>
@@ -94,7 +94,7 @@
         <li @if ($module == "Reports")
             class={{'selected'}}
         @endif>
-            <a href="#">
+            <a href="#" id="elementSidebar">
                 <i class='bx bx-book'></i>
                 <span class="links_name">{{__('Reports')}}</span>
             </a>
@@ -104,7 +104,7 @@
         <li @if ($module == "Units")
             class={{'selected'}}
         @endif>
-            <a href="#">
+            <a href="#" id="elementSidebar">
                 <i class='bx bx-ruler' ></i>
                 <span class="links_name">{{__('Units')}}</span>
             </a>
@@ -115,7 +115,7 @@
         <li @if ($module == "Details")
             class={{'selected'}}
         @endif>
-            <a href="#">
+            <a href="#" id="elementSidebar">
                 <i class='bx bx-detail'></i>
                 <span class="links_name">{{__('Details')}}</span>
             </a>

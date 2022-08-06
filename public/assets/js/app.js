@@ -1,10 +1,16 @@
 var statusChart = false; // 2D: false, 3D: true 
 $(document).ready(function () {
     var chartDataType = 0;
+    var selectedProjectId = $('#projectId').val();
+    $('a#elementSidebar').on('click', function (e) {
+        if(selectedProjectId == ""){
+            e.preventDefault();
+            alert('You need to select Project');
+        }
+    })
     if ($('#tabType').val()) {
         chartDataType = $('#tabType').val();
     }
-    var selectedProjectId = $('#projectId').val();
     if(selectedProjectId){
         drawChart(selectedProjectId, statusChart, chartDataType);
     }

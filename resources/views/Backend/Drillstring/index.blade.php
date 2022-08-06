@@ -12,19 +12,19 @@
             <div class="col-md-12 col-lg-8">
                 <div class="card">
                     <div class="card-header clearfix">
-                        <div class="float-start m-3 mt-0 mb-0">
+                        <div class="float-start m-2">
                             {{'Section'}}
                         </div>
+                        @php
+                            if (session()->has('dsInfo')) {
+                                $dsInfo = session()->get('dsInfo');
+                                $comps = $dsInfo->dscomp()->paginate('10');
+                            }
+                        @endphp
                         <div class="float-start">
-                            @php
-                                if (session()->has('dsInfo')) {
-                                    $dsInfo = session()->get('dsInfo');
-                                    $comps = $dsInfo->dscomp()->paginate('10');
-                                }
-                            @endphp
                             <form action="{{route('admin.drillstring.show')}}" id="drillsForm" method="POST">
                                 @csrf
-                                <select name="selectDrillstring" id="selectDrillstring" class="form-control p-0">
+                                <select name="selectDrillstring" id="selectDrillstring" class="form-control">
                                     @foreach ($drillStrings as $item)
                                         @php
                                             $selected = '';
@@ -35,10 +35,16 @@
                                 </select>
                             </form>
                         </div>
-                        <div class="float-end">
+                        <div class="float-start m-2">
+                            <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal"
+                                data-bs-target="#addSectionModal">
+                                + Add Section
+                            </button>
+                        </div>
+                        <div class="float-end m-2">
                             <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal"
                                 data-bs-target="#addModal">
-                                + Add
+                                + Add Component
                             </button>
                         </div>
                     </div>
@@ -113,7 +119,7 @@
                                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                                 <div class="modal-content">
-                                                    <form action="{{ route('admin.drillstring.update') }}" method="post">
+                                                    <form action="{{ route('admin.drillstringComp.update') }}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $item->Comp_ID }}">
                                                     <input type="hidden" name="ds_id" value="{{ $dsInfo->DS_ID }}">
@@ -185,11 +191,11 @@
 <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.drillstring.store') }}" method="post">
+            <form action="{{ route('admin.drillstringComp.store') }}" method="post">
             @csrf
             <input type="hidden" name="ds_id" value="{{ $dsInfo->DS_ID }}">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('$module') }}</h5>
+                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Drillstring Component') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -234,4 +240,69 @@
     </div>
 </div>
 {{----Add modal----}}
+
+{{----Add Section modal----}}
+<div class="modal fade" id="addSectionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form action="{{ route('admin.drillstring.store') }}" method="post">
+            @csrf
+            <input type="hidden" name="projectId" value="{{ session()->get('projectId') }}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Drillstring Section') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="decription"
+                        required>
+                    </div>
+                    <div class="col-md-6">
+                        @php
+                            $types = ['None', 'Roller-Cones', 'Diamond'];
+                        @endphp
+                        <label for="" class="form-label">Bit Type</label>
+                        <select name="bit_type" id="bit_type" class="form-control">
+                            @foreach ($types as $key => $item)
+                                <option value="{{$key}}">{{$item}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Bit Position</label>
+                        <input type="number" class="form-control" name="bit_position"
+                        required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Bit Size</label>
+                        <input type="number" class="form-control" name="bit_size"
+                        required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Bit TFA</label>
+                        <input type="number" class="form-control" name="bit_tfa"
+                     required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">PWD Distance</label>
+                        <input type="number" class="form-control" name="pwd_distance"
+                        required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="" class="form-label">PWD Drop</label>
+                        <input type="number" class="form-control" name="pwd_drop"
+                        required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{----Add Section modal----}}
 @endsection

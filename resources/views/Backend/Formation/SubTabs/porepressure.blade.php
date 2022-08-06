@@ -27,45 +27,42 @@
                                 @php
                                     if(session()->has('unitIds')){
                                         $unitIds = json_decode(session()->get('unitIds'));
-                                        if (isset($unitIds->porepressure)) {
-                                            $porepressureIds = $unitIds->porepressure;
-                                        }
                                     }
                                 @endphp
                                 <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
                                     @csrf
-                                    <input type="hidden" name="tab" value="{{$tab}}">
+                                
                                     <th class="text-center">
-                                        <select name="tvdUnit" id="setUnit">
+                                        <select name="length" id="setUnit">
                                             @foreach ($lengthUnits as $key => $item)
                                                 @php
                                                     $selected = '';
-                                                    if(isset($porepressureIds))
-                                                        if($item->id == $porepressureIds->tvd) $selected = 'selected';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->length_id) $selected = 'selected';
                                                 @endphp
                                                     <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
                                             @endforeach
                                         </select>
                                     </th>
                                     <th class="text-center">
-                                        <select name="pressureGradientUnit" id="setUnit">
+                                        <select name="density" id="setUnit">
                                             @foreach ($densityUnits as $key => $item)
                                                 @php
                                                     $selected = '';
-                                                    if(isset($porepressureIds))
-                                                        if($item->id == $porepressureIds->pressureGradient) $selected = 'selected';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->density_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
                                             @endforeach
                                         </select>
                                     </th>
                                     <th class="text-center">
-                                        <select name="pressureUnit" id="setUnit">
+                                        <select name="pressure" id="setUnit">
                                             @foreach ($pressureUnits as $key => $item)
                                                 @php
                                                     $selected = '';
-                                                    if(isset($porepressureIds))
-                                                        if($item->id == $porepressureIds->pressure) $selected = 'selected';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->pressure_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
                                             @endforeach
@@ -79,16 +76,18 @@
                             @php
                                 if(session()->has('unitValues')){
                                     $unitValues = json_decode(session()->get('unitValues'));
-                                    if (isset($unitValues->porepressure)) {
-                                        $porepressureValues = $unitValues->porepressure;
+                                    if (isset($unitValues)) {
+                                        $length = $unitValues->length;
+                                        $density = $unitValues->density;
+                                        $pressure = $unitValues->pressure;
                                     }
                                 }
                             @endphp
                             @foreach ($porepressure as $item)
                                 <tr>
-                                    <td class="text-center"> @if(isset($porepressureValues)) {{$item->TVD * $porepressureValues->tvd}} @else {{$item->TVD}} @endif</td>
-                                    <td class="text-center"> @if(isset($porepressureValues)) {{$item->PP * $porepressureValues->pressureGradient}} @else {{$item->PP}} @endif</td>
-                                    <td class="text-center"> @if(isset($porepressureValues)) {{$item->Pressure * $porepressureValues->pressure}} @else {{$item->Pressure}} @endif</td>
+                                    <td class="text-center"> @if(isset($length)) {{$item->TVD * $length}} @else {{$item->TVD}} @endif</td>
+                                    <td class="text-center"> @if(isset($density)) {{$item->PP * $density}} @else {{$item->PP}} @endif</td>
+                                    <td class="text-center"> @if(isset($pressure)) {{$item->Pressure * $pressure}} @else {{$item->Pressure}} @endif</td>
                                     <td class="text-center"> 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->PP_ID}}"><i class="fas fa-minus"></i></button>
                                         {{-- delete modal --}}

@@ -41,9 +41,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'i
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::resource('wellbore', 'WellboreController');
+    Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');
     Route::resource('drillstring', 'DrillstringController');
     Route::post('drillstringShow', 'DrillstringController@show')->name('drillstring.show');
+    Route::post('drillstringComp/store', 'DrillstringController@comp_store')->name('drillstringComp.store');
     Route::post('drillstring/store', 'DrillstringController@store')->name('drillstring.store');
+    Route::post('drillstringComp/update', 'DrillstringController@comp_update')->name('drillstringComp.update');
     Route::post('drillstring/update', 'DrillstringController@update')->name('drillstring.update');
     Route::post('drillstring/destroy', 'DrillstringController@destroy')->name('drillstring.destroy');
     Route::post('getdrillstring', 'DrillstringController@getDrillStringData')->name('drillstring.getdrillstringData');
@@ -73,8 +76,11 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::resource('wellbore', 'WellboreController');
+    Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');
     Route::resource('drillstring', 'DrillstringController');
     Route::post('getdrillstring', 'DrillstringController@getDrillStringData')->name('drillstring.getdrillstringData');
+    Route::post('drillstringComp/store', 'DrillstringController@comp_store')->name('drillstringComp.store');
+    Route::post('drillstringComp/update', 'DrillstringController@comp_update')->name('drillstringComp.update');
     Route::post('drillstring/store', 'DrillstringController@store')->name('drillstring.store');
     Route::post('drillstring/update', 'DrillstringController@update')->name('drillstring.update');
     Route::post('drillstring/destroy', 'DrillstringController@destroy')->name('drillstring.destroy');

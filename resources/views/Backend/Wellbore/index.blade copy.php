@@ -140,26 +140,29 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-7">
+                                        @php
+                                            $nozzles = \DB::table('nozzle')->where('DS_ID', $selectedDrillStringInfo->DS_ID)->get();
+                                        @endphp
                                         <table id="dataTable" class="table table-responsive nozzletable">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">No. of Nozzles</th>
                                                     <th class="text-center">Size(1/32 in)</th>
+                                                    {{-- <th class="text-center">
+                                                        <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal"
+                                                            data-bs-target="#addNozzlesModal">
+                                                            + Add
+                                                        </button>
+                                                    </th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N0_N}} </td>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N0_SIZE}} </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N1_N}} </td>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N1_SIZE}} </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N2_N}} </td>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N2_SIZE}} </td>
-                                                </tr>
+                                                @foreach ($nozzles as $item)
+                                                    <tr>
+                                                        <td class="text-center">{{$loop->iteration}}</td>
+                                                        <td class="text-center">{{$item->size}}</td>
+                                                    </tr>
+                                                @endforeach                                                    
                                             </tbody>
                                         </table>
                                     </div>
@@ -169,19 +172,13 @@
                                         <label for="size" class="form-label">Size</label>
                                         <input type="text" class="form-control" id="inputSize" name="size" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_Size}}" @endif>
                                     </div>
-                                    <div class="float-end col-md-8 row g-2 align-items-center m-t-4">
-                                        <div class="col-auto">
-                                            <label for="tfa" class="col-form-label">TFA</label>
-                                          </div>
-                                        <div class="col-auto">
-                                            <input type="checkbox" class="form-check-input" id="tfa_checkbox" name="tfa">
-                                        </div>
-                                        <div class="col-auto">
-                                            <input type="text" class="form-control" name="tfain2" id="tfain2" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_TFA}}" @endif>
-                                        </div>
-                                        <div class="col-auto">
-                                            <label for="tfain2" class="col-form-label">in2</label>
-                                        </div>
+                                    <div class="form-check float-start col-md-4 mt-4">
+                                        <label for="tfa" class="form-check-label">TFA</label>
+                                        <input type="checkbox" class="form-check-input" id="tfa_checkbox" name="tfa">
+                                    </div>
+                                    <div class="float-end col-md-4">
+                                        <label for="tfa" class="form-label">in2</label>
+                                        <input type="text" class="form-control" name="tfain2" id="tfain2" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_TFA}}" @endif>
                                     </div>
                                 </div>
                             </div>

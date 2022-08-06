@@ -246,79 +246,36 @@ class FormationController extends Controller
 
      public function setunit(Request $request)
      {
-        $tab = $request->tab;
-        $unitValues = array();
-        $unitIds = array();
-        if($tab == 1){
-            $tvdUnit = DB::table('standard_unit')->where('id', $request->tvdUnit)->first()->value;
-            $pressureUnit = DB::table('standard_unit')->where('id', $request->pressureUnit)->first()->value;
-            $pressureGradientUnit = DB::table('standard_unit')->where('id', $request->pressureGradientUnit)->first()->value;
-            $porepressure = array(
-                'tvd' => $tvdUnit,
-                'pressure' => $pressureUnit,
-                'pressureGradient' => $pressureGradientUnit,
-            );
-            $unitValues['porepressure'] = $porepressure;
-            $unitIds['porepressure'] = array(
-                'tvd' => $request->tvdUnit,
-                'pressure' => $request->pressureUnit,
-                'pressureGradient' => $request->pressureGradientUnit
-            );
-        }
-        
-        if($tab == 2){
-            $tvdUnit = DB::table('standard_unit')->where('id', $request->tvdUnit)->first()->value;
-            $fractGradUnit = DB::table('standard_unit')->where('id', $request->fractGradUnit)->first()->value;
-            $pressureUnit = DB::table('standard_unit')->where('id', $request->pressureUnit)->first()->value;
-            $fracture = array(
-                'tvd' => $tvdUnit,
-                'fractGrad' => $fractGradUnit,
-                'pressureUnit' => $pressureUnit,
-            );
-            $unitValues['fracture'] = $fracture;
-            $unitIds['fracture'] = array(
-                'tvd' => $request->tvdUnit,
-                'fractGrad' => $request->fractGradUnit,
-                'pressureUnit' => $request->pressureUnit
-            );
-        }
 
-        if($tab == 3){
-            $tvdUnit = DB::table('standard_unit')->where('id', $request->tvdUnit)->first()->value;
-            $tempGradientUnit = DB::table('standard_unit')->where('id', $request->tempGradientUnit)->first()->value;
-            $tempUnit =  DB::table('standard_unit')->where('id', $request->tempUnit)->first()->value;
-            $formation = array(
-                'tvd' => $tvdUnit,
-                'tempGrad' => $tempGradientUnit,
-                'temp' => $tempUnit,
-            );
-            $unitValues['formation'] = $formation;
-            $unitIds['formation'] = array(
-                'tvd' => $request->tvdUnit,
-                'tempGrad' => $request->tempGradientUnit,
-                'temp' => $request->tempUnit
-            );
-        }
+        $length_id = isset($request->length) ? $request->length : 22;
+        $pressure_id = isset($request->pressure) ? $request->pressure: 16;
+        $density_id = isset($request->density) ? $request->density : 1;
+        $temp_id = isset($request->temp) ? $request->temp : 5;
+        $temp_id = isset($request->tempGrad) ? $request->tempGrad : 5;
 
-        if($tab == 4){
-            $mdUnit = DB::table('standard_unit')->where('id', $request->mdUnit)->first()->value;
-            $tvdUnit = DB::table('standard_unit')->where('id', $request->tvdUnit)->first()->value;
-            $tcUnit = DB::table('standard_unit')->where('id', $request->tcUnit)->first()->value;
-            $shUnit = DB::table('standard_unit')->where('id', $request->shUnit)->first()->value;
-            $lithology = array(
-                'md' => $mdUnit,
-                'tvd' => $tvdUnit,
-                'tc' => $tcUnit,
-                'sh' => $shUnit,
-            );
-            $unitValues['lithology'] = $lithology;
-            $unitIds['lithology'] = array(
-                'md' => $request->mdUnit,
-                'tvd' => $request->tvdUnit,
-                'tc' => $request->tcUnit,
-                'sh' => $request->shUnit,
-            );
-        }
+        // $pressureUnits
+        // $tempUnits
+        // $flowUnits
+        // $densityUnits
+        // $lengthUnits
+
+        $length = DB::table('standard_unit')->where('id', $length_id)->first()->value;
+        $pressure = DB::table('standard_unit')->where('id', $pressure_id)->first()->value;
+        $density = DB::table('standard_unit')->where('id', $density_id)->first()->value;
+
+        $unitValues = array(
+            'length' => $length,
+            'pressure' => $pressure,
+            'density' => $density,
+        );
+
+        $unitIds = array(
+            'length_id' => $length_id,
+            'pressure_id' => $pressure_id,
+            'density_id' => $density_id,
+            'temp_id' => $temp_id,
+        );
+
         $unitValues = json_encode($unitValues);
         $unitIds = json_encode($unitIds);
         Session::put('unitValues', $unitValues);

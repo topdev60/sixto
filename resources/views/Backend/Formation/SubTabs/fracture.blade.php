@@ -26,43 +26,42 @@
                                 @php
                                     if(session()->has('unitIds')){
                                         $unitIds = json_decode(session()->get('unitIds'));
-                                        if(isset($unitIds->fracture)) $fractureIds = $unitIds->fracture;
                                     }
                                 @endphp
                                 <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
                                     @csrf
-                                    <input type="hidden" name="tab" value="{{$tab}}">
+                                    
                                     <th class="text-center">
-                                        <select name="tvdUnit" id="setUnit">
+                                        <select name="length" id="setUnit">
                                             @foreach ($lengthUnits as $key => $item)
                                                 @php
                                                     $selected = '';
-                                                    if(isset($fractureIds))
-                                                        if($item->id == $fractureIds->tvd) $selected = 'selected';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->length_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </th>
                                     <th class="text-center">
-                                        <select name="fractGradUnit" id="setUnit">
+                                        <select name="density" id="setUnit">
                                             @foreach ($densityUnits as $key => $item)
                                                 @php
                                                     $selected = '';
-                                                    if(isset($fractureIds))
-                                                        if($item->id == $fractureIds->fractGrad) $selected = 'selected';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->density_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </th>
                                     <th class="text-center">
-                                        <select name="pressureUnit" id="setUnit">
+                                        <select name="pressure" id="setUnit">
                                             @foreach ($pressureUnits as $key => $item)
                                                 @php
                                                     $selected = '';
-                                                    if(isset($fractureIds))
-                                                        if($item->id == $fractureIds->pressureUnit) $selected = 'selected';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->pressure_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach
@@ -77,16 +76,18 @@
                             @php
                                 if(session()->has('unitValues')){
                                     $unitValues = json_decode(session()->get('unitValues'));
-                                    if (isset($unitValues->fracture)) {
-                                        $fractureValues = $unitValues->fracture;
+                                    if (isset($unitValues)) {
+                                        $length = $unitValues->length;
+                                        $density = $unitValues->density;
+                                        $pressure = $unitValues->pressure;
                                     }
                                 }
                             @endphp
                             @foreach ($fgpressure as $item)
                                 <tr>
-                                    <td class="text-center"> @if(isset($fractureValues)) {{$item->TVD * $fractureValues->tvd}} @else {{$item->TVD}} @endif </td>
-                                    <td class="text-center"> @if(isset($fractureValues)) {{$item->FG * $fractureValues->fractGrad}} @else {{$item->FG}} @endif </td>
-                                    <td class="text-center"> @if(isset($fractureValues)) {{$item->Pressure * $fractureValues->pressureUnit}} @else {{$item->Pressure}} @endif </td>
+                                    <td class="text-center"> @if(isset($length)) {{$item->TVD * $length}} @else {{$item->TVD}} @endif </td>
+                                    <td class="text-center"> @if(isset($density)) {{$item->FG * $density}} @else {{$item->FG}} @endif </td>
+                                    <td class="text-center"> @if(isset($pressure)) {{$item->Pressure * $pressure}} @else {{$item->Pressure}} @endif </td>
                                     <td class="text-center"> 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->FG_ID}}"><i class="fas fa-minus"></i></button>
                                         <div class="modal fade" id="delete{{ $item->FG_ID }}" data-bs-backdrop="static"

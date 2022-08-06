@@ -36,5 +36,9 @@ $(document).ready(function () {
 
     $('select#selectDrillstring').on('change', function () {
         $('#drillsForm').submit();
-    })
+    });
+    
+    $('#wellboreUpdateBtn').on('click', function () {
+        $('#wellboreUpdateForm').submit();
+    });
 })

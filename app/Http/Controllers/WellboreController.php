@@ -28,12 +28,10 @@ class WellboreController extends Controller
         $wellboreInfo = WellBore::where('ProjectID', $selectedProjectId)->first();
         $wellbore = $this->wellboreProcess($wellboreInfo);
         $rigType = WellInfo::where('ProjectID', $selectedProjectId)->first()->rigtype;
-        if(!Session::has('selectedDrillString') || !Session::has('nozzles')){
+        if(!Session::has('selectedDrillString')){
             $selectedDrillString = Drillstring::where('DS_ID', 1)->first();
             Session::put('selectedDrillString', $selectedDrillString);
-            $nozzles = DB::table('nozzle')->where('DS_ID', 1)->get();
-            Session::put('nozzles', $nozzles);
-        }   
+        }
 
         if (Auth::user()->role == 1) {
             return view('Backend.Wellbore.index')->with('module', $this->module)
@@ -77,6 +75,7 @@ class WellboreController extends Controller
             'lfirst' => $lfirst,
             'lsecond' => $lsecond,
             'hole' => $hole,
+            'wellboreId' => $wellbore['WellboreID'],
         ];
         $collection = json_decode(json_encode($collection));
         return $collection;
@@ -113,7 +112,7 @@ class WellboreController extends Controller
         return 1;
     }
 
-    
+
 
     /**
      * Display the specified resource.
@@ -144,9 +143,49 @@ class WellboreController extends Controller
      * @param  \App\Models\WellBore  $wellBore
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, WellBore $wellBore)
+    public function update(Request $request)
     {
-        //
+        Wellbore::where('WellboreID', $request->wellbore_id)->update([
+            'RiserDescription' => $request->riserDescription,
+            'RiserOD' => $request->riserOd,
+            'RiserID' => $request->riserId,
+            'RiserTop' => $request->riserTopMD,
+            'RiserBottom' => $request->riserBottomMD,
+            'RiserWeight' => $request->riserWeight,
+            'RiserActive' => $request->riserActive,
+
+            'CsgDescription' => $request->csgDescription,
+            'CsgOD' => $request->csgOD,
+            'CsgID' => $request->csgID,
+            'CsgTop' => $request->csgTopMD,
+            'CsgBottom' => $request->csgBottomMD,
+            'CsgWeight' => $request->csgWeight,
+
+            'L1Description' => $request->lfirstDescription,
+            'L1OD' => $request->lfirstOD,
+            'L1ID' => $request->lfirstID,
+            'L1Top' => $request->lfirstTopMD,
+            'L1Bottom' => $request->lfirstBottomMD,
+            'L1Weight' => $request->lfirstWeight,
+            'L1Active' => $request->lfirstActive,
+
+            'L2Description' => $request->lsecondDescription,
+            'L2OD' => $request->lsecondOD,
+            'L2ID' => $request->lsecondID,
+            'L2Top' => $request->lsecondTopMD,
+            'L2Bottom' => $request->lsecondBottomMD,
+            'L2Weight' => $request->lsecondWeight,
+            'L2Active' => $request->lsecondActive,
+
+            'HoleDescription' => $request->holeDescription,
+            'HoleID' => $request->holeID,
+            'HoleOD' => $request->holeOD,
+            'HoleTop' => $request->holeTopMD,
+            'HoleBottom' => $request->holeBottomMD,
+            'HoleWeight' => $request->holeWeight,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
