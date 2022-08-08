@@ -76,12 +76,12 @@ class DrillstringController extends Controller
         Drillstring::insert([
             'ProjectID' => $request->projectId,
             'Description' => $request->decription,
-            'Bit_type' => $request->bit_type,
-            'Bit_position' => $request->bit_position,
-            'Bit_Size' => $request->bit_size,
-            'Bit_TFA' => $request->bit_tfa,
-            'PWD_Distance' => $request->pwd_distance,
-            'PWD_Drop' => $request->pwd_drop,
+            // 'Bit_type' => $request->bit_type,
+            // 'Bit_position' => $request->bit_position,
+            // 'Bit_Size' => $request->bit_size,
+            // 'Bit_TFA' => $request->bit_tfa,
+            // 'PWD_Distance' => $request->pwd_distance,
+            // 'PWD_Drop' => $request->pwd_drop,
         ]);
 
         return redirect()->back();
@@ -121,6 +121,14 @@ class DrillstringController extends Controller
      * @param  \App\Models\Drillstring  $drillstring
      * @return \Illuminate\Http\Response
      */
+
+    public function update(Request $request)
+    {
+        Drillstring::where('DS_ID', $request->DS_ID)->update([
+            'Description' => $request->description,
+        ]);
+        return redirect()->back();
+    }
     public function comp_update(Request $request)
     {
         DsComp::where('Comp_ID', $request->id)->update([
@@ -144,7 +152,7 @@ class DrillstringController extends Controller
 
         $nozzles = DB::table('nozzle')->where('DS_ID', $drillstringId)->get();
         Session::put('nozzles', $nozzles);
-        
+
         return redirect()->back();
     }
 
@@ -154,7 +162,17 @@ class DrillstringController extends Controller
      * @param  \App\Models\Drillstring  $drillstring
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Request $request)
+    {
+        Drillstring::where('DS_ID', $request->DS_ID)->delete();
+        Session::forget('dsInfo');
+        $location = 'user';
+        if(Auth::user()->role == 1) $location = 'admin';
+        return redirect()->route($location.'.drillstring.index');
+    }
+    
+    public function comp_destroy(Request $request)
     {
         DsComp::where('Comp_ID', $request->id)->delete();
         return redirect()->back();

@@ -309,6 +309,18 @@ Customize Styles
   background-color: #2b2e43 !important;
 }
 
+.m-t-1 {
+    margin-top: 1% !important;
+}
+
+.m-r-10 {
+  margin-left: 10%;
+}
+
 .m-t-4 {
     margin-top: 4% !important;
+}
+
+.m-t-17 {
+    margin-top: 17% !important;
 }

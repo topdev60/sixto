@@ -64,7 +64,7 @@
         <li @if ($module == "Fluids")
             class={{'selected'}}
         @endif>
-        <a href="#" id="elementSidebar">
+        <a href="{{route('admin.fluids.index')}}" id="elementSidebar">
             <i class='bx bx-droplet'></i>
             <span class="links_name">{{__('Fluids')}}</span>
         </a>

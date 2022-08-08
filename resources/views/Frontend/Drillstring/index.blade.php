@@ -1,4 +1,4 @@
-@extends('Backend.layouts.app')
+@extends('Frontend.layouts.app')
 @section('content')
 <script src="{{ asset('assets/js/wellbore.js') }}"></script>
 <section class="home-section" id="home-section">
@@ -22,7 +22,7 @@
                             }
                         @endphp
                         <div class="float-start">
-                            <form action="{{route('admin.drillstring.show')}}" id="drillsForm" method="POST">
+                            <form action="{{route('user.drillstring.show')}}" id="drillsForm" method="POST">
                                 @csrf
                                 <select name="selectDrillstring" id="selectDrillstring" class="form-control">
                                     @foreach ($drillStrings as $item)
@@ -102,7 +102,7 @@
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-body">
-                                                    <form action="{{ route('admin.drillstringComp.destroy') }}" method="post" id="delete{{ $item->Comp_ID }}">
+                                                    <form action="{{ route('user.drillstringComp.destroy') }}" method="post" id="delete{{ $item->Comp_ID }}">
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $item->Comp_ID }}">
                                                         <div class="p-4 text-center">
@@ -133,7 +133,7 @@
                                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                                 <div class="modal-content">
-                                                    <form action="{{ route('admin.drillstringComp.update') }}" method="post">
+                                                    <form action="{{ route('user.drillstringComp.update') }}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $item->Comp_ID }}">
                                                     <input type="hidden" name="ds_id" value="{{ $dsInfo->DS_ID }}">
@@ -205,7 +205,7 @@
 <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.drillstringComp.store') }}" method="post">
+            <form action="{{ route('user.drillstringComp.store') }}" method="post">
             @csrf
             <input type="hidden" name="ds_id" value="{{ $dsInfo->DS_ID }}">
             <div class="modal-header">
@@ -259,7 +259,7 @@
 <div class="modal fade" id="addSectionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.drillstring.store') }}" method="post">
+            <form action="{{ route('user.drillstring.store') }}" method="post">
             @csrf
                 <input type="hidden" name="projectId" value="{{ session()->get('projectId') }}">
                 <div class="modal-header">
@@ -288,7 +288,7 @@
 <div class="modal fade" id="editSectionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.drillstring.update') }}" method="post">
+            <form action="{{ route('user.drillstring.update') }}" method="post">
             @csrf
                 <input type="hidden" name="DS_ID" value="{{ $dsInfo->DS_ID }}">
                 <div class="modal-header">
@@ -320,7 +320,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-body">
-        <form action="{{ route('admin.drillstring.destroy') }}" method="post">
+        <form action="{{ route('user.drillstring.destroy') }}" method="post">
             @csrf
             <input type="hidden" name="DS_ID" value="{{ $dsInfo->DS_ID }}">
             <div class="p-4 text-center">

@@ -1,4 +1,4 @@
-@extends('Backend.layouts.app')
+@extends('Frontend.layouts.app')
 @section('content')
 <input type="hidden" id="tabType" value="5">
 <section class="home-section" id="home-section">
@@ -59,7 +59,7 @@
                                 @foreach ($fluids as $item)
                                     <tr>
                                         <td class="text-center">
-                                            <a href="{{route('admin.fluid.select', $item->FluidID)}}">
+                                            <a href="{{route('user.fluid.select', $item->FluidID)}}">
                                                 @if (session()->get('fluidId') == $item->FluidID)
                                                     <i class="far fa-check-square"></i>
                                                 @else
@@ -99,7 +99,7 @@
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-body">
-                                                    <form action="{{ route('admin.fluid.destroy') }}" method="post" id="delete{{ $item->FluidID }}">
+                                                    <form action="{{ route('user.fluid.destroy') }}" method="post" id="delete{{ $item->FluidID }}">
                                                         @csrf
                                                         <input type="hidden" name="FluidID" value="{{ $item->FluidID }}">
                                                         <div class="p-4 text-center">
@@ -130,7 +130,7 @@
                                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="editFluidModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                                 <div class="modal-content">
-                                                    <form action="{{ route('admin.fluid.update') }}" method="post">
+                                                    <form action="{{ route('user.fluid.update') }}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="FluidID" value="{{ $item->FluidID }}">
                                                     <div class="modal-header">
@@ -281,7 +281,7 @@
                             <div class="card-body overflow-auto clearfix" id="sampleWrapper">
                                 @isset($fluidInfo)
                                     @foreach ($fluidInfo->sample as $key => $item)
-                                        <form action="{{route('admin.sample.update')}}" method="POST" id="selectSampleForm">
+                                        <form action="{{route('user.sample.update')}}" method="POST" id="selectSampleForm">
                                             @csrf
                                             @php
                                                 $style = "";
@@ -384,7 +384,7 @@
 <div class="modal fade" id="addFluidModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.fluid.store') }}" method="post">
+            <form action="{{ route('user.fluid.store') }}" method="post">
                 @csrf            
                 <div class="modal-header">
                     <h5 class="modal-title" id="addFluidModalLabel">+ Add {{ __('Fluid') }}</h5>
@@ -478,7 +478,7 @@
 <div class="modal fade" id="addSampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="{{ route('admin.sample.store') }}" method="post">
+            <form action="{{ route('user.sample.store') }}" method="post">
             <input type="hidden" name="FluidID" value="{{session()->get('fluidId')}}">
             @csrf
             <div class="modal-header">

@@ -7,7 +7,7 @@
             <i class='bx bx-log-in' id="btn" ></i>
         </div>
         <li>
-            <i class='bx bx-search' ></i>
+            <i class='bx bx-search'></i>
             <input type="text" placeholder="Search...">
             <span class="tooltip">Search</span>
         </li>
@@ -44,7 +44,7 @@
         <li @if ($module == "Wellbore")
             class={{'selected'}}
         @endif>
-        <a href="{{route('admin.wellbore.index')}}" id="elementSidebar">
+        <a href="{{route('user.wellbore.index')}}" id="elementSidebar">
             <i class='bx bx-slider'></i>
             <span class="links_name">{{__('Wellbore')}}</span>
         </a>
@@ -54,7 +54,7 @@
         <li @if ($module == "DrillString")
             class={{'selected'}}
         @endif>
-        <a href="#" id="elementSidebar">
+        <a href="{{route('user.drillstring.index')}}" id="elementSidebar">
             <i class='bx bx-dialpad-alt'></i>
             <span class="links_name">{{__('DrillString')}}</span>
         </a>
@@ -64,7 +64,7 @@
         <li @if ($module == "Fluids")
             class={{'selected'}}
         @endif>
-        <a href="#" id="elementSidebar">
+        <a href="{{route('user.fluids.index')}}" id="elementSidebar">
             <i class='bx bx-droplet'></i>
             <span class="links_name">{{__('Fluids')}}</span>
         </a>

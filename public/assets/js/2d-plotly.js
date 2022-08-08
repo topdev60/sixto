@@ -1,4 +1,5 @@
-var twod_plotly_chart_draw = function(data, chartDataType){
+var twod_plotly_chart_draw = function(data, title){
+    console.log(title);
     var position = 'divplot';
     var trace = {
         x: data.x,
@@ -6,20 +7,14 @@ var twod_plotly_chart_draw = function(data, chartDataType){
         name: 'yaxis data',
         type: 'scatter'
     };
-    var xtitle = '';
-    if(chartDataType == 0) xtitle = 'North axis';
-    if(chartDataType == 1) xtitle = 'PP axis';
-    if(chartDataType == 2) xtitle = 'FG axis';
-    if(chartDataType == 3) xtitle = 'TG axis';
-    if(chartDataType == 4) xtitle = 'TC axis';
-    
-
+    var xtitle = title.xtitle;
+    var ytitle = title.ytitle;
     var traceData = [trace];
 
     var layout = {
-        title: 'Double Y Axis Example',
+        title: ytitle,
         yaxis: {
-            title: 'TVD axis',
+            title: ytitle,
         },
         xaxis: {
             title: xtitle

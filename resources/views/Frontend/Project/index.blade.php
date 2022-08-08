@@ -29,7 +29,7 @@
                                     <th class="text-center">{{__('Operation')}}</th>
                                     <th class="text-center">{{__('Rig Name')}}</th>
                                     <th class="text-center">{{__('Rig Type')}}</th>
-                                    <th class="text-center">{{__('Rig Controller')}}</th>
+                                    <th class="text-center">{{__('Rig Contractor')}}</th>
                                     <th class="text-center">{{__('Well Name')}}</th>
                                     <th class="text-center">{{__('Action')}}</th>
                                 </tr>
@@ -40,7 +40,7 @@
                                 @endphp
                                 @foreach ($projects as $project)
                                 <tr>
-                                    <td class="text-center"> 
+                                    <td class="text-center">
                                         <a href="{{route('user.project.select', $project->ProjectID)}}">
                                             @if (session()->get('projectId') == $project->ProjectID)
                                                 <i class="far fa-check-square"></i>
