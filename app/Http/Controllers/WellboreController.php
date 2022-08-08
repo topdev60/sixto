@@ -100,10 +100,16 @@ class WellboreController extends Controller
     public function drillStringUpdate(Request $request)
     {
         DB::table('drillstring')->where('DS_ID', $request->ds_id)->update([
-            'Bit_type' => $request->bit_type,
-            'Bit_position' => $request->position,
-            'Bit_size' => $request->size,
-            'Bit_TFA' => $request->tfa,
+            'Bit_type'          => $request->bit_type,
+            'Bit_position'      => $request->position,
+            'Bit_size'          => $request->size,
+            'Bit_TFA'           => $request->tfa,
+            'N0_N'              => $request->N0_N,
+            'N0_SIZE'           => $request->N0_SIZE,
+            'N1_N'              => $request->N1_N,
+            'N1_SIZE'           => $request->N1_SIZE,
+            'N2_N'              => $request->N2_N,
+            'N2_SIZE'           => $request->N2_SIZE,
         ]);
 
         $drillstring = DB::table('drillstring')->where('DS_ID', $request->ds_id)->first();

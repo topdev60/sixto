@@ -22,7 +22,7 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 
 Auth::routes();
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'isAdmin']], function(){
+Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','isAdmin']], function(){
     Route::get('project/index', 'ProjectController@index')->name('project.index');
     Route::resource('project', 'ProjectController');
     Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
@@ -39,7 +39,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth', 'i
     Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
+    
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
+    Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
+
     Route::resource('wellbore', 'WellboreController');
     Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');
 
@@ -86,6 +89,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
+    Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
 
     Route::resource('wellbore', 'WellboreController');
     Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');

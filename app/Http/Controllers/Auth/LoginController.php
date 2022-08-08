@@ -42,11 +42,16 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        if(Auth::user()->role == 1){
-            $this->redirectTo = RouteServiceProvider::ADMINDASHBOARD;
-            return $this->redirectTo;
-        }else{
-            $this->redirectTo = RouteServiceProvider::HOME;
+        if (Auth::user()->permission == 1) {
+            if(Auth::user()->role == 1){
+                $this->redirectTo = RouteServiceProvider::ADMINDASHBOARD;
+                return $this->redirectTo;
+            }else{
+                $this->redirectTo = RouteServiceProvider::HOME;
+                return $this->redirectTo;
+            }
+        }else {
+            $this->redirectTo = RouteServiceProvider::LOGIN;
             return $this->redirectTo;
         }
         $this->middleware('guest')->except('logout');

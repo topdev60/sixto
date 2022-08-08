@@ -104,7 +104,14 @@
                                     <td class="text-center"> @if(isset($pressure)) {{$item->TC * $pressure}} @else {{$item->TC}} @endif </td>
                                     <td class="text-center"> @if(isset($pressure)) {{$item->SH * $pressure}} @else {{$item->SH}} @endif </td>
                                     <td class="text-center"> 
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->LithoID}}"><i class="fas fa-minus"></i></button>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#delete{{$item->LithoID}}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#edit{{$item->LithoID}}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </button>
                                         <div class="modal fade" id="delete{{ $item->LithoID }}" data-bs-backdrop="static"
                                             data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
                                             aria-hidden="true">
@@ -134,6 +141,31 @@
                                                 </form>
                                                 </div>
                                             </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="edit{{ $item->LithoID }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                <div class="modal-content">
+                                                    <form action="{{ route('admin.lithology.update') }}" method="post">
+                                                        <input type="hidden" name="LithoID" value="{{$item->LithoID}}">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addModalLabel"> Edit {{ __('Lithology') }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row gy-3">
+                                                            <div class="col-md-9">
+                                                                <label for="" class="form-label">Description</label>
+                                                                <input type="text" class="form-control" name="description" value="{{$item->Description}}" required>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <button type="submit" class="btn btn-primary m-t-17">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>

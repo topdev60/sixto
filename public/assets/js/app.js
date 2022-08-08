@@ -29,7 +29,13 @@ $(document).ready(function () {
         $('#selectFluidsForm').submit();
     });
 
-    $('#selectSample').on('change', function () {
+    var selectedSampleID = $('input[name="selectedSampleID"]').val();
+    if(selectedSampleID != ""){
+        $('#sample'+selectedSampleID).show();
+        FluidDrawChart(selectedSampleID);
+    }
+
+    $('#selectSample').on('click', function () {
 
         $('.sample').each(function (id, ele) {
             $(ele).css('display', 'none');

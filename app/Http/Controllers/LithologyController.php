@@ -78,9 +78,13 @@ class LithologyController extends Controller
      * @param  \App\Models\Lithology  $lithology
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lithology $lithology)
+    public function update(Request $request)
     {
-        //
+        Lithology::where('LithoID', $request->LithoID)->update([
+            'Description' => $request->description,
+        ]);
+
+        return redirect()->back();
     }
 
     /**

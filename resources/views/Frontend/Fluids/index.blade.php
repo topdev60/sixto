@@ -1,6 +1,8 @@
 @extends('Frontend.layouts.app')
 @section('content')
 <input type="hidden" id="tabType" value="5">
+<input type="hidden" name="selectedSampleID" value="{{session()->get('selectedSampleID')}}">
+
 <section class="home-section" id="home-section">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between mb-3">

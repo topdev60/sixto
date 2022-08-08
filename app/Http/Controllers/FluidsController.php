@@ -42,6 +42,7 @@ class FluidsController extends Controller
         Session::put('fluidDesc', $fluidInfo->Description);
         Session::put('fluidInfo', $fluidInfo);
 
+        Session::put('selectedSampleID', $fluidInfo->SampleID);
         return redirect()->route($location.'.fluids.index');
     }
     public function create()
