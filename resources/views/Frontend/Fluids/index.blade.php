@@ -257,7 +257,6 @@
                                         </div>
                                         <div class="col-auto">
                                             <select name="selectedSample" class="form-select" id="selectSample">
-                                                <option value="">None</option>
                                                 @isset($fluidInfo)
                                                     @foreach ($fluidInfo->sample as $key => $item)
                                                         @php
