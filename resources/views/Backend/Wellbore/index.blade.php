@@ -149,16 +149,16 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N0_N}} </td>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N0_SIZE}} </td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N0_N" value="{{$selectedDrillStringInfo->N0_N}}"> </td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N0_SIZE" value="{{$selectedDrillStringInfo->N0_SIZE}}"> </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N1_N}} </td>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N1_SIZE}} </td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N1_N" value="{{$selectedDrillStringInfo->N1_N}}"></td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N1_SIZE" value="{{$selectedDrillStringInfo->N1_SIZE}}"> </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N2_N}} </td>
-                                                    <td class="text-center"> {{$selectedDrillStringInfo->N2_SIZE}} </td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N2_N" value="{{$selectedDrillStringInfo->N2_N}}"> </td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N2_SIZE" value="{{$selectedDrillStringInfo->N2_SIZE}}"> </td>
                                                 </tr>
                                             </tbody>
                                         </table>
