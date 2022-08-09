@@ -31,7 +31,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::resource('survey', 'SurveyController');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
     Route::resource('formation', 'FormationController');
-    Route::resource('formation', 'FormationController');
     Route::resource('fgpressure', 'FgpressureController');
     Route::resource('porepressure', 'PorepressureController');
     Route::resource('temperature', 'TemperatureController');
@@ -69,6 +68,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
 
     Route::post('sample/store', 'SampleController@store')->name('sample.store');
     Route::post('sample/update', 'SampleController@update')->name('sample.update');
+
+    Route::resource('simulation', 'SimulationController');
 });
 
 Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], function(){
@@ -116,6 +117,9 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     
     Route::post('sample/store', 'SampleController@store')->name('sample.store');
     Route::post('sample/update', 'SampleController@update')->name('sample.update');
+
+    Route::resource('simulation', 'SimulationController');
+
 });
 Route::post('/drillStringUpdate', 'WellboreController@drillStringUpdate');
 Route::post('setunit', 'FormationController@setunit')->name('formation.setunit');

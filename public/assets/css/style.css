@@ -324,3 +324,8 @@ Customize Styles
 .m-t-17 {
     margin-top: 17% !important;
 }
+
+.top-wrapper {
+  width: 100%;
+  height: 150px;
+}

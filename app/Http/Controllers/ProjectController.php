@@ -158,6 +158,7 @@ class ProjectController extends Controller
         $projectName = $project->project_name;
         Session::put('projectId', $id);
         Session::put('projectName', $projectName);
+        Session::put('projectInfo', $project);
         return redirect()->back();
     }
 

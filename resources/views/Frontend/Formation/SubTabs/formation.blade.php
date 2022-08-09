@@ -24,18 +24,89 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th class="text-center">{{'m'}}</th>
-                                <th class="text-center">{{'sg'}}</th>
-                                <th class="text-center">{{'bar'}}</th>
-                                <th class="text-center">{{' '}}</th>
+                                @php
+                                    if(session()->has('unitIds')){
+                                        $unitIds = json_decode(session()->get('unitIds'));
+                                    }
+                                @endphp
+                                <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
+                                    @csrf
+                                    
+                                    <th class="text-center">
+                                        <select name="length" id="setUnit">
+                                            @foreach ($lengthUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->length_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="tempGrad" id="setUnit">
+                                            @foreach ($tempUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->temp_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="temp" id="setUnit">
+                                            @foreach ($tempUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->temp_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center"></th>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                if(session()->has('unitValues')){
+                                    $unitValues = json_decode(session()->get('unitValues'));
+                                    if (isset($unitValues)) {
+                                        $length = $unitValues->length;
+                                    }
+                                    if (isset($unitIds)) {
+                                        $temp_id = $unitIds->temp_id;
+                                    }
+                                }
+                            @endphp
                             @foreach ($temperatures as $item)
                                 <tr>
-                                    <td class="text-center"> {{$item->TVD}} </td>
-                                    <td class="text-center"> {{$item->TG}} </td>
-                                    <td class="text-center"> {{$item->Temperature}} </td>
+                                    <td class="text-center"> @if(isset($length)) {{$item->TVD * $length}} @else {{$item->TVD}} @endif</td>
+                                    <td class="text-center">
+                                         @if(isset($temp_id))
+                                            @if($temp_id == 5) {{$item->TG}}
+                                            @elseif($temp_id == 6) {{calcCelcius($item->TG)}}
+                                            @elseif($temp_id == 7) {{calcKelvin($item->TG)}}
+                                            @endif
+                                        @else
+                                            {{$item->TG}}
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if(isset($temp_id))
+                                            @if($temp_id == 5) {{$item->Temperature}}
+                                            @elseif($temp_id == 6) {{calcCelcius($item->Temperature)}}
+                                            @elseif($temp_id == 7) {{calcKelvin($item->Temperature)}}
+                                            @endif
+                                        @else
+                                            {{$item->Temperature}}
+                                        @endif
+                                    </td>
                                     <td class="text-center"> 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->TempID}}"><i class="fas fa-minus"></i></button>
                                         <div class="modal fade" id="delete{{ $item->TempID }}" data-bs-backdrop="static"
@@ -85,7 +156,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">

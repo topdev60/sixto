@@ -74,7 +74,7 @@
         <li @if ($module == "Simulation")
             class={{'selected'}}
         @endif>
-        <a href="#" id="elementSidebar">
+        <a href="{{route('admin.simulation.index')}}" id="elementSidebar">
             <i class='bx bx-package'></i>
             <span class="links_name">{{__('Simulation')}}</span>
         </a>

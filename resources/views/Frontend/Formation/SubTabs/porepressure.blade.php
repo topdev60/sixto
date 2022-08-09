@@ -24,18 +24,70 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th class="text-center">{{'m'}}</th>
-                                <th class="text-center">{{'sg'}}</th>
-                                <th class="text-center">{{'bar'}}</th>
-                                <th class="text-center">{{' '}}</th>
+                                @php
+                                    if(session()->has('unitIds')){
+                                        $unitIds = json_decode(session()->get('unitIds'));
+                                    }
+                                @endphp
+                                <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
+                                    @csrf
+                                
+                                    <th class="text-center">
+                                        <select name="length" id="setUnit">
+                                            @foreach ($lengthUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->length_id) $selected = 'selected';
+                                                @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="density" id="setUnit">
+                                            @foreach ($densityUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->density_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="pressure" id="setUnit">
+                                            @foreach ($pressureUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->pressure_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}> {{$item->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">{{' '}}</th>
+                                </form>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                if(session()->has('unitValues')){
+                                    $unitValues = json_decode(session()->get('unitValues'));
+                                    if (isset($unitValues)) {
+                                        $length = $unitValues->length;
+                                        $density = $unitValues->density;
+                                        $pressure = $unitValues->pressure;
+                                    }
+                                }
+                            @endphp
                             @foreach ($porepressure as $item)
                                 <tr>
-                                    <td class="text-center"> {{$item->TVD}} </td>
-                                    <td class="text-center"> {{$item->PP}} </td>
-                                    <td class="text-center"> {{$item->Pressure}} </td>
+                                    <td class="text-center"> @if(isset($length)) {{$item->TVD * $length}} @else {{$item->TVD}} @endif</td>
+                                    <td class="text-center"> @if(isset($density)) {{$item->PP * $density}} @else {{$item->PP}} @endif</td>
+                                    <td class="text-center"> @if(isset($pressure)) {{$item->Pressure * $pressure}} @else {{$item->Pressure}} @endif</td>
                                     <td class="text-center"> 
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->PP_ID}}"><i class="fas fa-minus"></i></button>
                                         {{-- delete modal --}}
