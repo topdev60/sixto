@@ -4,8 +4,10 @@ $(document).ready(function () {
     var selectedProjectId = $('#projectId').val();
     $('a#elementSidebar').on('click', function (e) {
         if(selectedProjectId == ""){
-            e.preventDefault();
-            alert('You need to select Project');
+            if ($(this) != $("a#elementSidbar")[0]) {
+                e.preventDefault();
+                alert('You need to select Project');
+            }
         }
     });
 
@@ -13,10 +15,18 @@ $(document).ready(function () {
     if ($('#tabType').val()) {
         chartDataType = $('#tabType').val();
     }
-
+    /**
+     * draw common chart for project, trajectory, wellbore, drillstring page
+     * @param projectId
+     */
     if(selectedProjectId){
         CommondrawChart(selectedProjectId, statusChart, chartDataType);
     }
+
+    /**
+     * 
+     * switch 2d and 3d chart in trajectory page
+     */
 
     $('#switchCharts').on('click', function () {
         $('#divplot').children().remove();
@@ -25,9 +35,15 @@ $(document).ready(function () {
         CommondrawChart(selectedProjectId, statusChart, '');
     });
 
+
     $('#selectFluids').on('click', function () {
         $('#selectFluidsForm').submit();
     });
+
+    /**
+     * start draw chart in Fluid page
+     * 
+     */
 
     var selectedSampleID = $('input[name="selectedSampleID"]').val();
     if(selectedSampleID != ""){
@@ -45,6 +61,8 @@ $(document).ready(function () {
         $('#sample'+selectedSampleID).show();
         FluidDrawChart(selectedSampleID);
     });
+
+    //----  end draw chart in fluid pagte  ----//
 })
 
 /**

@@ -38,7 +38,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
-    
+
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
 
@@ -50,7 +50,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::post('drillstringComp/store', 'DrillstringController@comp_store')->name('drillstringComp.store');
     Route::post('drillstringComp/update', 'DrillstringController@comp_update')->name('drillstringComp.update');
     Route::post('drillstringComp/destroy', 'DrillstringController@comp_destroy')->name('drillstringComp.destroy');
-    
+
     Route::post('drillstring/store', 'DrillstringController@store')->name('drillstring.store');
     Route::post('drillstring/update', 'DrillstringController@update')->name('drillstring.update');
     Route::post('drillstring/destroy', 'DrillstringController@destroy')->name('drillstring.destroy');
@@ -114,7 +114,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
     Route::post('fluids/store', 'FluidsController@store')->name('fluid.store');
     Route::post('fluids/destroy', 'FluidsController@destroy')->name('fluid.destroy');
     Route::post('fluids/update', 'FluidsController@update')->name('fluid.update');
-    
+
     Route::post('sample/store', 'SampleController@store')->name('sample.store');
     Route::post('sample/update', 'SampleController@update')->name('sample.update');
 
@@ -125,5 +125,7 @@ Route::post('/drillStringUpdate', 'WellboreController@drillStringUpdate');
 Route::post('setunit', 'FormationController@setunit')->name('formation.setunit');
 Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.getChartsData');
 Route::post('getChartsSampleData', 'SampleController@getChartsSampleData')->name('sample.getChartsSampleData');
+Route::post('getDataSimulation', 'SimulationController@getDataSimulation')->name('simulation.getDataSimulation');
+Route::post('getDataSimulationGuageAndSlider', 'SimulationController@getDataSimulationGuageAndSlider')->name('simulation.getDataSimulationGuageAndSlider');
 
 

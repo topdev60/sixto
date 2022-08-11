@@ -1,6 +1,6 @@
-var twod_plotly_chart_draw = function(data, title){
-    console.log(title);
-    var position = 'divplot';
+var twod_plotly_chart_draw = function(data, title, position){
+    if(position == undefined) position = '';
+    var position = 'divplot'+position;
     var trace = {
         x: data.x,
         y: data.y,

@@ -22,12 +22,13 @@ class WellboreController extends Controller
     public function index()
     {
         //
-        $selectedProjectId = Session::get('projectId');
+        $selectedProjectId = Session::has('projectId') ? Session::get('projectId') : 0;
         $drillstring = Drillstring::where('ProjectID', $selectedProjectId)->get();
         $surfPiping = Surfpiping::where('ProjectID', $selectedProjectId)->get();
         $wellboreInfo = WellBore::where('ProjectID', $selectedProjectId)->first();
-        $wellbore = $this->wellboreProcess($wellboreInfo);
-        $rigType = WellInfo::where('ProjectID', $selectedProjectId)->first()->rigtype;
+        $wellbore = isset($wellboreInfo) ? $this->wellboreProcess($wellboreInfo) : '';
+        $rigType = WellInfo::where('ProjectID', $selectedProjectId)->first();
+        if($rigType) $rigType = $rigType->rigtype;
         if(!Session::has('selectedDrillString')){
             $selectedDrillString = Drillstring::where('DS_ID', 1)->first();
             Session::put('selectedDrillString', $selectedDrillString);

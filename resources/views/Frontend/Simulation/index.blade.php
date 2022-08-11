@@ -1,5 +1,6 @@
 @extends('Frontend.layouts.app')
 @section('content')
+<script src="{{ asset('assets/js/simulation.js') }}"></script>
 <section class="home-section" id="home-section">
     <div class="container-fluid">
         {{---title---}}
@@ -16,6 +17,18 @@
                         Name: {{session()->get('projectInfo')->project_name}}
                     </div>
                 </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div id="divplot0"></div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div id="divplot1"></div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div id="divplot2"></div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div id="divplot3"></div>
             </div>
         </div>
     </div>
