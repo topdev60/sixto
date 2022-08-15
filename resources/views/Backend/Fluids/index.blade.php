@@ -21,7 +21,7 @@
             };
         @endphp
         <div class="row gy-4">
-            <div class="col-md-12 col-lg-7">
+            <div class="col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header clearfix">
                         <div class="float-start m-2">
@@ -29,6 +29,14 @@
                         </div>
                         <div class="float-start">
                             {{session()->get('fluidName')}}
+                        </div>
+                        <div class="float-start dropdown" style="margin-left: 81%">
+                            <button type="button" role="button" class="btn btn-primary p-0 mt-1" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Delete All Rows')}} </a></li>
+                            </ul>
                         </div>
                         <div class="float-end">
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addFluidModal"> +Add {{$module}} </button>
@@ -362,6 +370,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12 col-lg-6">
+                        <div id="divplot"></div>
+                    </div>
                     {{-- <div class="col-md-12 col-lg-3">
                         <div class="card">
                             <div class="card-header">Selection Area</div>
@@ -372,10 +383,6 @@
                         <button class="btn btn-primary mt-4">Update</button>
                     </div> --}}
                 </div>
-            </div>
-
-            <div class="col-md-12 col-lg-5">
-                <div id="divplot"></div>
             </div>
         </div>
     </div>

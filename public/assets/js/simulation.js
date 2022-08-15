@@ -41,14 +41,13 @@ var drawGuageAndSlider = function (selectedProjectId) {
         },
         type: 'POST',
         url: '/getDataSimulationGuageAndSlider',
-        dataType: 'json',
+        dataType: 'json',   
         success: function (response) {
             console.log(response);
             var i = 0;
             var l = 0;
             for(let key in response){
                 if (key == "guage") {
-
                     for(let k in response[key]){
                         var title = "Guage for " + k;
                         guage(response[key][k], title, i);
@@ -62,7 +61,7 @@ var drawGuageAndSlider = function (selectedProjectId) {
                         }else {
                             title = title + 'Temperature Gradient';
                         }
-                        slider(response[key][k], title, l);
+                        sliderDraw(response[key][k], title, l);
                         l++
                     }
                 }

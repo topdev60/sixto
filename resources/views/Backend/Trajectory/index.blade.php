@@ -15,7 +15,15 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-start">{{__('Survey Points')}}</div>
-                        <div class="float-end"><button type="button" data-bs-toggle="modal" data-bs-target="#addTrajectoryModal" class="btn btn-primary"><i class="fas fa-plus"></i> Add</button></div>
+                        <div class="float-start dropdown" style="margin-left: 70%">
+                            <button type="button" role="button" class="btn btn-primary p-0" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Delete All Rows')}} </a></li>
+                            </ul>
+                        </div>
+                        <div class="float-end"><button type="button" data-bs-toggle="modal" data-bs-target="#addTrajectoryModal" class="btn btn-primary p-0"><i class="fas fa-plus"></i> Add</button></div>
                     </div>
                     <div class="card-body overflow-auto clearfix">
                         <table id="dataTable" class="table table-responsive">
@@ -30,7 +38,15 @@
                                     <th class="text-center">{{__('ACTION')}}</th>
                                 </tr>
                                 <tr>
-                                    <th class="text-center">{{__('m')}}</th>
+                                    <th class="text-center">
+                                        <select name="" id="">
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                            <option value="">3</option>
+                                            <option value="">4</option>
+                                            <option value="">5</option>
+                                        </select>
+                                    </th>
                                     <th class="text-center">{{__('deg')}}</th>
                                     <th class="text-center">{{__('deg')}}</th>
                                     <th class="text-center">{{__('m')}}</th>
@@ -91,9 +107,6 @@
                 </div>
             </div>
             <div class="col-md-12 col-lg-6">
-                <div class="bg-secondary rounded p-3">
-                    DIV PLOT
-                </div>
                 <div id="divplot"></div>
             </div>
         </div>

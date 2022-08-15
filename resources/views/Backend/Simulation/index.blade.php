@@ -2,6 +2,7 @@
 @section('content')
 <script src="{{ asset('assets/js/simulation.js') }}"></script>
 <script src="{{ asset('assets/js/guage.js') }}"></script>
+
 <script src="{{ asset('assets/js/slider.js') }}"></script>
 <section class="home-section" id="home-section">
     <div class="container-fluid">
@@ -23,10 +24,10 @@
                                 <div id="guageDiv1"></div>
                             </div>
                             <div class="col-md-4 col-lg-4">
-                                <div id="sliderDiv0"></div>
+                                <div id="flat-slider" class="flat-slider-0"></div>
                             </div>
                             <div class="col-md-4 col-lg-4">
-                                <div id="sliderDiv1"></div>
+                                <div id="flat-slider" class="flat-slider-1"></div>
                             </div>
                         </div>
                     </div>
