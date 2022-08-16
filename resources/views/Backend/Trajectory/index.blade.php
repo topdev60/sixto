@@ -74,7 +74,7 @@
                                                         $selected = '';
                                                         if(isset($unitLenID))
                                                             if($item->id == $unitLenID) $selected = 'selected';
-                                                    @endphp 
+                                                    @endphp
                                                     <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                                 @endforeach
                                             </select></th>

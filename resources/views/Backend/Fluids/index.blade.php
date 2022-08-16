@@ -173,7 +173,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="" class="form-label">Rheology</label>
-                                                            <select class="form-control" name="rheology" 
+                                                            <select class="form-control" name="rheology"
                                                                 required>
                                                                     @foreach ($rheologyList as $key => $list)
                                                                         @php
@@ -240,7 +240,7 @@
                                             {{-- edit modal --}}
                                         </td>
                                     </tr>
-                                @endforeach                                    
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -392,7 +392,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <form action="{{ route('admin.fluid.store') }}" method="post">
-                @csrf            
+                @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="addFluidModalLabel">+ Add {{ __('Fluid') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -420,7 +420,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="" class="form-label">Rheology</label>
-                        <select class="form-control" name="rheology" 
+                        <select class="form-control" name="rheology"
                             required>
                                 @foreach ($rheologyList as $key => $list)
                                     <option value="{{$key}}">{{$list}}</option>

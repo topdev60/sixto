@@ -23,6 +23,8 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 Auth::routes();
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','isAdmin']], function(){
+    Route::resource('usermanagement', 'UserController');
+    Route::post('/usermanagement/update', 'UserController@update')->name('usermanagement.update');
     Route::get('project/index', 'ProjectController@index')->name('project.index');
     Route::resource('project', 'ProjectController');
     Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');

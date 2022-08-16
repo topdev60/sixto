@@ -38,7 +38,7 @@
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#"><i class="fas fa-user-circle fa-mr-1"></i>{{__('Profile')}}</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-users fa-mr-1"></i>{{__('Users')}}</a>
+                            <a class="dropdown-item" href="{{route('admin.usermanagement.index')}}"><i class="fas fa-users fa-mr-1"></i>{{__('Users')}}</a>
                             <a class="dropdown-item" href="#"><i class="fas fa-cog fa-mr-1"></i>{{__('Settings')}}</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
