@@ -1,4 +1,6 @@
 /* Google Font Link */
+
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
   margin: 0;
@@ -6,6 +8,7 @@
   box-sizing: border-box;
   font-family: "Poppins" , sans-serif;
 }
+
 .sidebar{
   position: fixed;
   left: 0;
@@ -332,7 +335,11 @@ Customize Styles
 .top-wrapper {
   width: 100%;
   height: 150px;
-  margin-bottom: 5%;
+  margin-bottom: 11%;
+}
+
+.gauge-input {
+  width: 70% !important;
 }
 
 #flat-slider.ui-slider {

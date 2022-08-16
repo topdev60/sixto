@@ -1,4 +1,4 @@
-@extends('Backend.layouts.app')
+@extends('Frontend.layouts.app')
 @section('content')
 <section class="home-section" id="home-section">
     <div class="container-fluid">
@@ -7,15 +7,23 @@
             <div class="h4 mb-0">
                 {{$module}}
             </div>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addModal"> Switch 2D/3D {{$module}} </button>
+            <a class="btn btn-secondary" id="switchCharts"> Switch 2D/3D {{$module}} </a>
         </div>
         {{---title---}}
         <div class="row gy-4">
             <div class="col-md-12 col-lg-6">
                 <div class="card">
-                    <div class="card-header clearfix">
+                    <div class="card-header">
                         <div class="float-start">{{__('Survey Points')}}</div>
-                        <div class="float-end"><button type="button" data-bs-toggle="modal" data-bs-target="#addTrajectoryModal" class="btn btn-primary"><i class="fas fa-plus"></i> Add</button></div>
+                        <div class="float-start dropdown" style="margin-left: 70%">
+                            <button type="button" role="button" class="btn btn-primary p-0" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Delete All Rows')}} </a></li>
+                            </ul>
+                        </div>
+                        <div class="float-end"><button type="button" data-bs-toggle="modal" data-bs-target="#addTrajectoryModal" class="btn btn-primary p-0"><i class="fas fa-plus"></i> Add</button></div>
                     </div>
                     <div class="card-body overflow-auto clearfix">
                         <table id="dataTable" class="table table-responsive">
@@ -30,24 +38,69 @@
                                     <th class="text-center">{{__('ACTION')}}</th>
                                 </tr>
                                 <tr>
-                                    <th class="text-center">{{__('m')}}</th>
-                                    <th class="text-center">{{__('deg')}}</th>
-                                    <th class="text-center">{{__('deg')}}</th>
-                                    <th class="text-center">{{__('m')}}</th>
-                                    <th class="text-center">{{__('m')}}</th>
-                                    <th class="text-center">{{__('m')}}</th>
-                                    <th class="text-center">{{__(' ')}}</th>
+                                @php
+                                    $unitLenID = session()->get('unitLenID');
+                                    $unitLenValue = session()->get('unitLenValue');
+                                @endphp
+                                    <form action="{{route('survey.setunit')}}" method="post" id="selectSurveyUnitForm">
+                                    @csrf
+                                        <th class="text-center">
+                                            <select name="length" class="setUnitForSurvey">
+                                                @foreach ($lengthUnits as $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitLenID))
+                                                            if($item->id == $unitLenID) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </th>
+                                        <th class="text-center">{{__('deg')}}</th>
+                                        <th class="text-center">{{__('deg')}}</th>
+                                        <th class="text-center"><select name="lengtha" class="setUnitForSurvey">
+                                                @foreach ($lengthUnits as $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitLenID))
+                                                            if($item->id == $unitLenID) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select></th>
+                                        <th class="text-center"><select name="lengtha" class="setUnitForSurvey">
+                                                @foreach ($lengthUnits as $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitLenID))
+                                                            if($item->id == $unitLenID) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select></th>
+                                        <th class="text-center"><select name="lengtha" class="setUnitForSurvey">
+                                                @foreach ($lengthUnits as $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitLenID))
+                                                            if($item->id == $unitLenID) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select></th>
+                                        <th class="text-center">{{__(' ')}}</th>
+                                    </form>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($trajectories as $traj)
                                     <tr>
-                                        <td class="text-center">{{$traj->MD}}</td>
-                                        <td class="text-center">{{$traj->Inc}}</td>
-                                        <td class="text-center">{{$traj->Azimuth}}</td>
-                                        <td class="text-center">{{$traj->TVD}}</td>
-                                        <td class="text-center">{{$traj->North}}</td>
-                                        <td class="text-center">{{$traj->East}}</td>
+                                        <td class="text-center"> @if(isset($unitLenValue)) {{$traj->MD * $unitLenValue}} @else {{$traj->MD}} @endif</td>
+                                        <td class="text-center"> {{$traj->Inc}} </td>
+                                        <td class="text-center"> {{$traj->Azimuth}} </td>
+                                        <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->TVD * $unitLenValue}} @else {{$traj->TVD}} @endif</td>
+                                        <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->North * $unitLenValue}} @else {{$traj->North}} @endif</td>
+                                        <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->East * $unitLenValue}} @else  {{$traj->East}} @endif</td>
                                         <td class="text-center"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteTrajectoryModal{{$traj->id}}"><i class="fas fa-minus"></i></button></td>
                                         <div class="modal fade" id="deleteTrajectoryModal{{ $traj->id }}" data-bs-backdrop="static"
                                             data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
@@ -55,7 +108,7 @@
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                <form action="{{ route('user.survey.destroy') }}" method="post" id="deleteTrajectory{{ $traj->id }}">
+                                            <form action="{{ route('user.survey.destroy') }}" method="post" id="deleteTrajectory{{ $traj->id }}">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $traj->id }}">
                                                     <div class="p-4 text-center">
@@ -85,15 +138,12 @@
                             </tbody>
                         </table>
                         <div class="float-end">
-                            {{$trajectories->links()}}
+                            {{ $trajectories->links() }}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12 col-lg-6">
-                <div class="bg-secondary rounded p-3">
-                    DIV PLOT
-                </div>
                 <div id="divplot"></div>
             </div>
         </div>
@@ -104,7 +154,7 @@
                 <form action="{{ route('user.survey.store') }}" method="post">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">+ Add {{ __('$module') }}</h5>
+                    <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Trajectory') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

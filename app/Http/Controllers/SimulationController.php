@@ -187,21 +187,21 @@ class SimulationController extends Controller
         $data = array(
             'guage'                     => array(
                 'pressure'                  => $pressureValue,
+                'ppValue'                   => $ppValue,
                 'temperature'               => $temperatureValue,
+                'tgvalue'                   => $tgValue,
                 // 'title'                     => array(
                 //     'pressure'              => 'Pressure',
                 //     'temperature'           => 'Temperature',
                 // )
             ),
 
-            'slider'                    => array(
-                'ppValue'                   => $ppValue,
-                'tgvalue'                   => $tgValue,
-                // 'title'                     => array(
-                //     'pp'                      => 'Pore Pressure',
-                //     'tg'                      => 'Temperature Gradient',
-                // )
-            ),
+            // 'slider'                    => array(
+            //     // 'title'                     => array(
+            //     //     'pp'                      => 'Pore Pressure',
+            //     //     'tg'                      => 'Temperature Gradient',
+            //     // )
+            // ),
         );
 
         return response()->json($data);

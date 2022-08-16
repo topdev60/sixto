@@ -15,38 +15,64 @@
         <div class="row gy-4">
             <div class="col-md-12 col-lg-12 top-wrapper">
                 <div class="row gy-4">
-                    <div class="col-md-8 col-lg-8">
+                    <div class="col-md-12 col-lg-12">
                         <div class="row">
-                            <div class="col-md-4 col-lg-4">
-                                <div id="guageDiv0"></div>
+                            <div class="col-md-3 col-lg-3">
+                                <div id="guageDiv0" data-value="pressure" data-type="pressureData" class="gauge"></div>
+                                <div class="input-group mb-3 gauge-input">
+                                    <button class="btn btn-outline-info btn-input-number" type="button">Click to Add</button>
+                                    <input type="number" class="form-control value" step="0.01" placeholder="Value">
+                                    <input type="number" class="form-control tvd" step="0.01" placeholder="TVD">
+                                </div>
                             </div>
-                            <div class="col-md-4 col-lg-4">
-                                <div id="guageDiv1"></div>
+                            <div class="col-md-3 col-lg-3">
+                                <div id="guageDiv1" data-value="ppValue" data-type="porepressureData" class="gauge"></div>
+                                <div class="input-group mb-3 gauge-input">
+                                    <button class="btn btn-outline-info btn-input-number" type="button">Click to Add</button>
+                                    <input type="number" class="form-control value" step="0.01" placeholder="Value">
+                                    <input type="number" class="form-control tvd" step="0.01" placeholder="TVD">
+                                </div>
                             </div>
-                            <div class="col-md-4 col-lg-4">
+                            <div class="col-md-3 col-lg-3">
+                                <div id="guageDiv2" data-value="temperature" data-type="temperatureData" class="gauge"></div>
+                                <div class="input-group mb-3 gauge-input">
+                                    <button class="btn btn-outline-info btn-input-number" type="button">Click to Add</button>
+                                    <input type="number" class="form-control value" step="0.01" placeholder="Value">
+                                    <input type="number" class="form-control tvd" step="0.01" placeholder="TVD">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-lg-3">
+                                <div id="guageDiv3" data-value="tgValue" data-type="temperatureGradientData" class="gauge"></div>
+                                <div class="input-group mb-3 gauge-input">
+                                    <button class="btn btn-outline-info btn-input-number" type="button">Click to Add</button>
+                                    <input type="number" class="form-control value" step="0.01" placeholder="Value">
+                                    <input type="number" class="form-control tvd" step="0.01" placeholder="TVD">
+                                </div>
+                            </div>
+                            {{-- <div class="col-md-4 col-lg-4">
                                 <div id="flat-slider" class="flat-slider-0"></div>
                             </div>
                             <div class="col-md-4 col-lg-4">
                                 <div id="flat-slider" class="flat-slider-1"></div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-4">
+                    {{-- <div class="col-md-4 col-lg-4">
                         Name: {{session()->get('projectInfo')->project_name}}
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div id="divplot0"></div>
+                <div id="divplot0" data-type="pressureData"></div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div id="divplot1"></div>
+                <div id="divplot1" data-type="porepressureData"></div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div id="divplot2"></div>
+                <div id="divplot2" data-type="temperatureData"></div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <div id="divplot3"></div>
+                <div id="divplot3" data-type="temperatureGradientData"></div>
             </div>
         </div>
     </div>

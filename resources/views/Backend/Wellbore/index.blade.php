@@ -176,7 +176,7 @@
                                         <div class="col-auto">
                                             <input type="checkbox" class="form-check-input" id="tfa_checkbox" name="tfa">
                                         </div>
-                                        <div class="col-auto">
+                                        <div class="col-auto" style="width:45%">
                                             <input type="text" class="form-control" name="tfain2" id="tfain2" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_TFA}}" @endif>
                                         </div>
                                         <div class="col-auto">
