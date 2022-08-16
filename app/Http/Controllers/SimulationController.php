@@ -189,7 +189,7 @@ class SimulationController extends Controller
                 'pressure'                  => $pressureValue,
                 'ppValue'                   => $ppValue,
                 'temperature'               => $temperatureValue,
-                'tgvalue'                   => $tgValue,
+                'tgValue'                   => $tgValue,
                 // 'title'                     => array(
                 //     'pressure'              => 'Pressure',
                 //     'temperature'           => 'Temperature',
