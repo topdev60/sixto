@@ -1,4 +1,4 @@
-@extends('Backend.layouts.app')
+@extends('Frontend.layouts.app')
 @section('content')
 <script src="{{ asset('assets/js/simulation.js') }}"></script>
 <script src="{{ asset('assets/js/guage.js') }}"></script>
@@ -20,24 +20,28 @@
                             <div class="col-md-3 col-lg-3">
                                 <div id="guageDiv0" data-value="pressure" data-type="pressureData" class="gauge"></div>
                                 <div class="input-group mb-3 gauge-input">
+                                    <button class="btn btn-outline-info btn-input-number" type="button">Click to Add</button>
                                     <input type="number" class="form-control input-value value" step="0.01" placeholder="Value">
                                 </div>
                             </div>
                             <div class="col-md-3 col-lg-3">
                                 <div id="guageDiv1" data-value="ppValue" data-type="porepressureData" class="gauge"></div>
                                 <div class="input-group mb-3 gauge-input">
+                                    <button class="btn btn-outline-info btn-input-number" type="button">Click to Add</button>
                                     <input type="number" class="form-control input-value value" step="0.01" placeholder="Value">
                                 </div>
                             </div>
                             <div class="col-md-3 col-lg-3">
                                 <div id="guageDiv2" data-value="temperature" data-type="temperatureData" class="gauge"></div>
                                 <div class="input-group mb-3 gauge-input">
+                                    <button class="btn btn-outline-info btn-input-number" type="button">Click to Add</button>
                                     <input type="number" class="form-control input-value value" step="0.01" placeholder="Value">
                                 </div>
                             </div>
                             <div class="col-md-3 col-lg-3">
                                 <div id="guageDiv3" data-value="tgValue" data-type="temperatureGradientData" class="gauge"></div>
                                 <div class="input-group mb-3 gauge-input">
+                                    <button class="btn btn-outline-info btn-input-number" type="button">Click to Add</button>
                                     <input type="number" class="form-control input-value value" step="0.01" placeholder="Value">
                                 </div>
                             </div>

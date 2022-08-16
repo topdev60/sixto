@@ -2,7 +2,7 @@ $(document).ready(function () {
     var selectedProjectId = $('#projectId').val();
     drawSimulationChart(selectedProjectId);
     drawGuageAndSlider(selectedProjectId);
-
+    /*
     $('.btn-input-number').on('click', function () {
         var gauge_id        = $(this).parent().siblings('.gauge').attr('id');
         var dataTypeKey     = $(this).parent().siblings('.gauge').data('type');
@@ -25,6 +25,16 @@ $(document).ready(function () {
 
         twod_plotly_chart_draw(dataPlot, dataPlot.title, div_i);
         var title = "Guage for " + dataValueKey;
+        guage(dataValueResult, title, div_i);
+    })
+    */
+
+    $('.input-value').on('change', function(){
+        var gauge_id        = $(this).parent().siblings('.gauge').attr('id');
+        var div_i           = gauge_id.split('guageDiv')[1];
+        var dataValueKey    = $(this).parent().siblings('.gauge').data('value');
+        var title           = "Guage for " + dataValueKey;
+        var dataValueResult = $(this).val();
         guage(dataValueResult, title, div_i);
     })
 });
