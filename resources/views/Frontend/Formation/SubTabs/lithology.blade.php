@@ -103,7 +103,7 @@
                                     <td class="text-center"> @if(isset($length)) {{$item->TVD * $length}} @else {{$item->TVD}} @endif </td>
                                     <td class="text-center"> @if(isset($pressure)) {{$item->TC * $pressure}} @else {{$item->TC}} @endif </td>
                                     <td class="text-center"> @if(isset($pressure)) {{$item->SH * $pressure}} @else {{$item->SH}} @endif </td>
-                                    <td class="text-center"> 
+                                    <td class="text-center">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#delete{{$item->LithoID}}">
                                             <i class="fas fa-trash"></i>

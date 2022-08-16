@@ -15,6 +15,7 @@ $(document).ready(function () {
     if ($('#tabType').val()) {
         chartDataType = $('#tabType').val();
     }
+
     /**
      * draw common chart for project, trajectory, wellbore, drillstring page
      * @param projectId
@@ -39,6 +40,26 @@ $(document).ready(function () {
     $('#selectFluids').on('click', function () {
         $('#selectFluidsForm').submit();
     });
+
+    $('.setUnitForSurvey').on('change', function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data:{
+                'length': $(this).val(),
+            },
+            type: 'POST',
+            url: '/setunitForSurvey',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                }
+            }
+        })
+    })
 
     /**
      * start draw chart in Fluid page

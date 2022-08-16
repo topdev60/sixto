@@ -9,6 +9,7 @@
                         {{__('Fracture Pressure')}}
                     </div>
                     <div class="float-end">
+                        <button type="button" class="btn btn-primary p-0"><i class="fas fa-cog"></i></button>
                     </div>
                 </div>
                 <div class="card-body overflow-auto clearfix">
@@ -30,7 +31,7 @@
                                 @endphp
                                 <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
                                     @csrf
-                                    
+
                                     <th class="text-center">
                                         <select name="length" id="setUnit">
                                             @foreach ($lengthUnits as $key => $item)
@@ -88,7 +89,7 @@
                                     <td class="text-center"> @if(isset($length)) {{$item->TVD * $length}} @else {{$item->TVD}} @endif </td>
                                     <td class="text-center"> @if(isset($density)) {{$item->FG * $density}} @else {{$item->FG}} @endif </td>
                                     <td class="text-center"> @if(isset($pressure)) {{$item->Pressure * $pressure}} @else {{$item->Pressure}} @endif </td>
-                                    <td class="text-center"> 
+                                    <td class="text-center">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->FG_ID}}"><i class="fas fa-minus"></i></button>
                                         <div class="modal fade" id="delete{{ $item->FG_ID }}" data-bs-backdrop="static"
                                             data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"

@@ -38,32 +38,69 @@
                                     <th class="text-center">{{__('ACTION')}}</th>
                                 </tr>
                                 <tr>
-                                    <th class="text-center">
-                                        <select name="" id="">
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4</option>
-                                            <option value="">5</option>
-                                        </select>
-                                    </th>
-                                    <th class="text-center">{{__('deg')}}</th>
-                                    <th class="text-center">{{__('deg')}}</th>
-                                    <th class="text-center">{{__('m')}}</th>
-                                    <th class="text-center">{{__('m')}}</th>
-                                    <th class="text-center">{{__('m')}}</th>
-                                    <th class="text-center">{{__(' ')}}</th>
+                                @php
+                                    $unitLenID = session()->get('unitLenID');
+                                    $unitLenValue = session()->get('unitLenValue');
+                                @endphp
+                                    <form action="{{route('survey.setunit')}}" method="post" id="selectSurveyUnitForm">
+                                    @csrf
+                                        <th class="text-center">
+                                            <select name="length" class="setUnitForSurvey">
+                                                @foreach ($lengthUnits as $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitLenID))
+                                                            if($item->id == $unitLenID) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </th>
+                                        <th class="text-center">{{__('deg')}}</th>
+                                        <th class="text-center">{{__('deg')}}</th>
+                                        <th class="text-center"><select name="lengtha" class="setUnitForSurvey">
+                                                @foreach ($lengthUnits as $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitLenID))
+                                                            if($item->id == $unitLenID) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select></th>
+                                        <th class="text-center"><select name="lengtha" class="setUnitForSurvey">
+                                                @foreach ($lengthUnits as $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitLenID))
+                                                            if($item->id == $unitLenID) $selected = 'selected';
+                                                    @endphp 
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select></th>
+                                        <th class="text-center"><select name="lengtha" class="setUnitForSurvey">
+                                                @foreach ($lengthUnits as $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitLenID))
+                                                            if($item->id == $unitLenID) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select></th>
+                                        <th class="text-center">{{__(' ')}}</th>
+                                    </form>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($trajectories as $traj)
                                     <tr>
-                                        <td class="text-center">{{$traj->MD}}</td>
-                                        <td class="text-center">{{$traj->Inc}}</td>
-                                        <td class="text-center">{{$traj->Azimuth}}</td>
-                                        <td class="text-center">{{$traj->TVD}}</td>
-                                        <td class="text-center">{{$traj->North}}</td>
-                                        <td class="text-center">{{$traj->East}}</td>
+                                        <td class="text-center"> @if(isset($unitLenValue)) {{$traj->MD * $unitLenValue}} @else {{$traj->MD}} @endif</td>
+                                        <td class="text-center"> {{$traj->Inc}} </td>
+                                        <td class="text-center"> {{$traj->Azimuth}} </td>
+                                        <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->TVD * $unitLenValue}} @else {{$traj->TVD}} @endif</td>
+                                        <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->North * $unitLenValue}} @else {{$traj->North}} @endif</td>
+                                        <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->East * $unitLenValue}} @else  {{$traj->East}} @endif</td>
                                         <td class="text-center"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteTrajectoryModal{{$traj->id}}"><i class="fas fa-minus"></i></button></td>
                                         <div class="modal fade" id="deleteTrajectoryModal{{ $traj->id }}" data-bs-backdrop="static"
                                             data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"

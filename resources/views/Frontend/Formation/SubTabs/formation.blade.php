@@ -31,7 +31,7 @@
                                 @endphp
                                 <form action="{{route('formation.setunit')}}" method="POST" id="setUnitForm">
                                     @csrf
-                                    
+
                                     <th class="text-center">
                                         <select name="length" id="setUnit">
                                             @foreach ($lengthUnits as $key => $item)
@@ -107,7 +107,7 @@
                                             {{$item->Temperature}}
                                         @endif
                                     </td>
-                                    <td class="text-center"> 
+                                    <td class="text-center">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{$item->TempID}}"><i class="fas fa-minus"></i></button>
                                         <div class="modal fade" id="delete{{ $item->TempID }}" data-bs-backdrop="static"
                                             data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"

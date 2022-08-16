@@ -7,6 +7,7 @@ use App\Models\Survey;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SurveyController extends Controller
 {
@@ -18,16 +19,23 @@ class SurveyController extends Controller
     protected $module = 'Survey';
     public function index()
     {
+        $lengthUnits = DB::table('standard_unit')->where('concept_id', 5)->get();
         if(Auth::user()->role == 1){
             if(Session::has('projectId')){
                 $trajactories = Survey::where('projectID', Session::get('projectId'))->paginate(10);
             }else {
                 $trajactories = Survey::all();
             }
-            return view('Backend.Trajectory.index')->with('trajectories', $trajactories)->with('module', $this->module);
+            return view('Backend.Trajectory.index')
+                ->with('trajectories', $trajactories)
+                ->with('module', $this->module)
+                ->with('lengthUnits', $lengthUnits);
         }else {
             $trajactories = Survey::where('projectID', Session::get('projectId'))->paginate(10);
-            return view('Frontend.Trajectory.index')->with('trajectories', $trajactories)->with('module', $this->module);
+            return view('Frontend.Trajectory.index')
+                ->with('trajectories', $trajactories)
+                ->with('module', $this->module)
+                ->with('lengthUnits', $lengthUnits);
         }
     }
 
@@ -94,6 +102,19 @@ class SurveyController extends Controller
     public function update(Request $request, Survey $survey)
     {
         //
+    }
+
+    public function setUnit(Request $request)
+    {
+        $length_id = isset($request->length) ? $request->length : 22;
+        $length = DB::table('standard_unit')->where('id', $length_id)->first()->value;
+
+        $unitLenValue = $length;
+        $unitLenID = $length_id;
+        // dd($unitLenValue);
+        Session::put('unitLenValue', $unitLenValue);
+        Session::put('unitLenID', $unitLenID);
+        return 1;
     }
 
     /**

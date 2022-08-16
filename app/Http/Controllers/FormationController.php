@@ -41,21 +41,21 @@ class FormationController extends Controller
                 ->with('tempUnits', $tempUnits)
                 ->with('flowUnits', $flowUnits)
                 ->with('densityUnits', $densityUnits)
-                ->with('lengthUnits', $lengthUnits);    
+                ->with('lengthUnits', $lengthUnits);
         }
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
     */
-    
+
     public function create()
     {
         //
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -76,7 +76,7 @@ class FormationController extends Controller
             return 'Error';
         }
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -241,7 +241,7 @@ class FormationController extends Controller
     /**
      * allocate units into Session
      * @param Request $request
-     * 
+     *
      */
 
      public function setunit(Request $request)

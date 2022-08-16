@@ -123,6 +123,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], fu
 });
 Route::post('/drillStringUpdate', 'WellboreController@drillStringUpdate');
 Route::post('setunit', 'FormationController@setunit')->name('formation.setunit');
+Route::post('setunitForSurvey', 'SurveyController@setunit')->name('survey.setunit');
 Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.getChartsData');
 Route::post('getChartsSampleData', 'SampleController@getChartsSampleData')->name('sample.getChartsSampleData');
 Route::post('getDataSimulation', 'SimulationController@getDataSimulation')->name('simulation.getDataSimulation');
