@@ -2,6 +2,7 @@
 <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
 @section('content')
 <div class="container">
+    
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card login-card">

@@ -16,10 +16,10 @@ class PermissionIsValid
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user() && Auth::user()->permission == 1){
-            return $next($request);
-        }else{
-            return redirect('/login')->with('error', 'You have not admin access');
+        if(Auth::user()->permission != 1){
+           Auth::logout();
+           return redirect('/')->with('error', 'You should contact admin to accept you.');
         }
+        return $next($request);
     }
 }

@@ -74,7 +74,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::resource('simulation', 'SimulationController');
 });
 
-Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth']], function(){
+Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isPermissionValid']], function(){
     Route::get('project/index', 'ProjectController@index')->name('project.index');
     Route::resource('project', 'ProjectController');
     Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
