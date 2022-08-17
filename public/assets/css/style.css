@@ -342,6 +342,11 @@ Customize Styles
   width: 70% !important;
 }
 
+.btn-group-custom {
+  width: 50%;
+  margin: 0 auto;
+}
+
 #flat-slider.ui-slider {
     background: #d5cebc;
     border: none;

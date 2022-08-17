@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
-use App\Models\Survey;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
+use App\Models\Survey;
+use App\Models\UnitForUser;
 
 class SurveyController extends Controller
 {
@@ -18,7 +20,14 @@ class SurveyController extends Controller
      */
     protected $module = 'Survey';
     public function index()
-    {
+    {   
+        $defaultUnit        = UnitForUser::select('Length')->where('UserID', Auth::id())->first();
+        $userLengthUnitId   = $defaultUnit->Length != null ? $defaultUnit->Length : 22;
+
+        if(!Session::has('unitLenID') && !Session::has('unitLenValue')){
+            $this->setSessionLenUnit($userLengthUnitId);
+        }
+
         $lengthUnits = DB::table('standard_unit')->where('concept_id', 5)->get();
         if(Auth::user()->role == 1){
             if(Session::has('projectId')){
@@ -107,14 +116,19 @@ class SurveyController extends Controller
     public function setUnit(Request $request)
     {
         $length_id = isset($request->length) ? $request->length : 22;
-        $length = DB::table('standard_unit')->where('id', $length_id)->first()->value;
+        $this->setSessionLenUnit($length_id);
+        return 1;
+    }
+
+    public function setSessionLenUnit($id)
+    {
+        $length = DB::table('standard_unit')->where('id', $id)->first()->value;
 
         $unitLenValue = $length;
-        $unitLenID = $length_id;
+        $unitLenID = $id;
         // dd($unitLenValue);
         Session::put('unitLenValue', $unitLenValue);
         Session::put('unitLenID', $unitLenID);
-        return 1;
     }
 
     /**

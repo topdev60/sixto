@@ -68,10 +68,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::post('fluids/destroy', 'FluidsController@destroy')->name('fluid.destroy');
     Route::post('fluids/update', 'FluidsController@update')->name('fluid.update');
 
-    Route::post('sample/store', 'SampleController@store')->name('sample.store');
     Route::post('sample/update', 'SampleController@update')->name('sample.update');
 
     Route::resource('simulation', 'SimulationController');
+    Route::resource('units', 'UnitController');
+    Route::post('units/update', 'UnitController@update')->name('units.update');
 });
 
 Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isPermissionValid']], function(){
@@ -121,7 +122,8 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
     Route::post('sample/update', 'SampleController@update')->name('sample.update');
 
     Route::resource('simulation', 'SimulationController');
-
+    Route::resource('units', 'UnitController');
+    Route::post('units/update', 'UnitController@update')->name('units.update');
 });
 Route::post('/drillStringUpdate', 'WellboreController@drillStringUpdate');
 Route::post('setunit', 'FormationController@setunit')->name('formation.setunit');

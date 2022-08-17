@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fgpressure;
-use App\Models\Lithology;
-use App\Models\Popressure;
-use App\Models\Temperature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+
+use App\Models\Lithology;
+use App\Models\Popressure;
+use App\Models\Temperature;
+use App\Models\Fgpressure;
+use App\Models\UnitForUser;
 
 class FormationController extends Controller
 {
@@ -25,9 +27,13 @@ class FormationController extends Controller
         $porepressure = Popressure::where('ProjectID', $selectedProjectId)->paginate(10);
         $pressureUnits = DB::table('standard_unit')->where('concept_id', 1)->get();
         $tempUnits = DB::table('standard_unit')->where('concept_id', 2)->get();
-        $flowUnits = DB::table('standard_unit')->where('concept_id', 3)->get();
-        $densityUnits = DB::table('standard_unit')->where('concept_id', 4)->get();
+        $densityUnits = DB::table('standard_unit')->where('concept_id', 3)->get();
+        $flowUnits = DB::table('standard_unit')->where('concept_id', 4)->get();
         $lengthUnits = DB::table('standard_unit')->where('concept_id', 5)->get();
+
+        if (!Session::has('unitIds') && !Session::has('unitValues')) {
+            $this->setSessionUnits();
+        }
         if(Auth::user()->role == 1){
             return view('Backend.Formation.SubTabs.porepressure')->with('porepressure', $porepressure)->with('module', $module)->with('tab', 1)
                 ->with('pressureUnits', $pressureUnits)
@@ -88,8 +94,8 @@ class FormationController extends Controller
         $selectedProjectId = Session::get('projectId');
         $pressureUnits = DB::table('standard_unit')->where('concept_id', 1)->get();
         $tempUnits = DB::table('standard_unit')->where('concept_id', 2)->get();
-        $flowUnits = DB::table('standard_unit')->where('concept_id', 3)->get();
-        $densityUnits = DB::table('standard_unit')->where('concept_id', 4)->get();
+        $densityUnits = DB::table('standard_unit')->where('concept_id', 3)->get();
+        $flowUnits = DB::table('standard_unit')->where('concept_id', 4)->get();
         $lengthUnits = DB::table('standard_unit')->where('concept_id', 5)->get();
         switch ($slug) {
             case 'porepressure':
@@ -248,8 +254,8 @@ class FormationController extends Controller
      {
 
         $length_id = isset($request->length) ? $request->length : 22;
-        $pressure_id = isset($request->pressure) ? $request->pressure: 16;
-        $density_id = isset($request->density) ? $request->density : 1;
+        $pressure_id = isset($request->pressure) ? $request->pressure: 1;
+        $density_id = isset($request->density) ? $request->density : 16;
         $temp_id = isset($request->temp) ? $request->temp : 5;
         $temp_id = isset($request->tempGrad) ? $request->tempGrad : 5;
 
@@ -259,9 +265,9 @@ class FormationController extends Controller
         // $densityUnits
         // $lengthUnits
 
-        $length = DB::table('standard_unit')->where('id', $length_id)->first()->value;
-        $pressure = DB::table('standard_unit')->where('id', $pressure_id)->first()->value;
-        $density = DB::table('standard_unit')->where('id', $density_id)->first()->value;
+        $length     = DB::table('standard_unit')->where('id', $length_id)->first()->value;
+        $pressure   = DB::table('standard_unit')->where('id', $pressure_id)->first()->value;
+        $density    = DB::table('standard_unit')->where('id', $density_id)->first()->value;
 
         $unitValues = array(
             'length' => $length,
@@ -281,6 +287,42 @@ class FormationController extends Controller
         Session::put('unitValues', $unitValues);
         Session::put('unitIds', $unitIds);
         return redirect()->back();
+    }
+
+    public function setSessionUnits()
+    {
+        $userPressureId     = UnitForUser::select('Pressure')->where('UserID', Auth::id())->first();
+        $userTemperatureId  = UnitForUser::select('Temperature')->where('UserID', Auth::id())->first();
+        $userDensityId      = UnitForUser::select('Density')->where('UserID', Auth::id())->first();
+        $userFlowId         = UnitForUser::select('Flow')->where('UserID', Auth::id())->first();
+        $userLengthId       = UnitForUser::select('Length')->where('UserID', Auth::id())->first();
+
+        $pressure_id        = $userPressureId->Pressure != null ? $userPressureId->Pressure: 1;
+        $temp_id            = $userTemperatureId->Temperature != null ? $userTemperatureId->Temperature : 5;
+        $density_id         = $userDensityId->Density != null ? $userDensityId->Density : 16;
+        $length_id          = $userLengthId->Length != null ? $userLengthId->Length : 22;
+
+        $length     = DB::table('standard_unit')->where('id', $length_id)->first()->value;
+        $pressure   = DB::table('standard_unit')->where('id', $pressure_id)->first()->value;
+        $density    = DB::table('standard_unit')->where('id', $density_id)->first()->value;
+
+        $unitValues = array(
+            'length' => $length,
+            'pressure' => $pressure,
+            'density' => $density,
+        );
+
+        $unitIds = array(
+            'length_id' => $length_id,
+            'pressure_id' => $pressure_id,
+            'density_id' => $density_id,
+            'temp_id' => $temp_id,
+        );
+
+        $unitValues = json_encode($unitValues);
+        $unitIds = json_encode($unitIds);
+        Session::put('unitValues', $unitValues);
+        Session::put('unitIds', $unitIds);
     }
 
     /**

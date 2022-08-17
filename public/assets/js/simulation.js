@@ -49,8 +49,6 @@ $(document).ready(function () {
     })
 });
 
-
-
 var drawSimulationChart = function (selectedProjectId) {
 
     $.ajaxSetup({

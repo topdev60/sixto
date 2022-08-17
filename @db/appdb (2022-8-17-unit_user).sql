@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2022 at 05:39 PM
+-- Generation Time: Aug 17, 2022 at 06:06 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.0
 
@@ -36,22 +36,33 @@ CREATE TABLE `drillstring` (
   `Bit_Size` float DEFAULT 0,
   `Bit_TFA` float DEFAULT 0,
   `PWD_Distance` float DEFAULT 0,
-  `PWD_Drop` float DEFAULT 0
+  `PWD_Drop` float DEFAULT 0,
+  `N0_N` int(11) NOT NULL DEFAULT 0,
+  `N0_SIZE` float NOT NULL DEFAULT 0,
+  `N1_N` int(11) NOT NULL DEFAULT 0,
+  `N1_SIZE` float NOT NULL DEFAULT 0,
+  `N2_N` int(11) NOT NULL DEFAULT 0,
+  `N2_SIZE` float NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `drillstring`
 --
 
-INSERT INTO `drillstring` (`DS_ID`, `ProjectID`, `Description`, `Bit_type`, `Bit_position`, `Bit_Size`, `Bit_TFA`, `PWD_Distance`, `PWD_Drop`) VALUES
-(1, 1, 'BHA#1', 1, 5200, 6.5, 0.775, 100, 200),
-(2, 1, 'BHA#2', 1, 8200, 8.25, 0.775, 1000, 20),
-(3, 1, 'BHA#3', 1, 3200, 8.5, 0.775, 1000, 0),
-(4, 2, 'BHA#1x2', 1, 6200, 6.45, 0.775, 500, 0),
-(5, 3, 'BHA#1x3', 1, 5400, 6.35, 0.775, 0, 270),
-(6, 4, 'BHA#1x4', 1, 2000, 6.25, 0.775, 200, 0),
-(7, 5, 'BHA#1x5', 1, 3450, 6.5, 0.775, 150, 300),
-(8, 6, 'BHA#1x6', 1, 5900, 6, 0.775, 0, 250);
+INSERT INTO `drillstring` (`DS_ID`, `ProjectID`, `Description`, `Bit_type`, `Bit_position`, `Bit_Size`, `Bit_TFA`, `PWD_Distance`, `PWD_Drop`, `N0_N`, `N0_SIZE`, `N1_N`, `N1_SIZE`, `N2_N`, `N2_SIZE`, `created_at`, `updated_at`) VALUES
+(1, 1, 'BHA#1', 2, 5191, 6.52, 0.7752, 100, 200, 4, 1, 2, -1, -1, 1, '2022-08-07 13:34:54', '2022-08-07 13:34:54'),
+(2, 1, 'BHA#2', 1, 3400, 8.099, 0.09, 1000, 20, 0, 0, 0, 0, 0, 0, '2022-08-07 13:34:54', '2022-08-07 13:34:54'),
+(3, 1, 'BHA#3', 1, 3026, 9.1, 0.81, 1000, 0, 0, 0, 0, 0, 0, 0, '2022-08-07 13:34:54', '2022-08-07 13:34:54'),
+(4, 2, 'BHA#1x2', 1, 6200, 6.45, 0.775, 500, 0, 0, 0, 0, 0, 0, 0, '2022-08-07 13:34:54', '2022-08-07 13:34:54'),
+(5, 3, 'BHA#1x3', 2, 5199, 6.52, 0.7752, 0, 270, 1, 1, 6, 0, 0, 2, '2022-08-07 13:34:54', '2022-08-07 13:34:54'),
+(6, 4, 'BHA#1x4', 1, 2000, 6.25, 0.775, 200, 0, 0, 0, 0, 0, 0, 0, '2022-08-07 13:34:54', '2022-08-07 13:34:54'),
+(7, 5, 'BHA#1x5', 1, 3450, 6.5, 0.775, 150, 300, 0, 0, 0, 0, 0, 0, '2022-08-07 13:34:54', '2022-08-07 13:34:54'),
+(8, 6, 'BHA#1x6', 1, 5900, 6, 0.775, 0, 250, 0, 0, 0, 0, 0, 0, '2022-08-07 13:34:54', '2022-08-07 13:34:54'),
+(9, 1, 'BHA@1-1', 1, 4300, 2111, 0.887, 2342, 234234, 0, 0, 0, 0, 0, 0, '2022-08-07 13:34:54', '2022-08-07 11:35:54'),
+(14, 1, 'BHA#1-2', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2022-08-08 09:33:19', '2022-08-08 09:33:19'),
+(15, 3, 'BHA#1--1_|User', 2, 1, 10, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, '2022-08-08 15:20:12', '2022-08-08 15:20:12');
 
 -- --------------------------------------------------------
 
@@ -67,53 +78,57 @@ CREATE TABLE `ds_comp` (
   `ID` float DEFAULT 0,
   `TJ` float DEFAULT 0,
   `Weight` float DEFAULT 0,
-  `Lenght` float DEFAULT 0
+  `Length` float DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ds_comp`
 --
 
-INSERT INTO `ds_comp` (`Comp_ID`, `DS_ID`, `Description`, `OD`, `ID`, `TJ`, `Weight`, `Lenght`) VALUES
-(1, 1, 'BHA', 8.25, 3.5, 9, 234, 200),
-(2, 1, 'Motor', 8, 4, 9.45, 56.8, 34.87),
-(3, 1, 'HWDP', 6, 3.6, 7, 67.3, 345.8),
-(4, 1, 'DP', 5, 4, 6.25, 12, 567.7),
-(5, 1, 'BHA', 8.25, 3.5, 9, 234, 200),
-(6, 1, 'Motor', 8, 4, 9.45, 56.8, 34.87),
-(7, 1, 'HWDP', 6, 3.6, 7, 67.3, 345.8),
-(8, 2, 'DP', 5, 4, 6.25, 12, 567.7),
-(9, 2, 'BHA', 8.25, 3.5, 9, 234, 200),
-(10, 2, 'Motor', 8, 4, 9.45, 56.8, 34.87),
-(11, 2, 'HWDP', 6, 3.6, 7, 67.3, 345.8),
-(12, 2, 'DP', 5, 4, 6.25, 12, 567.7),
-(13, 2, 'BHA', 8.25, 3.5, 9, 234, 200),
-(14, 2, 'Motor', 8, 4, 9.45, 56.8, 34.87),
-(15, 2, 'HWDP', 6, 3.6, 7, 67.3, 345.8),
-(16, 4, 'DP', 5, 4, 6.25, 12, 567.7),
-(17, 4, 'BHA', 8.25, 3.5, 9, 234, 200),
-(18, 4, 'Motor', 8, 4, 9.45, 56.8, 34.87),
-(19, 5, 'HWDP', 6, 3.6, 7, 67.3, 345.8),
-(20, 5, 'DP', 5, 4, 6.25, 12, 567.7),
-(25, 3, 'Stands DP HW 5\"', 5, 3, 6, 150, 268.04),
-(26, 3, 'XO 4 1/2\" IF Box X 4 \" IF Pin', 6.5, 3.25, 7.5, 187.5, 3.01),
-(27, 3, 'Gauge Carrier', 6.25, 3, 7.25, 181.25, 2.78),
-(28, 3, 'XO 4\" IF Box X 4 1/2 IF Pin', 6.5, 3.25, 7.5, 187.5, 2.85),
-(29, 3, 'Shock Absorber', 6.5, 2.25, 7.5, 187.5, 10.82),
-(30, 3, 'Hammer Jar', 6.75, 2.5, 7.75, 193.75, 16.4),
-(31, 3, 'XO', 6.75, 2.8125, 7.75, 193.75, 1.04),
-(32, 3, '6 DC ', 6.5, 2.8125, 7.5, 187.5, 186.23),
-(33, 3, 'XO', 6.75, 2.8125, 7.75, 193.75, 1.8),
-(34, 3, 'DC Monel 6 3/4\"', 6.75, 2.8125, 7.75, 193.75, 29.29),
-(35, 3, 'DC Monel 6 5/8\" (MWD)', 6.625, 2.8125, 7.625, 190.625, 29.12),
-(36, 3, 'U.B.H.O. 6 3/4\"', 6.75, 2.8125, 7.75, 193.75, 2.42),
-(37, 3, 'Stab 6 3/4\" x 8 1/4\"', 6.75, 2.8125, 7.75, 193.75, 4.59),
-(38, 3, 'VCP 6 3/4\"', 6.75, 2.8125, 7.75, 193.75, 2.95),
-(39, 3, 'Motor PWD 6 3/4\" x 8 1/4\" x 4\"', 6.75, 2.8125, 7.75, 193.75, 26.5),
-(21, 6, 'BHA', 8.25, 3.5, 9, 234, 200),
-(22, 6, 'Motor', 8, 4, 9.45, 56.8, 34.87),
-(23, 6, 'HWDP', 6, 3.6, 7, 67.3, 345.8),
-(24, 6, 'DP', 5, 4, 6.25, 12, 567.7);
+INSERT INTO `ds_comp` (`Comp_ID`, `DS_ID`, `Description`, `OD`, `ID`, `TJ`, `Weight`, `Length`, `created_at`, `updated_at`) VALUES
+(1, 1, 'BHA', 8.25, 3.5, 9, 234, 200, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(2, 1, 'Motor', 8, 4, 9.45, 56.8, 34.87, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(3, 1, 'HWDP', 6, 3.6, 7, 67.3, 345.8, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(4, 1, 'DP', 5, 4, 6.25, 12, 567.7, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(5, 1, 'BHA', 8.25, 3.5, 9, 234, 200, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(6, 1, 'Motor', 8, 4, 9.45, 56.8, 34.87, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(7, 1, 'HWDP', 6, 3.6, 7, 67.3, 345.8, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(8, 2, 'DP', 5, 4, 6.25, 12, 567.7, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(9, 2, 'BHA', 8.25, 3.5, 9, 234, 200, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(10, 2, 'Motor', 8, 4, 9.45, 56.8, 34.87, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(11, 2, 'HWDP', 6, 3.6, 7, 67.3, 345.8, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(12, 2, 'DP', 5, 4, 6.25, 12, 567.7, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(13, 2, 'BHA', 8.25, 3.5, 9, 234, 200, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(14, 2, 'Motor', 8, 4, 9.45, 56.8, 34.87, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(15, 2, 'HWDP', 6, 3.6, 7, 67.3, 345.8, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(16, 4, 'DP', 5, 4, 6.25, 12, 567.7, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(17, 4, 'BHA', 8.25, 3.5, 9, 234, 200, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(18, 4, 'Motor', 8, 4, 9.45, 56.8, 34.87, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(19, 5, 'HWDP', 6, 3.6, 7, 67.3, 345.8, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(20, 5, 'DP', 5, 4, 6.25, 12, 567.7, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(25, 3, 'Stands DP HW 5\"', 5, 3, 6, 150, 268.04, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(26, 3, 'XO 4 1/2\" IF Box X 4 \" IF Pin', 6.5, 3.25, 7.5, 187.5, 3.01, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(27, 3, 'Gauge Carrier', 6.25, 3, 7.25, 181.25, 2.78, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(28, 3, 'XO 4\" IF Box X 4 1/2 IF Pin', 6.5, 3.25, 7.5, 187.5, 2.85, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(29, 3, 'Shock Absorber', 6.5, 2.25, 7.5, 187.5, 10.82, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(30, 3, 'Hammer Jar', 6.75, 2.5, 7.75, 193.75, 16.4, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(31, 3, 'XO', 6.75, 2.8125, 7.75, 193.75, 1.04, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(32, 3, '6 DC ', 6.5, 2.8125, 7.5, 187.5, 186.23, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(33, 3, 'XO', 6.75, 2.8125, 7.75, 193.75, 1.8, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(34, 3, 'DC Monel 6 3/4\"', 6.75, 2.8125, 7.75, 193.75, 29.29, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(35, 3, 'DC Monel 6 5/8\" (MWD)', 6.625, 2.8125, 7.625, 190.625, 29.12, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(36, 3, 'U.B.H.O. 6 3/4\"', 6.75, 2.8125, 7.75, 193.75, 2.42, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(37, 3, 'Stab 6 3/4\" x 8 1/4\"', 6.75, 2.8125, 7.75, 193.75, 4.59, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(38, 3, 'VCP 6 3/4\"', 6.75, 2.8125, 7.75, 193.75, 2.95, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(39, 3, 'Motor PWD 6 3/4\" x 8 1/4\" x 4\"', 6.75, 2.8125, 7.75, 193.75, 26.5, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(21, 6, 'BHA', 8.25, 3.5, 9, 234, 200, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(22, 6, 'Motor', 8, 4, 9.45, 56.8, 34.87, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(23, 6, 'HWDP', 6, 3.6, 7, 67.3, 345.8, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(24, 6, 'DP', 5, 4, 6.25, 12, 567.7, '2022-08-05 14:22:15', '2022-08-05 14:22:15'),
+(41, 3, 'today is 08/05/2022 #1--1', 222, 22, 22, 22, 22, '2022-08-05 14:22:15', '2022-08-05 12:22:26'),
+(45, 14, 'today is 08/05/2022 #1', 111, 111, 11, 11, 11, '2022-08-08 09:33:57', '2022-08-08 09:33:57');
 
 -- --------------------------------------------------------
 
@@ -151,7 +166,6 @@ CREATE TABLE `fgpressure` (
 
 INSERT INTO `fgpressure` (`FG_ID`, `ProjectID`, `TVD`, `FG`, `Pressure`) VALUES
 (32, 1, 0, 14.35, 2485.95),
-(33, 1, 100, 14.35, 2485.95),
 (34, 1, 200, 14.35, 2485.95),
 (35, 1, 300, 14.35, 2485.95),
 (36, 1, 400, 14.35, 2485.95),
@@ -629,23 +643,27 @@ CREATE TABLE `fluids` (
   `Oil` float DEFAULT 0,
   `Water` float DEFAULT 0,
   `TC` float DEFAULT 1,
-  `SH` float DEFAULT 0.4
+  `SH` float DEFAULT 0.4,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `fluids`
 --
 
-INSERT INTO `fluids` (`FluidID`, `ProjectID`, `SampleID`, `Description`, `Density`, `Type`, `Rheology`, `YP`, `PV`, `K`, `n`, `Viscosity`, `Oil`, `Water`, `TC`, `SH`) VALUES
-(1, 1, 1, 'Fluid#1', 10.3, 0, 1, 12, 24, 0.78, 0.98, 12, 100, 0, 1, 0.4),
-(2, 1, 1, 'Fluid#2', 12.3, 1, 2, 12, 20, 0.55, 0.87, 16, 90, 10, 1.02, 0.45),
-(3, 1, 1, 'Cement', 15.25, 2, 3, 13, 18, 0.67, 0.94, 15, 79, 21, 0.99, 0.55),
-(4, 2, 1, 'Fluid#1', 9.3, 3, 3, 15, 23, 0.45, 0.77, 16, 70, 30, 1.01, 0.55),
-(5, 2, 1, 'Fluid#2', 12.45, 4, 3, 15, 22, 0.74, 0.66, 14, 60, 40, 1.2, 0.44),
-(6, 3, 1, 'WBM#1', 10.5, 5, 5, 12, 25, 0.78, 0.95, 20, 60, 40, 1.1, 0.35),
-(7, 4, 1, 'OBM#1', 15.4, 3, 4, 10, 16, 0.89, 0.88, 22, 80, 20, 1.23, 0.4),
-(8, 5, 1, 'Fluid#HH', 12, 4, 3, 9, 16, 0.98, 0.8, 17, 77, 23, 1.24, 0.55),
-(9, 6, 1, 'Fluid#OBM', 11.5, 5, 2, 8, 22, 1.2, 0.7, 18, 22, 88, 1.11, 0.45);
+INSERT INTO `fluids` (`FluidID`, `ProjectID`, `SampleID`, `Description`, `Density`, `Type`, `Rheology`, `YP`, `PV`, `K`, `n`, `Viscosity`, `Oil`, `Water`, `TC`, `SH`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Fluid#1', 10.3, 0, 1, 12, 24, 0.78, 0.98, 12, 100, 0, 1, 0.4, '2022-08-08 11:06:57', '2022-08-08 11:06:57'),
+(2, 1, 3, 'Fluid#2', 12.3, 1, 2, 12, 20, 0.55, 0.87, 16, 90, 10, 1.02, 0.45, '2022-08-08 11:06:57', '2022-08-08 11:06:57'),
+(3, 1, 4, 'Cement', 15.25, 2, 3, 13, 18, 0.67, 0.94, 15, 79, 21, 0.99, 0.55, '2022-08-08 11:06:57', '2022-08-08 11:06:57'),
+(4, 2, 5, 'Fluid#1', 9.3, 3, 3, 15, 23, 0.45, 0.77, 16, 70, 30, 1.01, 0.55, '2022-08-08 11:06:57', '2022-08-08 11:06:57'),
+(5, 2, 6, 'Fluid#2', 12.45, 4, 3, 15, 22, 0.74, 0.66, 14, 60, 40, 1.2, 0.44, '2022-08-08 11:06:57', '2022-08-08 11:06:57'),
+(6, 3, 26, 'WBM#1', 10.5, 0, 1, 12, 25, 0.78, 0.95, 20, 60, 40, 1.1, 0.35, '2022-08-08 11:06:57', '2022-08-08 13:23:41'),
+(7, 4, 25, 'OBM#1', 15.4, 3, 4, 10, 16, 0.89, 0.88, 22, 80, 20, 1.23, 0.4, '2022-08-08 11:06:57', '2022-08-08 11:06:57'),
+(8, 5, 1, 'Fluid#HH', 12, 4, 3, 9, 16, 0.98, 0.8, 17, 77, 23, 1.24, 0.55, '2022-08-08 11:06:57', '2022-08-08 11:06:57'),
+(9, 6, 1, 'Fluid#OBM', 11.5, 5, 2, 8, 22, 1.2, 0.7, 18, 22, 88, 1.11, 0.45, '2022-08-08 11:06:57', '2022-08-08 11:06:57'),
+(11, 1, 23, 'Fluid#4', 22, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, '2022-08-08 12:25:22', '2022-08-08 12:25:22'),
+(17, 1, 29, 'Fluid#5', 22, 2, 4, 2, 2, 2, 2, 2, 2, 2, 0.44, 0.77, '2022-08-08 18:40:22', '2022-08-08 18:40:22');
 
 -- --------------------------------------------------------
 
@@ -660,56 +678,60 @@ CREATE TABLE `lithology` (
   `MD` float DEFAULT 0,
   `TVD` float DEFAULT 0,
   `TC` float DEFAULT 1,
-  `SH` float DEFAULT 0.4
+  `SH` float DEFAULT 0.4,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `lithology`
 --
 
-INSERT INTO `lithology` (`LithoID`, `ProjectID`, `Description`, `MD`, `TVD`, `TC`, `SH`) VALUES
-(1, 1, 'Formation 1', 1000, 1000, 1, 0.4),
-(2, 1, 'Formation 2', 1100, 1100, 1, 0.4),
-(3, 1, 'Formation 3', 1200, 1200, 1, 0.4),
-(4, 1, 'Formation 4', 1300, 1300, 1, 0.4),
-(5, 1, 'Formation 5', 1400, 1400, 1, 0.4),
-(6, 1, 'Formation 6', 1500, 1500, 1, 0.4),
-(7, 1, 'Formation 7', 1600, 1600, 1, 0.4),
-(8, 1, 'Formation 8', 1700, 1700, 1, 0.4),
-(9, 1, 'Formation 9', 1800, 1800, 1, 0.4),
-(10, 1, 'Formation 10', 1900, 1900, 1, 0.4),
-(11, 1, 'Formation 11', 2000, 2000, 1, 0.4),
-(12, 1, 'Formation 12', 2100, 2100, 1, 0.4),
-(13, 1, 'Formation 13', 2200, 2200, 1, 0.4),
-(14, 1, 'Formation 14', 2300, 2300, 1, 0.4),
-(15, 1, 'Formation 15', 2400, 2400, 1, 0.4),
-(16, 1, 'Formation 16', 2500, 2500, 1, 0.4),
-(17, 1, 'Formation 17', 2600, 2600, 1, 0.4),
-(18, 1, 'Formation 18', 2700, 2700, 1, 0.4),
-(19, 1, 'Formation 19', 2800, 2800, 1, 0.4),
-(20, 1, 'Formation 20', 2900, 2900, 1, 0.4),
-(21, 1, 'Formation 21', 3000, 3000, 1, 0.4),
-(22, 2, 'Formation 1', 1000, 1000, 1, 0.4),
-(23, 2, 'Formation 2', 1100, 1100, 1, 0.4),
-(24, 2, 'Formation 3', 1200, 1200, 1, 0.4),
-(25, 2, 'Formation 4', 1300, 1300, 1, 0.4),
-(26, 2, 'Formation 5', 1400, 1400, 1, 0.4),
-(27, 2, 'Formation 6', 1500, 1500, 1, 0.4),
-(28, 2, 'Formation 7', 1600, 1600, 1, 0.4),
-(29, 2, 'Formation 8', 1700, 1700, 1, 0.4),
-(30, 2, 'Formation 9', 1800, 1800, 1, 0.4),
-(31, 2, 'Formation 10', 1900, 1900, 1, 0.4),
-(32, 2, 'Formation 11', 2000, 2000, 1, 0.4),
-(33, 2, 'Formation 12', 2100, 2100, 1, 0.4),
-(34, 2, 'Formation 13', 2200, 2200, 1, 0.4),
-(35, 2, 'Formation 14', 2300, 2300, 1, 0.4),
-(36, 2, 'Formation 15', 2400, 2400, 1, 0.4),
-(37, 2, 'Formation 16', 2500, 2500, 1, 0.4),
-(38, 2, 'Formation 17', 2600, 2600, 1, 0.4),
-(39, 2, 'Formation 18', 2700, 2700, 1, 0.4),
-(40, 2, 'Formation 19', 2800, 2800, 1, 0.4),
-(41, 2, 'Formation 20', 2900, 2900, 1, 0.4),
-(42, 2, 'Formation 21', 3000, 3000, 1, 0.4);
+INSERT INTO `lithology` (`LithoID`, `ProjectID`, `Description`, `MD`, `TVD`, `TC`, `SH`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Formation 1-1', 1000, 1000, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 17:23:57'),
+(46, 3, 'ssdf---1', 1, 1, 1, 11, '2022-08-09 13:20:49', '2022-08-09 11:21:08'),
+(3, 1, 'Formation 3', 1200, 1200, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(4, 1, 'Formation 4', 1300, 1300, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(5, 1, 'Formation 5', 1400, 1400, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(6, 1, 'Formation 6', 1500, 1500, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(7, 1, 'Formation 7', 1600, 1600, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(8, 1, 'Formation 8', 1700, 1700, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(9, 1, 'Formation 9', 1800, 1800, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(10, 1, 'Formation 10', 1900, 1900, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(11, 1, 'Formation 11', 2000, 2000, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(12, 1, 'Formation 12', 2100, 2100, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(13, 1, 'Formation 13', 2200, 2200, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(14, 1, 'Formation 14', 2300, 2300, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(15, 1, 'Formation 15', 2400, 2400, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(16, 1, 'Formation 16', 2500, 2500, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(17, 1, 'Formation 17', 2600, 2600, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(18, 1, 'Formation 18', 2700, 2700, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(19, 1, 'Formation 19', 2800, 2800, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(20, 1, 'Formation 20', 2900, 2900, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(21, 1, 'Formation 21', 3000, 3000, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(22, 2, 'Formation 1', 1000, 1000, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(23, 2, 'Formation 2', 1100, 1100, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(24, 2, 'Formation 3', 1200, 1200, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(25, 2, 'Formation 4', 1300, 1300, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(26, 2, 'Formation 5', 1400, 1400, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(27, 2, 'Formation 6', 1500, 1500, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(28, 2, 'Formation 7', 1600, 1600, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(29, 2, 'Formation 8', 1700, 1700, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(30, 2, 'Formation 9', 1800, 1800, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(31, 2, 'Formation 10', 1900, 1900, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(32, 2, 'Formation 11', 2000, 2000, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(33, 2, 'Formation 12', 2100, 2100, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(34, 2, 'Formation 13', 2200, 2200, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(35, 2, 'Formation 14', 2300, 2300, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(36, 2, 'Formation 15', 2400, 2400, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(37, 2, 'Formation 16', 2500, 2500, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(38, 2, 'Formation 17', 2600, 2600, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(39, 2, 'Formation 18', 2700, 2700, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(40, 2, 'Formation 19', 2800, 2800, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(41, 2, 'Formation 20', 2900, 2900, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(42, 2, 'Formation 21', 3000, 3000, 1, 0.4, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(44, 1, 'Formation 22', 1.44, 1.22, 0.44, 0.77, '2022-08-08 19:23:41', '2022-08-08 19:23:41'),
+(45, 1, 'Formation 23', 11, 11, 11, 11, '2022-08-08 19:23:41', '2022-08-08 19:23:41');
 
 -- --------------------------------------------------------
 
@@ -733,6 +755,27 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2014_10_12_000000_create_users_table', 3),
 (10, '2014_10_12_100000_create_password_resets_table', 3),
 (11, '2019_08_19_000000_create_failed_jobs_table', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nozzle`
+--
+
+CREATE TABLE `nozzle` (
+  `NZ_ID` int(11) NOT NULL,
+  `DS_ID` int(11) NOT NULL,
+  `size` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `nozzle`
+--
+
+INSERT INTO `nozzle` (`NZ_ID`, `DS_ID`, `size`) VALUES
+(1, 1, 1011),
+(2, 1, 123123),
+(4, 1, 1111);
 
 -- --------------------------------------------------------
 
@@ -824,7 +867,32 @@ INSERT INTO `porepressure` (`PP_ID`, `ProjectID`, `TVD`, `PP`, `Pressure`) VALUE
 (39, 1, 2700, 11.78, 1653.91),
 (40, 1, 2800, 11.98, 1744.29),
 (41, 1, 2900, 11.9, 1794.52),
-(42, 1, 3000, 11.8, 1840.8);
+(42, 1, 3000, 11.8, 1840.8),
+(44, 9, 0, 0, 0),
+(45, 9, 1, 1, 1),
+(56, 1, NULL, NULL, NULL),
+(47, 9, 1, 1, 1),
+(48, 9, 5, 3, 3),
+(54, 1, NULL, NULL, NULL),
+(55, 1, NULL, NULL, NULL),
+(57, 1, NULL, NULL, NULL),
+(58, 1, NULL, NULL, NULL),
+(59, 1, NULL, NULL, NULL),
+(60, 1, NULL, NULL, NULL),
+(61, 1, NULL, NULL, NULL),
+(62, 1, NULL, NULL, NULL),
+(63, 1, NULL, NULL, NULL),
+(64, 1, NULL, NULL, NULL),
+(65, 1, NULL, NULL, NULL),
+(66, 1, NULL, NULL, NULL),
+(67, 1, NULL, NULL, NULL),
+(68, 1, NULL, NULL, NULL),
+(69, 1, NULL, NULL, NULL),
+(70, 1, NULL, NULL, NULL),
+(71, 1, NULL, NULL, NULL),
+(72, 1, NULL, NULL, NULL),
+(73, 1, NULL, NULL, NULL),
+(74, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -844,20 +912,78 @@ CREATE TABLE `samples` (
   `R100` float DEFAULT 0,
   `R200` float DEFAULT 0,
   `R300` float DEFAULT 0,
-  `R600` float DEFAULT 0
+  `R600` float DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `samples`
 --
 
-INSERT INTO `samples` (`SampleID`, `FluidID`, `Pressure`, `Temperature`, `R3`, `R6`, `R30`, `R60`, `R100`, `R200`, `R300`, `R600`) VALUES
-(1, 1, 14.7, 60, 3, 4, 0, 0, 15, 24, 35, 45),
-(2, 1, 20, 60, 5, 6, 0, 0, 20, 30, 40, 55),
-(3, 2, 14.7, 60, 7, 8, 9, 12, 16, 28, 33, 50),
-(4, 3, 14.7, 60, 2, 4, 0, 0, 18, 22, 45, 55),
-(5, 4, 14.7, 60, 5, 7, 0, 0, 16, 20, 44, 60),
-(6, 5, 14.7, 60, 4, 8, 10, 12, 17, 25, 56, 70);
+INSERT INTO `samples` (`SampleID`, `FluidID`, `Pressure`, `Temperature`, `R3`, `R6`, `R30`, `R60`, `R100`, `R200`, `R300`, `R600`, `created_at`, `updated_at`) VALUES
+(1, 1, 14.7, 11, 3, 4, 0, 0, 15, 24, 35, 45, '2022-08-08 08:28:51', '2022-08-08 07:27:12'),
+(2, 1, 202, 602, 521, 621, 0, 0, 20, 30, 40, 55, '2022-08-08 08:28:51', '2022-08-08 07:26:18'),
+(3, 2, 14.7, 60.11, 7.1, 8.1, 9.1, 12.1, 16.1, 28.1, 33.1, 50.1, '2022-08-08 08:28:51', '2022-08-08 08:54:26'),
+(4, 3, 14.7, 60.2, 2.2, 4.2, 0.2, 0.2, 18.2, 22.2, 45.2, 55.2, '2022-08-08 08:28:51', '2022-08-08 09:10:09'),
+(5, 4, 14.7, 60, 5, 7, 0, 0, 16, 20, 44, 60, '2022-08-08 08:28:51', '2022-08-08 08:28:51'),
+(6, 5, 14.7, 60, 4, 8, 10, 12, 17, 25, 56, 70, '2022-08-08 08:28:51', '2022-08-08 08:28:51'),
+(7, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2022-08-08 12:29:55', '2022-08-08 12:29:55'),
+(30, 17, 23, 0, 0.1, 4.2, 5, 12.1, 0.1, 22.2, 5, 4, '2022-08-08 18:40:55', '2022-08-08 18:40:55'),
+(29, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2022-08-08 18:40:22', '2022-08-08 18:40:22'),
+(28, 6, 3, 3, 33, 331, 313, 323, 131, 113, 133, 1313, '2022-08-08 15:25:40', '2022-08-08 15:25:40'),
+(27, 6, 2, 2, 22, 2, 222, 2222, 2222, 2222, 2, 22, '2022-08-08 15:24:39', '2022-08-08 15:24:39'),
+(26, 6, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, '2022-08-08 15:24:09', '2022-08-08 13:27:29'),
+(25, 7, 1, 602, 52, 62, 2, 2, 4, 28.1, 42, 55.2, '2022-08-08 15:18:55', '2022-08-08 15:18:55'),
+(15, 15, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, '2022-08-08 13:04:06', '2022-08-08 13:04:06'),
+(22, 3, 23, 60.11, 52, 621, 5, 2, 4, 28.1, 5, 4, '2022-08-08 13:32:45', '2022-08-08 13:32:45'),
+(23, 11, 44, 44, 441, 441, 444.2, 44, 44, 44, 44, 44, '2022-08-08 13:35:28', '2022-08-08 23:20:07'),
+(24, 11, 45, 45, 451, 451, 451, 451, 451, 451, 3451, 451, '2022-08-08 13:38:00', '2022-08-08 11:38:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `standard_unit`
+--
+
+CREATE TABLE `standard_unit` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `value` float NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  `concept_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `standard_unit`
+--
+
+INSERT INTO `standard_unit` (`id`, `name`, `value`, `unit_id`, `concept_id`) VALUES
+(1, 'psi', 1, 1, 1),
+(2, 'bar', 0.0689476, 1, 1),
+(3, 'kPa', 6.89476, 1, 1),
+(4, 'Pascal', 6894.76, 1, 1),
+(5, '°F', 1, 1, 2),
+(6, '°C', 1, 1, 2),
+(7, '°K', 1, 1, 2),
+(8, 'gpm', 1, 1, 3),
+(9, 'lpm', 3.78541, 1, 3),
+(10, 'bbl/day', 34.2857, 1, 3),
+(11, 'bbl/hr', 1.42857, 1, 3),
+(12, 'm³/hr', 0.227125, 1, 3),
+(13, 'm³/min', 0.00378541, 1, 3),
+(14, 'ft³/hr', 8.02083, 1, 3),
+(15, 'ft³/min', 0.122681, 1, 3),
+(16, 'ppg', 1, 1, 4),
+(17, 'sg', 0.119826, 1, 4),
+(18, 'kPa³/min', 1.17509, 1, 4),
+(19, 'Kg/m³', 119.826, 1, 4),
+(20, 'gm/cm³', 0.119826, 1, 4),
+(21, 'pound/ft³', 7.48052, 1, 4),
+(22, 'ft', 1, 1, 5),
+(23, 'm', 0.3048, 1, 5),
+(24, 'yard', 0.33333, 1, 5),
+(25, 'miles', 0.000189, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -869,21 +995,26 @@ CREATE TABLE `surfpiping` (
   `SurfID` int(11) NOT NULL,
   `ProjectID` int(11) DEFAULT 0,
   `Length` float DEFAULT 0,
-  `ID` float DEFAULT 0
+  `ID` float DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `surfpiping`
 --
 
-INSERT INTO `surfpiping` (`SurfID`, `ProjectID`, `Length`, `ID`) VALUES
-(1, 1, 10, 5),
-(2, 1, 100, 5),
-(3, 2, 2, 6),
-(4, 3, 200, 4),
-(5, 4, 100, 3),
-(6, 5, 50, 5),
-(7, 6, 80, 6);
+INSERT INTO `surfpiping` (`SurfID`, `ProjectID`, `Length`, `ID`, `created_at`, `updated_at`) VALUES
+(1, 1, 10, 5, '2022-08-04 18:50:34', '2022-08-04 18:50:34'),
+(2, 1, 101, 6, '2022-08-04 18:50:34', '2022-08-04 16:50:42'),
+(3, 2, 2, 6, '2022-08-04 18:50:34', '2022-08-04 18:50:34'),
+(4, 3, 200, 4, '2022-08-04 18:50:34', '2022-08-04 18:50:34'),
+(5, 4, 100, 3, '2022-08-04 18:50:34', '2022-08-04 18:50:34'),
+(6, 5, 50, 5, '2022-08-04 18:50:34', '2022-08-04 18:50:34'),
+(7, 6, 80, 6, '2022-08-04 18:50:34', '2022-08-04 18:50:34'),
+(9, 1, 44, 44, '2022-08-05 04:35:31', '2022-08-05 04:35:31'),
+(10, 1, 123, 123, '2022-08-05 14:52:46', '2022-08-05 14:52:46'),
+(11, 3, 2, 2, '2022-08-08 16:04:46', '2022-08-08 16:04:46');
 
 -- --------------------------------------------------------
 
@@ -908,7 +1039,7 @@ CREATE TABLE `survey` (
 
 INSERT INTO `survey` (`id`, `ProjectID`, `MD`, `Inc`, `Azimuth`, `TVD`, `North`, `East`) VALUES
 (1, 1, 0, 0, 0, 0, 0, 0),
-(2, 1, 100, 0, 150.45, 100, 0, 0),
+(1004, 12, 0, 0, 0, 0, 0, 0),
 (3, 1, 200, 0, 150.45, 200, 0, 0),
 (4, 1, 300, 0, 150.45, 300, 0, 0),
 (5, 1, 400, 0, 150.45, 400, 0, 0),
@@ -1077,7 +1208,6 @@ INSERT INTO `survey` (`id`, `ProjectID`, `MD`, `Inc`, `Azimuth`, `TVD`, `North`,
 (168, 2, 400, 0, 0, 400, 0, 0),
 (169, 2, 500, 0, 0, 500, 0, 0),
 (170, 2, 600, 0, 0, 600, 0, 0),
-(171, 2, 700, 0, 0, 700, 0, 0),
 (172, 2, 800, 0, 0, 800, 0, 0),
 (173, 2, 900, 0, 0, 900, 0, 0),
 (174, 2, 1000, 0, 0, 1000, 0, 0),
@@ -1902,6 +2032,7 @@ INSERT INTO `survey` (`id`, `ProjectID`, `MD`, `Inc`, `Azimuth`, `TVD`, `North`,
 (993, 0, 1, 1, 1, 1, 1, NULL),
 (994, 0, 1, 1, 1, 1, 1, NULL),
 (995, 0, 1, 1, 1, 1, 1, NULL),
+(1002, 3, 1, 1, 1, 1, 1, 1),
 (998, 11, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
@@ -1924,7 +2055,6 @@ CREATE TABLE `temperature` (
 
 INSERT INTO `temperature` (`TempID`, `ProjectID`, `TVD`, `TG`, `Temperature`) VALUES
 (1, 1, 0, 0.015, 60),
-(2, 1, 10000, 0.015, 250),
 (3, 2, 0, 0.015, 70),
 (4, 2, 10000, 0.015, 260),
 (5, 3, 20, 0.02, 80),
@@ -1939,6 +2069,77 @@ INSERT INTO `temperature` (`TempID`, `ProjectID`, `TVD`, `TG`, `Temperature`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `unit_concept`
+--
+
+CREATE TABLE `unit_concept` (
+  `id` int(11) NOT NULL,
+  `concept` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `unit_concept`
+--
+
+INSERT INTO `unit_concept` (`id`, `concept`) VALUES
+(1, 'Pressure'),
+(2, 'Temperature'),
+(3, 'Density'),
+(4, 'Flow'),
+(5, 'Length');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unit_type`
+--
+
+CREATE TABLE `unit_type` (
+  `id` int(11) NOT NULL,
+  `unit` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `unit_type`
+--
+
+INSERT INTO `unit_type` (`id`, `unit`) VALUES
+(1, 'Imperial'),
+(2, 'Metric'),
+(3, 'Custrom');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unit_user`
+--
+
+CREATE TABLE `unit_user` (
+  `id` int(10) NOT NULL,
+  `UserID` int(10) NOT NULL,
+  `Pressure` int(10) NOT NULL DEFAULT 1,
+  `Temperature` int(10) NOT NULL DEFAULT 5,
+  `Density` int(10) NOT NULL DEFAULT 8,
+  `Flow` int(10) NOT NULL DEFAULT 16,
+  `Length` int(10) NOT NULL DEFAULT 22,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `unit_user`
+--
+
+INSERT INTO `unit_user` (`id`, `UserID`, `Pressure`, `Temperature`, `Density`, `Flow`, `Length`, `created_at`, `updated_at`) VALUES
+(1, 2, 4, 7, 15, 21, 25, '2022-08-17 12:34:33', '2022-08-17 13:32:34'),
+(2, 3, 1, 5, 8, 16, 22, '2022-08-17 13:51:42', '2022-08-17 13:51:42'),
+(3, 4, 1, 5, 8, 16, 22, '2022-08-17 13:56:11', '2022-08-17 13:56:11'),
+(4, 5, 1, 5, 8, 16, 22, '2022-08-17 13:59:43', '2022-08-17 13:59:43'),
+(5, 6, 1, 5, 8, 16, 22, '2022-08-17 14:02:05', '2022-08-17 14:02:05');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -1949,6 +2150,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` tinyint(1) NOT NULL DEFAULT 0,
+  `permission` tinyint(1) NOT NULL DEFAULT 0,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1958,9 +2160,14 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@exam.com', NULL, '$2y$10$Y2febxehSWNSyYKpzsJw3OGMwI1x0nO3IhWFB2fsgHHHS7axJYAVS', 1, NULL, '2022-07-25 11:32:28', '2022-07-25 11:32:28'),
-(2, 'user', 'user@exam.com', NULL, '$2y$10$HV3whHB0YEzZ2NFsoMz/.O8O0MN0XXG3akwI9aBfv5BOIpEeHGK5S', 0, NULL, '2022-07-25 23:51:17', '2022-07-25 23:51:17');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `permission`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@exam.com', NULL, '$2y$10$Y2febxehSWNSyYKpzsJw3OGMwI1x0nO3IhWFB2fsgHHHS7axJYAVS', 1, 1, 'OsaBzLRctpgSDLnu6cZNxJpOaMndMVT4wvgG7pj1xJil9JXi9hhBPTm20Boi', '2022-07-25 11:32:28', '2022-08-16 01:18:58'),
+(2, 'user', 'user@exam.com', NULL, '$2y$10$HV3whHB0YEzZ2NFsoMz/.O8O0MN0XXG3akwI9aBfv5BOIpEeHGK5S', 0, 1, '0XfHMIGO3N5jc5zo0CgittooRySQMKeWgtyPu0v3qfzefayXGCx8PCurnSlI', '2022-07-25 23:51:17', '2022-08-16 09:14:01'),
+(3, 'user1', 'user1@exam.com', NULL, '$2y$10$ttmOstOjIcz2UwZfHw.KSeNze6GazRzpY3MaITTgtrUFs.ugQnqzC', 0, 1, NULL, '2022-08-17 13:51:42', '2022-08-17 13:51:42'),
+(4, 'user2', 'user2@exam.com', NULL, '$2y$10$Qp8UFcS9PrSi7YpCqcSz6u1rMkz0bWVLCdQea4jgJF60w7iGSp7o2', 0, 0, NULL, '2022-08-17 13:56:11', '2022-08-17 13:56:11'),
+(5, 'user3', 'user3@exam.com', NULL, '$2y$10$ECV7K0pLGzxbCbOSAW9TmO/fOWe5w2z5qjwHdwrJhGd7ixCpoWrwe', 0, 0, NULL, '2022-08-17 13:59:43', '2022-08-17 13:59:43'),
+(6, 'user4', 'user4@exam.com', NULL, '$2y$10$.o1/jMe9OfGjMcxFciytaOnURO5VqNbj1enfOHVNH.Y4hWCdp15.W', 0, 1, NULL, '2022-08-17 14:02:05', '2022-08-17 14:02:05'),
+(7, 'user5', 'user5@exam.com', NULL, '$2y$10$y3GXCAPF6RLGjx5KRxVu0un.R4CJiQWAjtlpk./nn8h4/DJbfoYPa', 0, 0, NULL, '2022-08-17 14:03:57', '2022-08-17 14:03:57');
 
 -- --------------------------------------------------------
 
@@ -1975,30 +2182,50 @@ CREATE TABLE `wellbore` (
   `RiserOD` float DEFAULT 0,
   `RiserID` float DEFAULT 0,
   `RiserTop` float DEFAULT 0,
+  `RiserBottom` float DEFAULT 0,
   `RiserWeight` float DEFAULT 0,
   `RiserActive` tinyint(1) DEFAULT 0,
   `CsgDescription` varchar(255) DEFAULT NULL,
   `CsgOD` float DEFAULT 0,
   `CsgID` float DEFAULT 0,
   `CsgTop` float DEFAULT 0,
+  `CsgBottom` float NOT NULL DEFAULT 0,
   `CsgWeight` float DEFAULT 0,
   `L1Description` varchar(255) DEFAULT NULL,
+  `L1OD` float NOT NULL,
+  `L1ID` float NOT NULL,
+  `L1Top` float NOT NULL,
+  `L1Bottom` float NOT NULL,
+  `L1Weight` float NOT NULL,
+  `L1Active` tinyint(1) DEFAULT 0,
   `L2Description` varchar(255) DEFAULT NULL,
+  `L2OD` float NOT NULL,
+  `L2ID` float NOT NULL,
+  `L2Top` float NOT NULL,
+  `L2Bottom` float NOT NULL,
+  `L2Weight` float NOT NULL,
+  `L2Active` int(11) DEFAULT 0,
   `HoleDescription` varchar(255) DEFAULT NULL,
-  `HoleID` float DEFAULT 0
+  `HoleID` float DEFAULT 0,
+  `HoleOD` float NOT NULL,
+  `HoleTop` float NOT NULL,
+  `HoleBottom` float NOT NULL,
+  `HoleWeight` float NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wellbore`
 --
 
-INSERT INTO `wellbore` (`WellboreID`, `ProjectID`, `RiserDescription`, `RiserOD`, `RiserID`, `RiserTop`, `RiserWeight`, `RiserActive`, `CsgDescription`, `CsgOD`, `CsgID`, `CsgTop`, `CsgWeight`, `L1Description`, `L2Description`, `HoleDescription`, `HoleID`) VALUES
-(1, 1, 'Riser20\"', 18.2, 16, 0, 20, 1, 'CSG16\"', 14.3, 14, 1000, 20, 'Liner12\"', 'Liner2', 'Hole 8.5\"', 8.5),
-(2, 2, NULL, 0, 0, 0, 0, 0, 'CSG12 1/4\"', 13, 12.25, 0, 20, NULL, NULL, 'Hole 8.75\"', 8.75),
-(3, 3, 'Riser22\"', 22.2, 20, 0, 45, 1, 'CSG15.5\"', 12, 11.5, 2950, 20, NULL, NULL, 'Hole 6.5\"', 6.5),
-(4, 4, NULL, 0, NULL, NULL, NULL, 0, 'CSG16\"', 14.5, 12.25, 0, 20, 'Liner 11\"', 'Liner2', 'Hole 8.25\"', 8.25),
-(5, 5, 'Riser19\"', 19.2, 19, 0, 30, 1, 'CSG16\"', 13.675, 13.25, 1500, 20, 'Liner 12.25\"', NULL, 'Hole 6.25\"', 6.25),
-(6, 6, NULL, NULL, NULL, NULL, NULL, 0, 'CSG16\"', 12.678, 12.67, 0, 20, 'Liner 14\"', 'Liner2', 'Hole 6\"', 6);
+INSERT INTO `wellbore` (`WellboreID`, `ProjectID`, `RiserDescription`, `RiserOD`, `RiserID`, `RiserTop`, `RiserBottom`, `RiserWeight`, `RiserActive`, `CsgDescription`, `CsgOD`, `CsgID`, `CsgTop`, `CsgBottom`, `CsgWeight`, `L1Description`, `L1OD`, `L1ID`, `L1Top`, `L1Bottom`, `L1Weight`, `L1Active`, `L2Description`, `L2OD`, `L2ID`, `L2Top`, `L2Bottom`, `L2Weight`, `L2Active`, `HoleDescription`, `HoleID`, `HoleOD`, `HoleTop`, `HoleBottom`, `HoleWeight`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Riser20\"', 18.2, 16, 0, 0, 20, NULL, 'CSG16\"', 14.3, 14, 1000, 0, 20, 'Liner12\"', 11, 11, 11, 11, 11, 1, 'Liner2', 22, 22, 22, 22, 22, 1, 'Hole 8.5\"', 8.51, 331, 332, 331, 331, '2022-08-06 04:12:28', '2022-08-06 03:44:02'),
+(2, 2, NULL, 0, 0, 0, 0, 0, 0, 'CSG12 1/4\"', 13, 12.25, 0, 0, 20, NULL, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 'Hole 8.75\"', 8.75, 0, 0, 0, 0, '2022-08-06 04:12:28', '2022-08-06 04:12:28'),
+(3, 3, 'Riser22\"', 22.2, 20, 0, 0, 45, NULL, 'CSG15.5\"', 12, 11.5, 2950, 0, 20, 'Liner 1', 0.211, 0.22, 0.11, 0.23, 0.11, 1, 'Liner 2', 0.23, 0.23, 0.22, 0.23, 0.23, 1, 'Hole 6.5\"', 6.5, 0, 0, 0, 0, '2022-08-06 04:12:28', '2022-08-09 08:44:29'),
+(4, 4, NULL, 0, NULL, NULL, 0, NULL, 0, 'CSG16\"', 14.5, 12.25, 0, 0, 20, 'Liner 11\"', 0, 0, 0, 0, 0, 0, 'Liner2', 0, 0, 0, 0, 0, 0, 'Hole 8.25\"', 8.25, 0, 0, 0, 0, '2022-08-06 04:12:28', '2022-08-06 04:12:28'),
+(5, 5, 'Riser19\"', 19.2, 19, 0, 0, 30, 1, 'CSG16\"', 13.675, 13.25, 1500, 0, 20, 'Liner 12.25\"', 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 'Hole 6.25\"', 6.25, 0, 0, 0, 0, '2022-08-06 04:12:28', '2022-08-06 04:12:28'),
+(6, 6, NULL, NULL, NULL, NULL, 0, NULL, 0, 'CSG16\"', 12.678, 12.67, 0, 0, 20, 'Liner 14\"', 0, 0, 0, 0, 0, 0, 'Liner2', 0, 0, 0, 0, 0, 0, 'Hole 6\"', 6, 0, 0, 0, 0, '2022-08-06 04:12:28', '2022-08-06 04:12:28');
 
 -- --------------------------------------------------------
 
@@ -2027,7 +2254,7 @@ CREATE TABLE `wellinfo` (
 --
 
 INSERT INTO `wellinfo` (`ProjectID`, `UserID`, `project_name`, `location`, `field`, `lease`, `operator`, `rigcontroller`, `rigtype`, `wellname`, `rigname`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Project#1', 'LocationX', 'FieldX', 'LeaseX', 'OperatorX', 'RigCX', 1, 'Well#1', 'RigX', '2022-07-29 17:31:20', '2022-07-29 15:31:20'),
+(1, 1, 'Project#1', 'LocationX', 'FieldX', 'LeaseX', 'OperatorX', 'RigCX', 1, 'Well#1', 'RigX', '2022-08-04 14:24:44', '2022-08-04 12:24:44'),
 (2, 1, 'Project#2', 'LocationX2', 'FieldX2', 'LeaseX2', 'OperatorX2', 'RigCX2', 0, 'Well#2', 'RigX1', '2022-07-28 16:14:49', NULL),
 (3, 2, 'Project#3', 'LocationX3', 'FieldX3', 'LeaseX3', 'OperatorX3', 'RigCX3', 1, 'Well#3', 'RigX3', '2022-07-29 18:53:13', '2022-07-29 16:53:13'),
 (4, 2, 'Project#4', 'LocationX4', 'FieldX4', 'LeaseX4', 'OperatorX4', 'RigCX4', 1, 'Well#4', 'RigX4', '2022-07-29 17:30:52', '2022-07-29 15:30:52'),
@@ -2037,7 +2264,8 @@ INSERT INTO `wellinfo` (`ProjectID`, `UserID`, `project_name`, `location`, `fiel
 (8, 2, 'Project#8', 'LocationX7', 'FieldX7', 'LeaseX7', 'OperatorX8', 'RigCX8', 0, 'Well#7', 'RigX7', '2022-07-28 17:12:50', '2022-07-28 15:12:50'),
 (9, 2, 'Project#9', 'LocationX9', 'FieldX9', 'LeaseX9', 'OperatorX9', 'RigCX9', 1, 'Well#9', 'RigX9', '2022-07-28 16:45:10', '2022-07-28 16:45:10'),
 (10, 2, 'project#10', 'LocationX10', 'FieldX10', 'LeaseX10', 'OperatorX10', 'RigCX10', 1, 'Well#10', 'RigX10', '2022-07-30 00:48:47', '2022-07-30 00:48:47'),
-(11, 2, 'project#11', 'LocationX11', 'FieldX11', 'LeaseX11', 'OperatorX11', 'RigCX11', 0, 'Well#11', 'RigX11', '2022-07-30 00:51:08', '2022-07-30 00:51:08');
+(11, 2, 'project#11', 'LocationX11', 'FieldX11', 'LeaseX11', 'OperatorX11', 'RigCX11', 0, 'Well#11', 'RigX11', '2022-07-30 00:51:08', '2022-07-30 00:51:08'),
+(12, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-08-05 12:16:23', '2022-08-05 12:16:23');
 
 --
 -- Indexes for dumped tables
@@ -2099,6 +2327,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `nozzle`
+--
+ALTER TABLE `nozzle`
+  ADD PRIMARY KEY (`NZ_ID`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -2128,6 +2362,12 @@ ALTER TABLE `samples`
   ADD KEY `SampleID` (`SampleID`);
 
 --
+-- Indexes for table `standard_unit`
+--
+ALTER TABLE `standard_unit`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `surfpiping`
 --
 ALTER TABLE `surfpiping`
@@ -2150,6 +2390,24 @@ ALTER TABLE `temperature`
   ADD PRIMARY KEY (`TempID`),
   ADD KEY `ProjectID` (`ProjectID`),
   ADD KEY `TempID` (`TempID`);
+
+--
+-- Indexes for table `unit_concept`
+--
+ALTER TABLE `unit_concept`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `unit_type`
+--
+ALTER TABLE `unit_type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `unit_user`
+--
+ALTER TABLE `unit_user`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -2184,13 +2442,13 @@ ALTER TABLE `wellinfo`
 -- AUTO_INCREMENT for table `drillstring`
 --
 ALTER TABLE `drillstring`
-  MODIFY `DS_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `DS_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `ds_comp`
 --
 ALTER TABLE `ds_comp`
-  MODIFY `Comp_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `Comp_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -2202,25 +2460,31 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `fgpressure`
 --
 ALTER TABLE `fgpressure`
-  MODIFY `FG_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=488;
+  MODIFY `FG_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=490;
 
 --
 -- AUTO_INCREMENT for table `fluids`
 --
 ALTER TABLE `fluids`
-  MODIFY `FluidID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `FluidID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `lithology`
 --
 ALTER TABLE `lithology`
-  MODIFY `LithoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `LithoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `nozzle`
+--
+ALTER TABLE `nozzle`
+  MODIFY `NZ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -2232,37 +2496,61 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `porepressure`
 --
 ALTER TABLE `porepressure`
-  MODIFY `PP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `PP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `samples`
 --
 ALTER TABLE `samples`
-  MODIFY `SampleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `SampleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `standard_unit`
+--
+ALTER TABLE `standard_unit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `surfpiping`
 --
 ALTER TABLE `surfpiping`
-  MODIFY `SurfID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `SurfID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `survey`
 --
 ALTER TABLE `survey`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
 
 --
 -- AUTO_INCREMENT for table `temperature`
 --
 ALTER TABLE `temperature`
-  MODIFY `TempID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `TempID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `unit_concept`
+--
+ALTER TABLE `unit_concept`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `unit_type`
+--
+ALTER TABLE `unit_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `unit_user`
+--
+ALTER TABLE `unit_user`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `wellbore`
@@ -2274,7 +2562,7 @@ ALTER TABLE `wellbore`
 -- AUTO_INCREMENT for table `wellinfo`
 --
 ALTER TABLE `wellinfo`
-  MODIFY `ProjectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ProjectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
