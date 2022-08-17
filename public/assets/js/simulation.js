@@ -30,11 +30,21 @@ $(document).ready(function () {
     */
 
     $('.input-value').on('change', function(){
-        var gauge_id        = $(this).parent().siblings('.gauge').attr('id');
-        var div_i           = gauge_id.split('guageDiv')[1];
-        var dataValueKey    = $(this).parent().siblings('.gauge').data('value');
-        var title           = "Guage for " + dataValueKey;
-        var dataValueResult = $(this).val();
+        var gauge_id            = $(this).parent().siblings('.gauge').attr('id');
+        var dataTypeKey         = $(this).parent().siblings('.gauge').data('type');
+        var dataValueKey        = $(this).parent().siblings('.gauge').data('value');
+
+        var tvd                 = 0;
+        var dataValueResult     = $(this).val();
+        var dataPlot            = sessionStorage.getItem(dataTypeKey);
+        dataPlot                = JSON.parse(dataPlot);
+        dataPlot.x.push(tvd);
+        dataPlot.y.push(dataValueResult);
+
+        var title               = "Guage for " + dataValueKey;
+        var div_i               = gauge_id.split('guageDiv')[1];
+        sessionStorage.setItem(dataTypeKey, JSON.stringify(dataPlot));
+        twod_plotly_chart_draw(dataPlot, dataPlot.title, div_i);
         guage(dataValueResult, title, div_i);
     })
 });
@@ -78,7 +88,7 @@ var drawGuageAndSlider = function (selectedProjectId) {
         },
         type: 'POST',
         url: '/getDataSimulationGuageAndSlider',
-        dataType: 'json',   
+        dataType: 'json',
         success: function (response) {
             console.log(response);
             var i = 0;
