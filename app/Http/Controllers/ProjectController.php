@@ -23,9 +23,7 @@ class ProjectController extends Controller
     protected $module = 'Projects';
     public function index()
     {
-        UnitForUser::create([
-            'UserID' => Auth::id(),
-        ]);
+        
         if(Auth::user()->role == 1){
             $projects = WellInfo::paginate(10);
             return view('Backend.Project.index')->with('projects', $projects)->with('module', $this->module);

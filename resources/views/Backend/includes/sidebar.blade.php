@@ -104,7 +104,7 @@
         <li @if ($module == "Units")
             class={{'selected'}}
         @endif>
-            <a href="{{rote('admin.units.index')}}" id="elementSidebar">
+            <a href="{{route('admin.units.index')}}" id="elementSidebar">
                 <i class='bx bx-ruler' ></i>
                 <span class="links_name">{{__('Units')}}</span>
             </a>
