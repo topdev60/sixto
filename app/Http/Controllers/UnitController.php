@@ -17,8 +17,7 @@ class UnitController extends Controller
      */
     protected $module = 'Units';
     public function index()
-    {   
-
+    {
         $pressureUnits          = Unit::where('concept_id', 1)->get();
         $temperatureUnits       = Unit::where('concept_id', 2)->get();
         $densityUnits           = Unit::where('concept_id', 3)->get();
