@@ -68,6 +68,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::post('fluids/destroy', 'FluidsController@destroy')->name('fluid.destroy');
     Route::post('fluids/update', 'FluidsController@update')->name('fluid.update');
 
+    Route::post('sample/store', 'SampleController@store')->name('sample.store');
     Route::post('sample/update', 'SampleController@update')->name('sample.update');
 
     Route::resource('simulation', 'SimulationController');
