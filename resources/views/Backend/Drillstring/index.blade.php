@@ -79,7 +79,7 @@
                                     <th class="text-center"> {{__('OD(in)')}} </th>
                                     <th class="text-center"> {{__('Weight(lb/ft)')}} </th>
                                     <th class="text-center"> {{__('Length(ft)')}} </th>
-                                    <th class="text-center"> {{__('TJ(ft)')}} </th>
+                                    <th class="text-center"> {{__('TJ(in)')}} </th>
                                     <th class="text-center"> {{__('Action')}} </th>
                                 </tr>
                             </thead>

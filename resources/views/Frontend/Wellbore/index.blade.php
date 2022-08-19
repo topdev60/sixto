@@ -24,8 +24,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">{{__('Description')}}</th>
-                                    <th class="text-center">{{__('Top MD(ft)')}}</th>
-                                    <th class="text-center">{{__('Bottom MD(ft)')}}</th>
+                                    <th class="text-center">{{__('Top MD(in)')}}</th>
+                                    <th class="text-center">{{__('Bottom MD(in)')}}</th>
                                     <th class="text-center">{{__('ID(in)')}}</th>
                                     <th class="text-center">{{__('OD(in)')}}</th>
                                     <th class="text-center">{{__('Weight(lbs/ft)')}}</th>
@@ -135,7 +135,7 @@
                                                     <option value="{{$key}}" {{$selected}}> {{$item}} </option>
                                                 @endforeach
                                             </select>
-                                            <label for="position" class="form-label">Position</label>
+                                            <label for="position" class="form-label">Position(FT)</label>
                                             <input type="number" class="form-control" id="inputPosition" name="position" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_position}}" @endif>
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="clearfix">
                                     <div class="float-start col-md-4">
-                                        <label for="size" class="form-label">Size</label>
+                                        <label for="size" class="form-label">Size(IN)</label>
                                         <input type="text" class="form-control" id="inputSize" name="size" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_Size}}" @endif>
                                     </div>
                                     <div class="float-end col-md-8 row g-2 align-items-center m-t-4">

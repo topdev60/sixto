@@ -14,6 +14,7 @@
             $preferDensity          = $preferDensity->Density;
             $preferFlow             = $preferFlow->Flow;
             $preferLength           = $preferLength->Length;
+            $preferDiameter         = $preferDiameter->Diameter;
         @endphp
         <div class="row gy-4">
             <div class="col-md-12 col-lg-6 mx-auto">
@@ -89,6 +90,20 @@
                                                 @php
                                                     $selected = '';
                                                     if($preferLength == $item->id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="Diameter" class="form-label">Diameter</label>
+                                        <select name="diameter" class="form-select">
+                                            @foreach ($diameterUnits as $item)
+                                                @php
+                                                    $selected = '';
+                                                    if($preferDiameter == $item->id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach

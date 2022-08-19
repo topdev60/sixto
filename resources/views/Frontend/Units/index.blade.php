@@ -14,6 +14,7 @@
             $preferDensity          = $preferDensity->Density;
             $preferFlow             = $preferFlow->Flow;
             $preferLength           = $preferLength->Length;
+            $preferDiameter         = $preferDiameter->Diameter;
         @endphp
         <div class="row gy-4">
             <div class="col-md-12 col-lg-6 mx-auto">
@@ -22,7 +23,7 @@
                         {{__('Prefer Unit')}}
                     </div>
                     <div class="card-body">
-                        <form action="{{route('user.units.update')}}" method="POST">
+                        <form action="{{route('admin.units.update')}}" method="POST">
                         @csrf
                             <div class="row">
                                 <div class="col-md-6 col-lg-6">
@@ -89,6 +90,20 @@
                                                 @php
                                                     $selected = '';
                                                     if($preferLength == $item->id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="Length" class="form-label">Diameter</label>
+                                        <select name="length" class="form-select">
+                                            @foreach ($diameterUnits as $item)
+                                                @php
+                                                    $selected = '';
+                                                    if($preferDiameter == $item->id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach

@@ -9,5 +9,5 @@ class UnitForUser extends Model
 {
     use HasFactory;
     protected $table = 'unit_user';
-    protected $fillable = ['id', 'UserID', 'Pressure', 'Temperature', 'Density', 'Flow', 'Length'];
+    protected $fillable = ['id', 'UserID', 'Pressure', 'Temperature', 'Density', 'Flow', 'Length', 'Diameter'];
 }

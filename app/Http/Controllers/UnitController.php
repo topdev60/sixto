@@ -23,12 +23,14 @@ class UnitController extends Controller
         $densityUnits           = Unit::where('concept_id', 3)->get();
         $flowUnits              = Unit::where('concept_id', 4)->get();
         $lengthUnits            = Unit::where('concept_id', 5)->get();
+        $diameterUnits          = Unit::where('concept_id', 6)->get();
 
         $preferPressure         = DB::table('unit_user')->select('Pressure')    ->where('UserID', Auth::id())->first();
         $preferTemperature      = DB::table('unit_user')->select('Temperature') ->where('UserID', Auth::id())->first();
         $preferDensity          = DB::table('unit_user')->select('Density')     ->where('UserID', Auth::id())->first();
         $preferFlow             = DB::table('unit_user')->select('Flow')        ->where('UserID', Auth::id())->first();
         $preferLength           = DB::table('unit_user')->select('Length')      ->where('UserID', Auth::id())->first();
+        $preferDiameter         = DB::table('unit_user')->select('Diameter')    ->where('UserID', Auth::id())->first();
 
         $location               = Auth::user()->role == 1 ? 'Backend' : 'Frontend';
         return view($location.'.Units.index')
@@ -38,11 +40,13 @@ class UnitController extends Controller
             ->with('densityUnits',      $densityUnits)
             ->with('flowUnits',         $flowUnits)
             ->with('lengthUnits',       $lengthUnits)
+            ->with('diameterUnits',     $diameterUnits)
             ->with('preferPressure',    $preferPressure)
             ->with('preferTemperature', $preferTemperature)
             ->with('preferDensity',     $preferDensity)
             ->with('preferFlow',        $preferFlow)
-            ->with('preferLength',      $preferLength);
+            ->with('preferLength',      $preferLength)
+            ->with('preferDiameter',    $preferDiameter);
     }
 
     /**
@@ -102,7 +106,7 @@ class UnitController extends Controller
         $temperature    = $request->temperature;
         $flow           = $request->flow;
         $length         = $request->length;
-
+        $diameter       = $request->diameter;
         UnitForUser::updateOrCreate(
             ['UserID'       => Auth::id()],
             [
@@ -111,6 +115,7 @@ class UnitController extends Controller
                 'Density'          =>$density,
                 'Flow'             =>$flow,
                 'Length'           =>$length,
+                'Diameter'         =>$diameter,
             ],
         );
 
