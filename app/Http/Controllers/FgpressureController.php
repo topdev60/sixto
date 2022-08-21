@@ -96,4 +96,10 @@ class FgpressureController extends Controller
         Fgpressure::where('FG_ID', $id)->delete();
         return redirect()->back();
     }
+
+    public function destroyAllRows($id)
+    {
+        Fgpressure::where('ProjectID', $id)->delete();
+        return redirect()->back();
+    }
 }

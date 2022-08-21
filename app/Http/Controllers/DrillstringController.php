@@ -177,4 +177,11 @@ class DrillstringController extends Controller
         DsComp::where('Comp_ID', $request->id)->delete();
         return redirect()->back();
     }
+
+    public function comp_all_destroy($ds_id)
+    {
+        DsComp::where('DS_ID', $ds_id)->delete();
+        return redirect()->back();
+    }
+
 }

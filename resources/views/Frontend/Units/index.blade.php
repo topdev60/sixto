@@ -23,7 +23,7 @@
                         {{__('Prefer Unit')}}
                     </div>
                     <div class="card-body">
-                        <form action="{{route('admin.units.update')}}" method="POST">
+                        <form action="{{route('user.units.update')}}" method="POST">
                         @csrf
                             <div class="row">
                                 <div class="col-md-6 col-lg-6">

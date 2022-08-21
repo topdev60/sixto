@@ -96,4 +96,10 @@ class PorepressureController extends Controller
         Popressure::where('PP_ID', $id)->delete();
         return redirect()->back();
     }
+
+    public function destroyAllRows($id)
+    {
+        Popressure::where('ProjectID', $id)->delete();
+        return redirect()->back();
+    }
 }

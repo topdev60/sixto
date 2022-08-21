@@ -143,4 +143,11 @@ class SurveyController extends Controller
         Survey::where('id', $trajId)->delete();
         return redirect()->back();
     }
+
+    public function deleteAllRows($id)
+    {
+        $projectId = Session::get('projectId');
+        Survey::where('ProjectID', $projectId)->delete();
+        return redirect()->back();
+    }
 }

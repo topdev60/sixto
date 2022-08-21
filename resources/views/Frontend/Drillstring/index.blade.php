@@ -55,6 +55,14 @@
                                 Delete Section
                             </button>
                         </div>
+                        <div class="float-start dropdown m-l-25 mt-1">
+                            <button type="button" role="button" class="btn btn-primary p-0 mt-1" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="{{route('user.drillstringComp.deleteAllRows', $dsInfo->DS_ID)}}"> {{__('Delete All Rows')}} </a></li>
+                            </ul>
+                        </div>
                         <div class="float-end m-2">
                             <button type="button" class="btn btn-primary p-0" data-bs-toggle="modal"
                                 data-bs-target="#addModal">

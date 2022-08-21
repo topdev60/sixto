@@ -99,4 +99,10 @@ class LithologyController extends Controller
         Lithology::where('LithoID', $id)->delete();
         return redirect()->back();
     }
+
+    public function destroyAllRows($id)
+    {
+        Lithology::where('ProjectID', $id)->delete();
+        return redirect()->back();
+    }
 }

@@ -99,4 +99,10 @@ class TemperatureController extends Controller
         Temperature::where('TempID', $id)->delete();
         return redirect()->back();
     }
+
+    public function destroyAllRows($id)
+    {
+        Temperature::where('ProjectID', $id)->delete();
+        return redirect()->back();
+    }
 }

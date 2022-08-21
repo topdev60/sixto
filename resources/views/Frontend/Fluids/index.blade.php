@@ -2,7 +2,6 @@
 @section('content')
 <input type="hidden" id="tabType" value="5">
 <input type="hidden" name="selectedSampleID" value="{{session()->get('selectedSampleID')}}">
-
 <section class="home-section" id="home-section">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between mb-3">
@@ -22,7 +21,7 @@
             };
         @endphp
         <div class="row gy-4">
-            <div class="col-md-12 col-lg-7">
+            <div class="col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header clearfix">
                         <div class="float-start m-2">
@@ -30,6 +29,14 @@
                         </div>
                         <div class="float-start">
                             {{session()->get('fluidName')}}
+                        </div>
+                        <div class="float-start dropdown" style="margin-left: 81%">
+                            <button type="button" role="button" class="btn btn-primary p-0 mt-1" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="{{route('user.fluids.deleteAllRows', session()->get('projectId'))}}"> {{__('Delete All Rows')}} </a></li>
+                            </ul>
                         </div>
                         <div class="float-end">
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addFluidModal"> +Add {{$module}} </button>
@@ -166,7 +173,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="" class="form-label">Rheology</label>
-                                                            <select class="form-control" name="rheology" 
+                                                            <select class="form-control" name="rheology"
                                                                 required>
                                                                     @foreach ($rheologyList as $key => $list)
                                                                         @php
@@ -233,7 +240,7 @@
                                             {{-- edit modal --}}
                                         </td>
                                     </tr>
-                                @endforeach                                    
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -363,6 +370,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12 col-lg-6">
+                        <div id="divplot"></div>
+                    </div>
                     {{-- <div class="col-md-12 col-lg-3">
                         <div class="card">
                             <div class="card-header">Selection Area</div>
@@ -374,10 +384,6 @@
                     </div> --}}
                 </div>
             </div>
-
-            <div class="col-md-12 col-lg-5">
-                <div id="divplot"></div>
-            </div>
         </div>
     </div>
 </section>
@@ -386,7 +392,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <form action="{{ route('user.fluid.store') }}" method="post">
-                @csrf            
+                @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="addFluidModalLabel">+ Add {{ __('Fluid') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -414,7 +420,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="" class="form-label">Rheology</label>
-                        <select class="form-control" name="rheology" 
+                        <select class="form-control" name="rheology"
                             required>
                                 @foreach ($rheologyList as $key => $list)
                                     <option value="{{$key}}">{{$list}}</option>

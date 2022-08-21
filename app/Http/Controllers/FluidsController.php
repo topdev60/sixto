@@ -22,7 +22,9 @@ class FluidsController extends Controller
     {
         $selectedProjectID     = Session::get('projectId');
         $fluids                = Fluids::where('ProjectID', $selectedProjectID)->get();
-
+        foreach ($fluids as $key => $fluid) {
+            if($key == 0) Session::put('fluidId', $fluid->FluidID);
+        }
         $location              = Auth::user()->role == 1 ? 'Backend' : 'Frontend';
         return view($location.'.Fluids.index')->with('module', $this->module)->with('fluids', $fluids);
     }
@@ -149,4 +151,15 @@ class FluidsController extends Controller
         Sample::where('FluidID', $request->FluidID)->delete();
         return redirect()->back();
     }
+
+    public function deleteAllRows($id=null)
+    {
+        // $fluids = Fluids::where('ProhectID', $id)->get();
+        // foreach ($fluids as $key => $fluid) {
+        //     Sample::where('FluidID', $fluid->FluidID)->delete();
+        //     $fluid->delete();
+        // }
+        return redirect()->back();
+    }
+
 }

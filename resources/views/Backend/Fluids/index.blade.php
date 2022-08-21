@@ -35,7 +35,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
                                 <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
-                                <li><a class="dropdown-item" href="#"> {{__('Delete All Rows')}} </a></li>
+                                <li><a class="dropdown-item" href="{{route('admin.fluids.deleteAllRows', session()->get('projectId'))}}"> {{__('Delete All Rows')}} </a></li>
                             </ul>
                         </div>
                         <div class="float-end">

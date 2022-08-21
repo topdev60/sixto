@@ -20,7 +20,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
                                 <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
-                                <li><a class="dropdown-item" href="#"> {{__('Delete All Rows')}} </a></li>
+                                <li><a class="dropdown-item" href="{{route('admin.survey.deleteAllRows', session()->get('projectId'))}}"> {{__('Delete All Rows')}} </a></li>
                             </ul>
                         </div>
                         <div class="float-end"><button type="button" data-bs-toggle="modal" data-bs-target="#addTrajectoryModal" class="btn btn-primary p-0"><i class="fas fa-plus"></i> Add</button></div>
