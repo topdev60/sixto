@@ -33,7 +33,7 @@
                         <div class="float-start dropdown" style="margin-left: 81%">
                             <button type="button" role="button" class="btn btn-primary p-0 mt-1" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="pasteFluidFunc()"> {{__('Paste from Clipboard')}} </a></li>
                                 <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
                                 <li><a class="dropdown-item" href="{{route('admin.fluids.deleteAllRows', session()->get('projectId'))}}"> {{__('Delete All Rows')}} </a></li>
                             </ul>
@@ -68,7 +68,6 @@
                                 @foreach ($fluids as $item)
                                     <tr>
                                         <td class="text-center">
-                                        {{-- @dump(session()->get('fluidId')) --}}
                                             <a href="{{route('admin.fluid.select', $item->FluidID)}}">
                                                 @if (session()->get('fluidId') == $item->FluidID)
                                                     <i class="far fa-check-square"></i>

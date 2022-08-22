@@ -150,3 +150,181 @@ function FluidDrawChart(sampleId) {
         }
     })
 }
+
+/**
+ * Paste to Survey table
+ */
+var pasteSurveyFunc = function () {
+    navigator.clipboard.readText().then(function (data) {
+        var rows = data.split('\n');
+        rows = JSON.stringify(rows);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data: {
+                'rows': rows,
+            },
+            type: 'POST',
+            url: 'survey/storePasteData',
+            dataType: 'json',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                }
+            }
+        })
+    })
+}
+
+var pastePorePressureFunc = function () {
+    navigator.clipboard.readText().then(function (data) {
+        var rows = data.split('\n');
+        rows = JSON.stringify(rows);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data: {
+                'rows': rows,
+            },
+            type: 'POST',
+            url: '/porepressure/storePasteData',
+            dataType: 'json',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                }
+            }
+        })
+    })
+}
+
+var pasteFracturFunc = function () {
+    navigator.clipboard.readText().then(function (data) {
+        var rows = data.split('\n');
+        rows = JSON.stringify(rows);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data: {
+                'rows': rows,
+            },
+            type: 'POST',
+            url: '/fracture/storePasteData',
+            dataType: 'json',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                }
+            }
+        })
+    })
+}
+
+var pasteFormationFunc = function () {
+    navigator.clipboard.readText().then(function (data) {
+        var rows = data.split('\n');
+        rows = JSON.stringify(rows);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data: {
+                'rows': rows,
+            },
+            type: 'POST',
+            url: '/temperature/storePasteData',
+            dataType: 'json',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                }
+            }
+        })
+    })
+}
+
+var pasteLithologyFunc = function () {
+    navigator.clipboard.readText().then(function (data) {
+        var rows = data.split('\n');
+        rows = JSON.stringify(rows);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data: {
+                'rows': rows,
+            },
+            type: 'POST',
+            url: '/lithology/storePasteData',
+            dataType: 'json',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                }
+            }
+        })
+    })
+}
+
+var pasteDrillStringFunc = function () {
+    navigator.clipboard.readText().then(function (data) {
+        var rows = data.split('\n');
+        rows = JSON.stringify(rows);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data: {
+                'rows': rows,
+            },
+            type: 'POST',
+            url: '/drillstring/storePasteData',
+            dataType: 'json',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                }
+            }
+        })
+    })
+}
+
+var pasteFluidFunc = function () {
+    navigator.clipboard.readText().then(function (data) {
+        var rows = data.split('\n');
+        rows = JSON.stringify(rows);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data: {
+                'rows': rows,
+            },
+            type: 'POST',
+            url: '/fluids/storePasteData',
+            dataType: 'json',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                }
+            }
+        })
+    })
+}

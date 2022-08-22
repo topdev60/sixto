@@ -150,4 +150,28 @@ class SurveyController extends Controller
         Survey::where('ProjectID', $projectId)->delete();
         return redirect()->back();
     }
+
+    public function storePasteData(Request $request)
+    {
+        $projectId = Session::get('projectId');
+        $rows = $request->rows;
+        $rows = json_decode($rows);
+        $newRows = [];
+        unset($rows[count($rows)-1]); //because last element has "" value
+        foreach ($rows as $key => $row) {
+            $row = str_replace("\r", "", $row);
+            $row = explode("\t", $row);
+            Survey::insert([
+                'ProjectID' => $projectId,
+                'MD' => $row[0],
+                'Inc' => $row[1],
+                'Azimuth' => $row[2],
+                'TVD' => $row[3],
+                'North' => $row[4],
+                'East' => $row[5]
+            ]);
+        }
+
+        return 1;
+    }
 }

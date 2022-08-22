@@ -105,4 +105,25 @@ class TemperatureController extends Controller
         Temperature::where('ProjectID', $id)->delete();
         return redirect()->back();
     }
+
+    public function storePasteData(Request $request)
+    {
+        $projectId = Session::get('projectId');
+        $rows = $request->rows;
+        $rows = json_decode($rows);
+        $newRows = [];
+        unset($rows[count($rows)-1]); //because last element has "" value
+        foreach ($rows as $key => $row) {
+            $row = str_replace("\r", "", $row);
+            $row = explode("\t", $row);
+            Temperature::insert([
+                'ProjectID' => $projectId,
+                'TVD' => $row[0],
+                'TG' => $row[1],
+                'Temperature' => $row[2],
+            ]);
+        }
+
+        return 1;
+    }
 }

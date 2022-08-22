@@ -11,8 +11,8 @@
                     <div class="float-end">
                         <button type="button" class="btn btn-primary p-0" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
-                            <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" onclick="pastePorePressureFunc()"> {{__('Paste from Clipboard')}} </a></li>
+                            <li><a class="dropdown-item" href="#"> {{__('Export to Excel')}} </a></li>
                             <li><a class="dropdown-item" href="{{route('admin.porepressure.destroyAllRows', session()->get('projectId'))}}"> {{__('Delete All Rows')}} </a></li>
                         </ul>
                     </div>

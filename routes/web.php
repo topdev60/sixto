@@ -31,19 +31,25 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
     Route::post('project/update', 'ProjectController@update')->name('project.update');
     Route::resource('survey', 'SurveyController');
+    Route::post('survey/storePasteData', 'SurveyController@storePasteData')->name('survey.storePasteData');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
     Route::get('survey/deleteAllRows/{id}', 'SurveyController@deleteAllRows')->name('survey.deleteAllRows');
+
     Route::resource('formation', 'FormationController');
     Route::resource('fgpressure', 'FgpressureController');
     Route::resource('porepressure', 'PorepressureController');
     Route::resource('temperature', 'TemperatureController');
     Route::resource('lithology', 'LithologyController');
+
     Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
     Route::get('porepressure/destroyAllRows/{id}', 'PorepressureController@destroyAllRows')->name('porepressure.destroyAllRows');
+
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::get('fgpressure/destroyAllRows/{id}', 'FgpressureController@destroyAllRows')->name('fgpressure.destroyAllRows');
+
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::get('temperature/destroyAllRows/{id}', 'TemperatureController@destroyAllRows')->name('temperature.destroyAllRows');
+
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::get('lithology/destroyAllRows/{id}', 'LithologyController@destroyAllRows')->name('lithology.destroyAllRows');
     Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
@@ -89,6 +95,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
     Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
     Route::post('project/update', 'ProjectController@update')->name('project.update');
     Route::resource('survey', 'SurveyController');
+    Route::post('survey/storePasteData', 'SurveyController@storePasteData')->name('survey.storePasteData');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
     Route::get('survey/deleteAllRows/{id}', 'SurveyController@deleteAllRows')->name('survey.deleteAllRows');
 
@@ -100,10 +107,13 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
 
     Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
     Route::get('porepressure/destroyAllRows/{id}', 'PorepressureController@destroyAllRows')->name('porepressure.destroyAllRows');
+
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::get('fgpressure/destroyAllRows/{id}', 'FgpressureController@destroyAllRows')->name('fgpressure.destroyAllRows');
+
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::get('temperature/destroyAllRows/{id}', 'TemperatureController@destroyAllRows')->name('temperature.destroyAllRows');
+
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::get('lithology/destroyAllRows/{id}', 'LithologyController@destroyAllRows')->name('lithology.destroyAllRows');
     Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
@@ -147,5 +157,14 @@ Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.g
 Route::post('getChartsSampleData', 'SampleController@getChartsSampleData')->name('sample.getChartsSampleData');
 Route::post('getDataSimulation', 'SimulationController@getDataSimulation')->name('simulation.getDataSimulation');
 Route::post('getDataSimulationGuageAndSlider', 'SimulationController@getDataSimulationGuageAndSlider')->name('simulation.getDataSimulationGuageAndSlider');
+
+Route::post('porepressure/storePasteData', 'PorepressureController@storePasteData')->name('porepressure.storePasteData');
+Route::post('fracture/storePasteData', 'FgpressureController@storePasteData')->name('fgpressure.storePasteData');
+Route::post('temperature/storePasteData', 'TemperatureController@storePasteData')->name('temperature.storePasteData');
+Route::post('lithology/storePasteData', 'LithologyController@storePasteData')->name('lithology.storePasteData');
+Route::post('drillstring/storePasteData', 'DrillstringController@storePasteData')->name('drillstring.storePasteData');
+Route::post('fluids/storePasteData', 'FluidsController@storePasteData')->name('fluids.storePasteData');
+
+
 
 

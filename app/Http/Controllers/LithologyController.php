@@ -105,4 +105,26 @@ class LithologyController extends Controller
         Lithology::where('ProjectID', $id)->delete();
         return redirect()->back();
     }
+
+    public function storePasteData(Request $request)
+    {
+        $projectId = Session::get('projectId');
+        $rows = $request->rows;
+        $rows = json_decode($rows);
+        $newRows = [];
+        unset($rows[count($rows)-1]); //because last element has "" value
+        foreach ($rows as $key => $row) {
+            $row = str_replace("\r", "", $row);
+            $row = explode("\t", $row);
+            Lithology::insert([
+                'ProjectID' => $projectId,
+                'MD' => $row[0],
+                'TVD' => $row[1],
+                'TC' => $row[2],
+                'SH' => $row[3],
+            ]);
+        }
+
+        return 1;
+    }
 }

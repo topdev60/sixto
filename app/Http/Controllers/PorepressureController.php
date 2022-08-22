@@ -102,4 +102,25 @@ class PorepressureController extends Controller
         Popressure::where('ProjectID', $id)->delete();
         return redirect()->back();
     }
+
+    public function storePasteData(Request $request)
+    {
+        $projectId = Session::get('projectId');
+        $rows = $request->rows;
+        $rows = json_decode($rows);
+        $newRows = [];
+        unset($rows[count($rows)-1]); //because last element has "" value
+        foreach ($rows as $key => $row) {
+            $row = str_replace("\r", "", $row);
+            $row = explode("\t", $row);
+            Popressure::insert([
+                'ProjectID' => $projectId,
+                'TVD' => $row[0],
+                'PP' => $row[1],
+                'Pressure' => $row[2],
+            ]);
+        }
+
+        return 1;
+    }
 }

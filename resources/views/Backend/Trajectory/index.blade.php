@@ -18,9 +18,12 @@
                         <div class="float-start dropdown" style="margin-left: 70%">
                             <button type="button" role="button" class="btn btn-primary p-0" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#"> {{__('Paste from Clipboard')}} </a></li>
-                                <li><a class="dropdown-item" href="#"> {{__('Copy to Clipboard')}} </a></li>
-                                <li><a class="dropdown-item" href="{{route('admin.survey.deleteAllRows', session()->get('projectId'))}}"> {{__('Delete All Rows')}} </a></li>
+                                @php
+                                    $id = session()->has('projectId') ? session()->get('projectId') : null;
+                                @endphp
+                                <li><a class="dropdown-item" href="javascript:void(0);" onclick="pasteSurveyFunc()"> {{__('Paste from Clipboard')}} </a></li>
+                                <li><a class="dropdown-item" href="#"> {{__('Export to Excel')}} </a></li>
+                                <li><a class="dropdown-item" href="{{route('admin.survey.deleteAllRows', $id)}}"> {{__('Delete All Rows')}} </a></li>
                             </ul>
                         </div>
                         <div class="float-end"><button type="button" data-bs-toggle="modal" data-bs-target="#addTrajectoryModal" class="btn btn-primary p-0"><i class="fas fa-plus"></i> Add</button></div>
@@ -101,7 +104,7 @@
                                         <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->TVD * $unitLenValue}} @else {{$traj->TVD}} @endif</td>
                                         <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->North * $unitLenValue}} @else {{$traj->North}} @endif</td>
                                         <td class="text-center"> @if(isset($unitLenValue)) {{ $traj->East * $unitLenValue}} @else  {{$traj->East}} @endif</td>
-                                        <td class="text-center"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteTrajectoryModal{{$traj->id}}"><i class="fas fa-minus"></i></button></td>
+                                        <td class="text-center"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteTrajectoryModal{{$traj->id}}"><i class="fas fa-minus"></i></button>
                                         <div class="modal fade" id="deleteTrajectoryModal{{ $traj->id }}" data-bs-backdrop="static"
                                             data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
                                             aria-hidden="true">
@@ -133,6 +136,7 @@
                                             </div>
                                             </div>
                                         </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -154,34 +158,35 @@
                 <form action="{{ route('admin.survey.store') }}" method="post">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">+ Add {{ __('$module') }}</h5>
+                    <h5 class="modal-title" id="addModalLabel">+ Add {{ __('Sample') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row gy-3">
-                    <div class="col-md-6">
-                        <label for="" class="form-label">MD</label>
-                        <input type="text" class="form-control" name="md" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="form-label">Inc</label>
-                        <input type="text" class="form-control" name="inc" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="form-label">Azimuth</label>
-                        <input type="text" class="form-control" name="azi" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="form-label">TVD</label>
-                        <input type="text" class="form-control" name="tvd" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="form-label">North</label>
-                        <input type="text" class="form-control" name="north" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="" class="form-label">EST</label>
-                        <input type="text" class="form-control" name="east" required>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">MD</label>
+                            <input type="text" class="form-control" name="md" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Inc</label>
+                            <input type="text" class="form-control" name="inc" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Azimuth</label>
+                            <input type="text" class="form-control" name="azi" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">TVD</label>
+                            <input type="text" class="form-control" name="tvd" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">North</label>
+                            <input type="text" class="form-control" name="north" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">EST</label>
+                            <input type="text" class="form-control" name="east" required>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

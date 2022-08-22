@@ -184,4 +184,28 @@ class DrillstringController extends Controller
         return redirect()->back();
     }
 
+    public function storePasteData(Request $request)
+    {
+        $dsInfo = session()->get('dsInfo');
+        $ds_id = $dsInfo->DS_ID;
+        $rows = $request->rows;
+        $rows = json_decode($rows);
+        $newRows = [];
+        unset($rows[count($rows)-1]); //because last element has "" value
+        foreach ($rows as $key => $row) {
+            $row = str_replace("\r", "", $row);
+            $row = explode("\t", $row);
+            DsComp::insert([
+                'DS_ID' => $ds_id,
+                'OD' => $row[0],
+                'ID' => $row[1],
+                'TJ' => $row[2],
+                'Weight' => $row[3],
+                'Length' => $row[4],
+            ]);
+        }
+
+        return 1;
+    }
+
 }
