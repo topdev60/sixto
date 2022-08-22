@@ -67,6 +67,8 @@
                             <tbody>
                                 @foreach ($fluids as $item)
                                     <tr>
+                                        @dump(session()->get('fluidId'))
+
                                         <td class="text-center">
                                             <a href="{{route('user.fluid.select', $item->FluidID)}}">
                                                 @if (session()->get('fluidId') == $item->FluidID)

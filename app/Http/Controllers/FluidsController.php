@@ -23,7 +23,11 @@ class FluidsController extends Controller
         $selectedProjectID     = Session::get('projectId');
         $fluids                = Fluids::where('ProjectID', $selectedProjectID)->get();
         foreach ($fluids as $key => $fluid) {
-            if($key == 0) Session::put('fluidId', $fluid->FluidID);
+            if($key == 0){
+                if(!Session::has('fluidId')){
+                    Session::put('fluidId', $fluid->FluidID);
+                }
+            }
         }
         $location              = Auth::user()->role == 1 ? 'Backend' : 'Frontend';
         return view($location.'.Fluids.index')->with('module', $this->module)->with('fluids', $fluids);
@@ -37,13 +41,12 @@ class FluidsController extends Controller
 
     public function selectFluid($id)
     {
+        
         $fluidInfo = Fluids::where('FluidID', $id)->first();
         $location = Auth::user()->role == 1 ? 'admin' : 'user';
-
         Session::put('fluidId', $fluidInfo->FluidID);
         Session::put('fluidDesc', $fluidInfo->Description);
         Session::put('fluidInfo', $fluidInfo);
-
         Session::put('selectedSampleID', $fluidInfo->SampleID);
         return redirect()->route($location.'.fluids.index');
     }

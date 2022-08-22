@@ -68,6 +68,7 @@
                                 @foreach ($fluids as $item)
                                     <tr>
                                         <td class="text-center">
+                                        {{-- @dump(session()->get('fluidId')) --}}
                                             <a href="{{route('admin.fluid.select', $item->FluidID)}}">
                                                 @if (session()->get('fluidId') == $item->FluidID)
                                                     <i class="far fa-check-square"></i>
