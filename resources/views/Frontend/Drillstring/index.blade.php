@@ -18,7 +18,7 @@
                         @php
                             if (session()->has('dsInfo')) {
                                 $dsInfo = session()->get('dsInfo');
-                                $comps = $dsInfo->dscomp()->paginate('10');
+                                $comps = $dsInfo->dscomp()->orderby('Comp_ID', 'asc')->paginate('10');
                             }
                         @endphp
                         <div class="float-start">
