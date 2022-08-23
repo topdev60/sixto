@@ -132,7 +132,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
     Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
 
     Route::resource('wellbore', 'WellboreController');
-    Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');
+    Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');  
 
     Route::resource('drillstring', 'DrillstringController');
     Route::post('getdrillstring', 'DrillstringController@getDrillStringData')->name('drillstring.getdrillstringData');
