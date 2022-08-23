@@ -31,7 +31,7 @@ class SurveyController extends Controller
         $lengthUnits = DB::table('standard_unit')->where('concept_id', 5)->get();
         if(Auth::user()->role == 1){
             if(Session::has('projectId')){
-                $trajactories = Survey::where('projectID', Session::get('projectId'))->paginate(10);
+                $trajactories = Survey::where('projectID', Session::get('projectId'))->orderby('id', 'asc')->paginate(10);
             }else {
                 $trajactories = Survey::all();
             }
@@ -40,7 +40,7 @@ class SurveyController extends Controller
                 ->with('module', $this->module)
                 ->with('lengthUnits', $lengthUnits);
         }else {
-            $trajactories = Survey::where('projectID', Session::get('projectId'))->paginate(10);
+            $trajactories = Survey::where('projectID', Session::get('projectId'))->orderby('id', 'asc')->paginate(10);
             return view('Frontend.Trajectory.index')
                 ->with('trajectories', $trajactories)
                 ->with('module', $this->module)

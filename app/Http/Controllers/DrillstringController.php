@@ -196,12 +196,13 @@ class DrillstringController extends Controller
             $row = str_replace("\r", "", $row);
             $row = explode("\t", $row);
             DsComp::insert([
-                'DS_ID' => $ds_id,
-                'OD' => $row[0],
-                'ID' => $row[1],
-                'TJ' => $row[2],
-                'Weight' => $row[3],
-                'Length' => $row[4],
+                'DS_ID'         => $ds_id,
+                'Description'   => $row[0],
+                'OD'            => $row[1],
+                'ID'            => $row[2],
+                'TJ'            => $row[3],
+                'Weight'        => $row[4],
+                'Length'        => $row[5],
             ]);
         }
 

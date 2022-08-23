@@ -117,11 +117,12 @@ class LithologyController extends Controller
             $row = str_replace("\r", "", $row);
             $row = explode("\t", $row);
             Lithology::insert([
-                'ProjectID' => $projectId,
-                'MD' => $row[0],
-                'TVD' => $row[1],
-                'TC' => $row[2],
-                'SH' => $row[3],
+                'ProjectID'     => $projectId,
+                'Description'   => $row[0],
+                'MD'            => $row[1],
+                'TVD'           => $row[2],
+                'TC'            => $row[3],
+                'SH'            => $row[4],
             ]);
         }
 

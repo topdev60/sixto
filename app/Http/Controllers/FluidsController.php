@@ -177,21 +177,21 @@ class FluidsController extends Controller
             $row = explode("\t", $row);
             Fluids::insert([
                 'ProjectID'     => $projectId,
-                'Density'       => $row[0],
-                'Type'          => $row[1],
-                'Rheology'      => $row[2],
-                'YP'            => $row[3],
-                'PV'            => $row[4],
-                'K'             => $row[5],
-                'n'             => $row[6],
-                'Viscosity'     => $row[7],
-                'Oil'           => $row[8],
-                'Water'         => $row[9],
-                'TC'            => $row[10],
-                'SH'            => $row[11],
+                'Description'   => $row[0],
+                'Density'       => $row[1],
+                'Type'          => $row[2],
+                'Rheology'      => $row[3],
+                'YP'            => $row[4],
+                'PV'            => $row[5],
+                'K'             => $row[6],
+                'n'             => $row[7],
+                'Viscosity'     => $row[8],
+                'Oil'           => $row[9],
+                'Water'         => $row[10],
+                'TC'            => $row[11],
+                'SH'            => $row[12],
             ]);
         }
-
         return 1;
     }
 

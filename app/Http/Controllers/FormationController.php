@@ -24,7 +24,7 @@ class FormationController extends Controller
     {
         $module = 'Formation';
         $selectedProjectId = Session::get('projectId');
-        $porepressure = Popressure::where('ProjectID', $selectedProjectId)->paginate(10);
+        $porepressure = Popressure::where('ProjectID', $selectedProjectId)->orderby('PP_ID', 'asc')->paginate(10);
         $pressureUnits = DB::table('standard_unit')->where('concept_id', 1)->get();
         $tempUnits = DB::table('standard_unit')->where('concept_id', 2)->get();
         $densityUnits = DB::table('standard_unit')->where('concept_id', 3)->get();
@@ -99,7 +99,7 @@ class FormationController extends Controller
         $lengthUnits = DB::table('standard_unit')->where('concept_id', 5)->get();
         switch ($slug) {
             case 'porepressure':
-                $porepressure = Popressure::where('ProjectID', $selectedProjectId)->paginate(10);
+                $porepressure = Popressure::where('ProjectID', $selectedProjectId)->orderby('PP_ID', 'asc')->paginate(10);
                 if(Auth::user()->role == 1){
                     return view('Backend.Formation.SubTabs.porepressure')
                         ->with('porepressure', $porepressure)
@@ -123,7 +123,7 @@ class FormationController extends Controller
                 }
                 break;
             case 'fracture':
-                $fgpressure = Fgpressure::where('ProjectID', $selectedProjectId)->paginate(10);
+                $fgpressure = Fgpressure::where('ProjectID', $selectedProjectId)->orderby('FG_ID', 'asc')->paginate(10);
                 if(Auth::user()->role == 1){
                     return view('Backend.Formation.SubTabs.fracture')
                         ->with('fgpressure', $fgpressure)
@@ -147,7 +147,7 @@ class FormationController extends Controller
                 }
                 break;
             case 'formation':
-                $temperatures = Temperature::where('ProjectID', $selectedProjectId)->paginate(10);
+                $temperatures = Temperature::where('ProjectID', $selectedProjectId)->orderby('TempID', 'asc')->paginate(10);
                 if(Auth::user()->role == 1){
                     return view('Backend.Formation.SubTabs.formation')
                         ->with('temperatures', $temperatures)
@@ -171,7 +171,7 @@ class FormationController extends Controller
                 }
                 break;
             case 'lithology':
-                $lithologies = Lithology::where('ProjectID', $selectedProjectId)->paginate(10);
+                $lithologies = Lithology::where('ProjectID', $selectedProjectId)->orderby('LithoID', 'asc')->paginate(10);
                 if(Auth::user()->role == 1){
                     return view('Backend.Formation.SubTabs.lithology')
                     ->with('lithologies', $lithologies)
@@ -195,7 +195,7 @@ class FormationController extends Controller
                 }
                 break;
             default:
-                $porepressure = Popressure::where('ProjectID', $selectedProjectId)->paginate(10);
+                $porepressure = Popressure::where('ProjectID', $selectedProjectId)->orderby('PP_ID', 'asc')->paginate(10);
                 if(Auth::user()->role == 1){
                     return view('Backend.Formation.SubTabs.porepressure')
                         ->with('porepressure', $porepressure)
