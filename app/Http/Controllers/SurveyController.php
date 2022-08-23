@@ -7,10 +7,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Maatwebsite\Excel\Facades\Excel;
+    
 use App\Models\Survey;
 use App\Models\UnitForUser;
 
+use App\Exports\ExportSurvey;
 class SurveyController extends Controller
 {
     /**
@@ -173,5 +175,11 @@ class SurveyController extends Controller
         }
 
         return 1;
+    }
+
+    public function export()
+    {
+        $projectId = Session::get('projectId');
+        return Excel::download(new ExportSurvey($projectId), 'survey.xlsx');
     }
 }

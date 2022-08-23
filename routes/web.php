@@ -30,8 +30,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
     Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
     Route::post('project/update', 'ProjectController@update')->name('project.update');
+    
     Route::resource('survey', 'SurveyController');
     Route::post('survey/storePasteData', 'SurveyController@storePasteData')->name('survey.storePasteData');
+    Route::get('survey/export/{id}', 'SurveyController@export')->name('survey.export');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
     Route::get('survey/deleteAllRows/{id}', 'SurveyController@deleteAllRows')->name('survey.deleteAllRows');
 
@@ -43,12 +45,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
 
     Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
     Route::get('porepressure/destroyAllRows/{id}', 'PorepressureController@destroyAllRows')->name('porepressure.destroyAllRows');
+    Route::get('porepressure/export/{id}', 'PorepressureController@export')->name('porepressure.export');
 
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::get('fgpressure/destroyAllRows/{id}', 'FgpressureController@destroyAllRows')->name('fgpressure.destroyAllRows');
+    Route::get('fgpressure/export/{id}', 'FgpressureController@export')->name('fgpressure.export');
 
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::get('temperature/destroyAllRows/{id}', 'TemperatureController@destroyAllRows')->name('temperature.destroyAllRows');
+    Route::get('temperature/export/{id}', 'TemperatureController@export')->name('temperature.export');
 
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::get('lithology/destroyAllRows/{id}', 'LithologyController@destroyAllRows')->name('lithology.destroyAllRows');
@@ -63,6 +68,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::post('drillstringComp/update', 'DrillstringController@comp_update')->name('drillstringComp.update');
     Route::post('drillstringComp/destroy', 'DrillstringController@comp_destroy')->name('drillstringComp.destroy');
     Route::get('drillstringComp/destroyAllRows/{id}', 'DrillstringController@comp_all_destroy')->name('drillstringComp.deleteAllRows');
+    Route::get('drillstringComp/export/{id}', 'DrillstringController@export')->name('drillstringComp.export');
 
     Route::post('drillstring/store', 'DrillstringController@store')->name('drillstring.store');
     Route::post('drillstring/update', 'DrillstringController@update')->name('drillstring.update');
@@ -79,6 +85,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::post('fluids/destroy', 'FluidsController@destroy')->name('fluid.destroy');
     Route::post('fluids/update', 'FluidsController@update')->name('fluid.update');
     Route::get('fluids/deleteAllRows/{id}', 'FluidsController@deleteAllRows')->name('fluids.deleteAllRows');
+    Route::get('fluids/export/{id}', 'FluidsController@export')->name('fluids.export');
 
     Route::post('sample/store', 'SampleController@store')->name('sample.store');
     Route::post('sample/update', 'SampleController@update')->name('sample.update');
@@ -94,8 +101,10 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
     Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
     Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
     Route::post('project/update', 'ProjectController@update')->name('project.update');
+
     Route::resource('survey', 'SurveyController');
     Route::post('survey/storePasteData', 'SurveyController@storePasteData')->name('survey.storePasteData');
+    Route::get('survey/export/{id}', 'SurveyController@export')->name('survey.export');
     Route::post('survey/destroy', 'SurveyController@destroy')->name('survey.destroy');
     Route::get('survey/deleteAllRows/{id}', 'SurveyController@deleteAllRows')->name('survey.deleteAllRows');
 
@@ -107,15 +116,19 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
 
     Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
     Route::get('porepressure/destroyAllRows/{id}', 'PorepressureController@destroyAllRows')->name('porepressure.destroyAllRows');
-
+    Route::get('porepressure/export/{id}', 'PorepressureController@export')->name('porepressure.export');
+    
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::get('fgpressure/destroyAllRows/{id}', 'FgpressureController@destroyAllRows')->name('fgpressure.destroyAllRows');
+    Route::get('fgpressure/export/{id}', 'FgpressureController@export')->name('fgpressure.export');
 
     Route::post('temperature/destroy', 'TemperatureController@destroy')->name('temperature.destroy');
     Route::get('temperature/destroyAllRows/{id}', 'TemperatureController@destroyAllRows')->name('temperature.destroyAllRows');
+    Route::get('temperature/export/{id}', 'TemperatureController@export')->name('temperature.export');
 
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::get('lithology/destroyAllRows/{id}', 'LithologyController@destroyAllRows')->name('lithology.destroyAllRows');
+    Route::get('lithology/export/{id}', 'LithologyController@export')->name('lithology.export');
     Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
 
     Route::resource('wellbore', 'WellboreController');
@@ -131,6 +144,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
     Route::post('drillstring/update', 'DrillstringController@update')->name('drillstring.update');
     Route::post('drillstring/destroy', 'DrillstringController@destroy')->name('drillstring.destroy');
     Route::get('drillstringComp/destroyAllRows/{id}', 'DrillstringController@comp_all_destroy')->name('drillstringComp.deleteAllRows');
+    Route::get('drillstringComp/export/{id}', 'DrillstringController@export')->name('drillstringComp.export');
 
     Route::post('surfpiping/store', 'SurfpipingController@store')->name('surfpiping.store');
     Route::post('surfpiping/update', 'SurfpipingController@update')->name('surfpiping.update');
@@ -142,6 +156,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
     Route::post('fluids/destroy', 'FluidsController@destroy')->name('fluid.destroy');
     Route::get('fluids/deleteAllRows/{id?}', 'FluidsController@deleteAllRows')->name('fluids.deleteAllRows');
     Route::post('fluids/update', 'FluidsController@update')->name('fluid.update');
+    Route::get('fluids/export/{id}', 'FluidsController@export')->name('fluids.export');
 
     Route::post('sample/store', 'SampleController@store')->name('sample.store');
     Route::post('sample/update', 'SampleController@update')->name('sample.update');
@@ -158,12 +173,22 @@ Route::post('getChartsSampleData', 'SampleController@getChartsSampleData')->name
 Route::post('getDataSimulation', 'SimulationController@getDataSimulation')->name('simulation.getDataSimulation');
 Route::post('getDataSimulationGuageAndSlider', 'SimulationController@getDataSimulationGuageAndSlider')->name('simulation.getDataSimulationGuageAndSlider');
 
+/**
+ * 
+ * for store Pasted Data to DB in Formation Sub Tabs ,Drilstring and Fluids
+ */
 Route::post('porepressure/storePasteData', 'PorepressureController@storePasteData')->name('porepressure.storePasteData');
 Route::post('fracture/storePasteData', 'FgpressureController@storePasteData')->name('fgpressure.storePasteData');
 Route::post('temperature/storePasteData', 'TemperatureController@storePasteData')->name('temperature.storePasteData');
 Route::post('lithology/storePasteData', 'LithologyController@storePasteData')->name('lithology.storePasteData');
 Route::post('drillstring/storePasteData', 'DrillstringController@storePasteData')->name('drillstring.storePasteData');
 Route::post('fluids/storePasteData', 'FluidsController@storePasteData')->name('fluids.storePasteData');
+
+/**
+ * 
+ * for export Excel file from DB in Formation Sub Tabs ,Drilstring and Fluids
+ */
+
 
 
 

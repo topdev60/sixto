@@ -18,7 +18,7 @@
                         @php
                             if (session()->has('dsInfo')) {
                                 $dsInfo = session()->get('dsInfo');
-                                $comps = $dsInfo->dscomp()->paginate('10');
+                                $comps = $dsInfo->dscomp()->orderby('Comp_ID', 'asc')->paginate('10');
                             }
                         @endphp
                         <div class="float-start">
@@ -59,7 +59,7 @@
                             <button type="button" role="button" class="btn btn-primary p-0 mt-1" data-bs-toggle="dropdown"><i class="fas fa-cog"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="javascript:void(0)" onclick="pasteDrillStringFunc()"> {{__('Paste from Clipboard')}} </a></li>
-                                <li><a class="dropdown-item" href="#"> {{__('Export to Excel')}} </a></li>
+                                <li><a class="dropdown-item" href="{{route('admin.drillstringComp.export', $dsInfo->DS_ID)}}"> {{__('Export to Excel')}} </a></li>
                                 <li><a class="dropdown-item" href="{{route('admin.drillstringComp.deleteAllRows', $dsInfo->DS_ID)}}"> {{__('Delete All Rows')}} </a></li>
                             </ul>
                         </div>

@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\DsComp;
 use Illuminate\Support\Facades\Session;
 use Laravel\Ui\Presets\React;
+
+use App\Exports\ExportDrillString;
 
 class DrillstringController extends Controller
 {
@@ -24,7 +27,7 @@ class DrillstringController extends Controller
     {
         $location = '';
         $selectedProjectId = Session::get('projectId');
-        $drillStrings = Drillstring::where('ProjectID', $selectedProjectId)->get();
+        $drillStrings = Drillstring::where('ProjectID', $selectedProjectId)->orderby('DS_ID', 'asc')->get();
 
         if(!Session::has('dsInfo')){
             $dsInfo = Drillstring::where('DS_ID', 1)->first();
@@ -198,15 +201,21 @@ class DrillstringController extends Controller
             DsComp::insert([
                 'DS_ID'         => $ds_id,
                 'Description'   => $row[0],
-                'OD'            => $row[1],
-                'ID'            => $row[2],
-                'TJ'            => $row[3],
-                'Weight'        => $row[4],
-                'Length'        => $row[5],
+                'ID'            => $row[1],
+                'OD'            => $row[2],
+                'Weight'        => $row[3],
+                'Length'        => $row[4],
+                'TJ'            => $row[5],
             ]);
         }
 
         return 1;
     }
 
+    public function export()
+    {
+        $dsInfo = session()->get('dsInfo');
+        $ds_id = $dsInfo->DS_ID;
+        return Excel::download(new ExportDrillString($ds_id), $dsInfo->Description.'.xlsx');
+    }
 }

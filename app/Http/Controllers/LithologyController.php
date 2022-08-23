@@ -6,6 +6,9 @@ use App\Models\Lithology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportLithlogy;
+
 class LithologyController extends Controller
 {
     /**
@@ -127,5 +130,11 @@ class LithologyController extends Controller
         }
 
         return 1;
+    }
+
+    public function export()
+    {
+        $projectId = Session::get('projectId');
+        return Excel::download(new ExportLithlogy($projectId), 'Lithology.xlsx');
     }
 }

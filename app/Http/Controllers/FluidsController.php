@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Exports\ExportFluids;
 
 class FluidsController extends Controller
 {
@@ -21,7 +24,7 @@ class FluidsController extends Controller
     public function index()
     {
         $selectedProjectID     = Session::get('projectId');
-        $fluids                = Fluids::where('ProjectID', $selectedProjectID)->get();
+        $fluids                = Fluids::where('ProjectID', $selectedProjectID)->orderby('FluidID', 'asc')->get();
         foreach ($fluids as $key => $fluid) {
             if($key == 0){
                 if(!Session::has('fluidId')){
@@ -157,24 +160,26 @@ class FluidsController extends Controller
 
     public function deleteAllRows($id=null)
     {
-        // $fluids = Fluids::where('ProhectID', $id)->get();
-        // foreach ($fluids as $key => $fluid) {
-        //     Sample::where('FluidID', $fluid->FluidID)->delete();
-        //     $fluid->delete();
-        // }
+        $fluids = Fluids::where('ProhectID', $id)->get();
+        foreach ($fluids as $key => $fluid) {
+            Sample::where('FluidID', $fluid->FluidID)->delete();
+            $fluid->delete();
+        }   
         return redirect()->back();
     }
 
     public function storePasteData(Request $request)
     {
-        $projectId = Session::get('projectId');
-        $rows = $request->rows;
-        $rows = json_decode($rows);
-        $newRows = [];
+        $projectId              = Session::get('projectId');
+        $rows                   = $request->rows;
+        $rows                   = json_decode($rows);
+        $newRows                = [];
+
         unset($rows[count($rows)-1]); //because last element has "" value
+
         foreach ($rows as $key => $row) {
-            $row = str_replace("\r", "", $row);
-            $row = explode("\t", $row);
+            $row    = str_replace("\r", "", $row);
+            $row    = explode("\t", $row);
             Fluids::insert([
                 'ProjectID'     => $projectId,
                 'Description'   => $row[0],
@@ -193,6 +198,12 @@ class FluidsController extends Controller
             ]);
         }
         return 1;
+    }
+
+    public function export()
+    {
+        $projectId = Session::get('projectId');
+        return Excel::download(new ExportFluids($projectId), 'Fluids.xlsx');
     }
 
 }

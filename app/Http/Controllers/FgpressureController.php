@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Fgpressure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Exports\ExportFgPressure;
 
 class FgpressureController extends Controller
 {
@@ -122,5 +125,11 @@ class FgpressureController extends Controller
         }
 
         return 1;
+    }
+
+    public function export()
+    {
+        $projectId = Session::get('projectId');
+        return Excel::download(new ExportFgPressure($projectId), 'FgPressure.xlsx');
     }
 }

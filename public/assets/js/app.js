@@ -328,3 +328,23 @@ var pasteFluidFunc = function () {
         })
     })
 }
+
+// var exportSurveyFunc = function () {
+//     var selectedProjectId = $('#projectId').val();
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+//     $.ajax({
+//         data: {
+//             'projectId': selectedProjectId,
+//         },
+//         type: 'POST',
+//         url: '/export',
+//         dataType: 'json',
+//         success: function (response) {
+//             alert('Successfully Downloaded');
+//         }
+//     })
+// }

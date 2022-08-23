@@ -22,7 +22,7 @@
                                     $id = session()->has('projectId') ? session()->get('projectId') : null;
                                 @endphp
                                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="pasteSurveyFunc()"> {{__('Paste from Clipboard')}} </a></li>
-                                <li><a class="dropdown-item" href="#"> {{__('Export to Excel')}} </a></li>
+                                <li><a class="dropdown-item" href="{{route('admin.survey.export', $id)}}"> {{__('Export to Excel')}} </a></li>
                                 <li><a class="dropdown-item" href="{{route('admin.survey.deleteAllRows', $id)}}"> {{__('Delete All Rows')}} </a></li>
                             </ul>
                         </div>

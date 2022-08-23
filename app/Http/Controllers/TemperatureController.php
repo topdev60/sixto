@@ -7,6 +7,9 @@ use App\Models\Temperature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportTemperature;
+
 class TemperatureController extends Controller
 {
     /**
@@ -125,5 +128,11 @@ class TemperatureController extends Controller
         }
 
         return 1;
+    }
+
+    public function export()
+    {
+        $projectId = Session::get('projectId');
+        return Excel::download(new ExportTemperature($projectId), 'Foramtion.xlsx');
     }
 }
