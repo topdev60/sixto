@@ -61,6 +61,37 @@ $(document).ready(function () {
         })
     })
 
+    $('.setUnitForDrillString').on('change', function () {
+        
+        var unitType = $(this).attr('name');
+        var data = {};
+
+        if(unitType == 'diameter'){
+            data.diameter   = $(this).val();
+            data.length     = $('select[name="length"]').val();
+        }else if(unitType == 'length'){
+            data.length      = $(this).val();
+            data.diameter    = $('select[name="diameter"]').val();
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '/setunitForDrillString',
+            success: function (response) {
+                if (response == 1) {
+                    location.reload();
+                    console.log(response);
+                }
+            }
+        })
+    })
+
     /**
      * start draw chart in Fluid page
      * 

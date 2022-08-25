@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
+use App\Models\UnitForUser;
 use App\Models\DsComp;
 use Illuminate\Support\Facades\Session;
 use Laravel\Ui\Presets\React;
@@ -26,21 +27,94 @@ class DrillstringController extends Controller
     public function index()
     {
         $location = '';
-        $selectedProjectId = Session::get('projectId');
-        $drillStrings = Drillstring::where('ProjectID', $selectedProjectId)->orderby('DS_ID', 'asc')->get();
+        $selectedProjectId  = Session::get('projectId');
+        $drillStrings       = Drillstring::where('ProjectID', $selectedProjectId)->orderby('DS_ID', 'asc')->get();
 
+        // $pressureUnits      = DB::table('standard_unit')->where('concept_id', 1)->get();
+        // $tempUnits          = DB::table('standard_unit')->where('concept_id', 2)->get();
+        // $densityUnits       = DB::table('standard_unit')->where('concept_id', 3)->get();
+        // $flowUnits          = DB::table('standard_unit')->where('concept_id', 4)->get();
+        $lengthUnits          = DB::table('standard_unit')->where('concept_id', 5)->get();
+        $diameterUnits        = DB::table('standard_unit')->where('concept_id', 6)->get();
+
+        if (!Session::has('DSUnitIds') && !Session::has('DSUnitValues')) {
+            $this->setSessionUnits();
+        }
         if(!Session::has('dsInfo')){
-            $dsInfo = Drillstring::where('DS_ID', 1)->first();
+            $dsInfo         = Drillstring::where('DS_ID', 1)->first();
             Session::put('dsInfo', $dsInfo);
         }
         if ( Auth::user()->role == 1 ) {
-            $location = 'Backend';
+            $location       = 'Backend';
         }else{
-            $location = 'Frontend';
+            $location       = 'Frontend';
         }
         return view($location.'.Drillstring.index')
-            ->with('module', $this->module)
-            ->with('drillStrings', $drillStrings);
+            ->with('module',        $this->module)
+            ->with('drillStrings',  $drillStrings)
+            ->with('diameterUnits', $diameterUnits)
+            ->with('lengthUnits',   $lengthUnits);
+    }
+
+    public function setunit(Request $request)
+    {
+        // dd($request->length, $request->diameter);
+       $length_id       = isset($request->length)     ? $request->length   : 22;
+       $diameter_id     = isset($request->diameter)   ? $request->diameter : 26;
+
+
+       $length          = DB::table('standard_unit')->where('id', $length_id)->first()->value;
+       $diameter        = DB::table('standard_unit')->where('id', $diameter_id)->first()->value;
+
+       $unitValues = array(
+           'length'     => $length,
+           'diameter'   => $diameter,
+       );
+
+       $unitIds = array(
+           'length_id'   => $length_id,
+           'diameter_id' => $diameter_id,
+       );
+
+       $unitValues = json_encode($unitValues);
+       $unitIds = json_encode($unitIds);
+       Session::put('DSUnitValues', $unitValues);
+       Session::put('DSUnitIds', $unitIds);
+       return 1;
+   }
+
+   public function setSessionUnits()
+    {
+        // $userPressureId     = UnitForUser::select('Pressure')->where('UserID', Auth::id())->first();
+        // $userTemperatureId  = UnitForUser::select('Temperature')->where('UserID', Auth::id())->first();
+        // $userDensityId      = UnitForUser::select('Density')->where('UserID', Auth::id())->first();
+        // $userFlowId         = UnitForUser::select('Flow')->where('UserID', Auth::id())->first();
+        $userLengthId       = UnitForUser::select('Length')->where('UserID', Auth::id())->first();
+        $userDiameterId     = UnitForUser::select('Diameter')->where('UserID', Auth::id())->first();
+
+        // $pressure_id        = $userPressureId->Pressure != null ? $userPressureId->Pressure: 1;
+        // $temp_id            = $userTemperatureId->Temperature != null ? $userTemperatureId->Temperature : 5;
+        // $density_id         = $userDensityId->Density != null ? $userDensityId->Density : 16;
+        $length_id          = $userLengthId->Length;
+        $diameter_id        = $userDiameterId->Diameter;
+
+        $length     = DB::table('standard_unit')->where('id', $length_id)->first()->value;
+        $diameter   = DB::table('standard_unit')->where('id', $diameter_id)->first()->value;
+
+        $unitValues = array(
+            'length'     => $length,
+            'diameter'   => $diameter,
+        );
+ 
+        $unitIds = array(
+            'length_id'   => $length_id,
+            'diameter_id' => $diameter_id,
+        );
+ 
+        $unitValues = json_encode($unitValues);
+        $unitIds = json_encode($unitIds);
+        Session::put('DSUnitValues', $unitValues);
+        Session::put('DSUnitIds', $unitIds);
     }
 
     /**
@@ -174,7 +248,7 @@ class DrillstringController extends Controller
         if(Auth::user()->role == 1) $location = 'admin';
         return redirect()->route($location.'.drillstring.index');
     }
-    
+
     public function comp_destroy(Request $request)
     {
         DsComp::where('Comp_ID', $request->id)->delete();

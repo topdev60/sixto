@@ -82,16 +82,86 @@
                                     <th class="text-center"> {{__('TJ(in)')}} </th>
                                     <th class="text-center"> {{__('Action')}} </th>
                                 </tr>
+                                <tr>
+                                    @php
+                                        if(session()->has('DSUnitIds')){
+                                            $unitIds    = json_decode(session()->get('DSUnitIds'));
+                                        }
+                                    @endphp
+                                    <form action="{{route('drillstring.setunit')}}" method="POST" id="setUnitDrillStringForm">
+                                        @csrf
+                                        <th class="text-center"></th>
+                                        <th class="text-center">
+                                            <select name="diameter" class="setUnitForDrillString">
+                                                @foreach ($diameterUnits as $key => $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitIds))
+                                                            if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </th>
+                                        <th class="text-center">
+                                            <select name="diameter" class="setUnitForDrillString">
+                                                @foreach ($diameterUnits as $key => $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitIds))
+                                                            if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center">
+                                            <select name="length" class="setUnitForDrillString">
+                                                @foreach ($lengthUnits as $key => $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitIds))
+                                                            if($item->id == $unitIds->length_id) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </th>
+                                        <th class="text-center">
+                                            <select name="diameter" class="setUnitForDrillString">
+                                                @foreach ($diameterUnits as $key => $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitIds))
+                                                            if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </th>
+                                        <th class="text-center"></th>
+                                    </form>
+                                </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    if(session()->has('DSUnitValues')){
+                                        $unitValues = json_decode(session()->get('DSUnitValues'));
+                                        if (isset($unitValues)) {
+                                            $length     = $unitValues->length;
+                                            $diameter   = $unitValues->diameter;
+                                        }
+                                    }
+                                @endphp
                                 @foreach ($comps as $item)
                                     <tr>
                                         <td class="text-center">{{$item->Description}}</td>
-                                        <td class="text-center">{{$item->ID}}</td>
-                                        <td class="text-center">{{$item->OD}}</td>
+                                        <td class="text-center">@if(isset($diameter)) {{$item->ID * $diameter}} @else {{$item->ID}} @endif</td>
+                                        <td class="text-center">@if(isset($diameter)) {{$item->OD * $diameter}} @else {{$item->OD}} @endif</td>
                                         <td class="text-center">{{$item->Weight}}</td>
-                                        <td class="text-center">{{$item->Length}}</td>
-                                        <td class="text-center">{{$item->TJ}}</td>
+                                        <td class="text-center">@if(isset($length)) {{$item->Length * $length}} @else {{$item->Length}} @endif</td>
+                                        <td class="text-center">@if(isset($diameter)) {{$item->TJ * $diameter}} @else {{$item->TJ}} @endif</td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"

@@ -30,7 +30,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::get('project/select/{id}', 'ProjectController@selectproject')->name('project.select');
     Route::post('project/destroy', 'ProjectController@destroy')->name('project.destroy');
     Route::post('project/update', 'ProjectController@update')->name('project.update');
-    
+
     Route::resource('survey', 'SurveyController');
     Route::post('survey/storePasteData', 'SurveyController@storePasteData')->name('survey.storePasteData');
     Route::get('survey/export/{id}', 'SurveyController@export')->name('survey.export');
@@ -58,6 +58,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin' ,'middleware' => ['auth','is
     Route::post('lithology/destroy', 'LithologyController@destroy')->name('lithology.destroy');
     Route::get('lithology/destroyAllRows/{id}', 'LithologyController@destroyAllRows')->name('lithology.destroyAllRows');
     Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
+    Route::get('lithology/export/{id}', 'LithologyController@export')->name('lithology.export');
 
     Route::resource('wellbore', 'WellboreController');
     Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');
@@ -117,7 +118,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
     Route::post('porepressure/destroy', 'PorepressureController@destroy')->name('porepressure.destroy');
     Route::get('porepressure/destroyAllRows/{id}', 'PorepressureController@destroyAllRows')->name('porepressure.destroyAllRows');
     Route::get('porepressure/export/{id}', 'PorepressureController@export')->name('porepressure.export');
-    
+
     Route::post('fgpressure/destroy', 'FgpressureController@destroy')->name('fgpressure.destroy');
     Route::get('fgpressure/destroyAllRows/{id}', 'FgpressureController@destroyAllRows')->name('fgpressure.destroyAllRows');
     Route::get('fgpressure/export/{id}', 'FgpressureController@export')->name('fgpressure.export');
@@ -132,7 +133,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
     Route::post('lithology/update', 'LithologyController@update')->name('lithology.update');
 
     Route::resource('wellbore', 'WellboreController');
-    Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');  
+    Route::post('wellbore/update', 'WellboreController@update')->name('wellbore.update');
 
     Route::resource('drillstring', 'DrillstringController');
     Route::post('getdrillstring', 'DrillstringController@getDrillStringData')->name('drillstring.getdrillstringData');
@@ -168,13 +169,16 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => ['auth', 'isP
 Route::post('/drillStringUpdate', 'WellboreController@drillStringUpdate');
 Route::post('setunit', 'FormationController@setunit')->name('formation.setunit');
 Route::post('setunitForSurvey', 'SurveyController@setunit')->name('survey.setunit');
+Route::post('setunitForDrillString', 'DrillstringController@setunit')->name('drillstring.setunit');
+
+
 Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.getChartsData');
 Route::post('getChartsSampleData', 'SampleController@getChartsSampleData')->name('sample.getChartsSampleData');
 Route::post('getDataSimulation', 'SimulationController@getDataSimulation')->name('simulation.getDataSimulation');
 Route::post('getDataSimulationGuageAndSlider', 'SimulationController@getDataSimulationGuageAndSlider')->name('simulation.getDataSimulationGuageAndSlider');
 
 /**
- * 
+ *
  * for store Pasted Data to DB in Formation Sub Tabs ,Drilstring and Fluids
  */
 Route::post('porepressure/storePasteData', 'PorepressureController@storePasteData')->name('porepressure.storePasteData');
@@ -185,7 +189,7 @@ Route::post('drillstring/storePasteData', 'DrillstringController@storePasteData'
 Route::post('fluids/storePasteData', 'FluidsController@storePasteData')->name('fluids.storePasteData');
 
 /**
- * 
+ *
  * for export Excel file from DB in Formation Sub Tabs ,Drilstring and Fluids
  */
 
