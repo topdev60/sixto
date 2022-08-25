@@ -170,6 +170,7 @@ Route::post('/drillStringUpdate', 'WellboreController@drillStringUpdate');
 Route::post('setunit', 'FormationController@setunit')->name('formation.setunit');
 Route::post('setunitForSurvey', 'SurveyController@setunit')->name('survey.setunit');
 Route::post('setunitForDrillString', 'DrillstringController@setunit')->name('drillstring.setunit');
+Route::post('setunitForWellbore', 'WellboreController@setunit')->name('wellbore.setunit');
 
 
 Route::post('getChartsData', 'ProjectController@getChartsData')->name('project.getChartsData');

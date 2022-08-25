@@ -8,6 +8,16 @@
                 {{$module}}
             </div>
         </div>
+        @php
+            if(session()->has('WBUnitValues') && session()->has('WBUnitIds')){
+                $unitValues = json_decode(session()->get('WBUnitValues'));
+                $unitIds    = json_decode(session()->get('WBUnitIds'));
+                if (isset($unitValues)) {
+                    $length     = $unitValues->length;
+                    $diameter   = $unitValues->diameter;
+                }
+            }
+        @endphp
         <div class="row gy-4">
             <div class="col-md-12 col-lg-8">
                 <div class="card">
@@ -31,6 +41,59 @@
                                     <th class="text-center">{{__('Weight(lbs/ft)')}}</th>
                                     <th class="text-center">{{__('Active')}}</th>
                                 </tr>
+                                <tr>
+                                    <th class="text-center"></th>
+                                    <th class="text-center">
+                                        <select name="diameter" class="setUnitForWellbore">
+                                            @foreach ($diameterUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="diameter" class="setUnitForWellbore">
+                                            @foreach ($diameterUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="diameter" class="setUnitForWellbore">
+                                            @foreach ($diameterUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <select name="diameter" class="setUnitForWellbore">
+                                            @foreach ($diameterUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th class="text-center">{{__('Weight(lbs/ft)')}}</th>
+                                    <th class="text-center"></th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <form action="{{route('user.wellbore.update')}}" id="wellboreUpdateForm" method="POST">
@@ -38,46 +101,46 @@
                                     @csrf
                                     <tr @if($rigType == 0 || $rigType == 1 || $rigType == 2) style="display: none" @endif>
                                         <td class="text-center"><input type="text" class="form-control" name="riserDescription" value="{{$wellbore->riser->RiserDescription}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="riserTopMD" value="{{$wellbore->riser->RiserTop}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="riserBottomMD" value="{{$wellbore->riser->RiserBottom}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="riserId" value="{{$wellbore->riser->RiserID}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="riserOd" value="{{$wellbore->riser->RiserOD}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="riserTopMD" value="{{$wellbore->riser->RiserTop * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="riserBottomMD" value="{{$wellbore->riser->RiserBottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="riserId" value="{{$wellbore->riser->RiserID * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="riserOd" value="{{$wellbore->riser->RiserOD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="riserWeight" value="{{$wellbore->riser->RiserWeight}}"></td>
                                         <td class="text-center"><input type="checkbox" @if($wellbore->riser->RiserActive) checked @endif></td>
                                     </tr>
                                     <tr>
                                         <td class="text-center"><input type="text" class="form-control" name="csgDescription" value="{{$wellbore->csg->CsgDescription}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="csgTopMD" value="{{$wellbore->csg->CsgTop}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="csgBottomMD" value="{{$wellbore->csg->CsgBottom}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="csgID" value="{{$wellbore->csg->CsgID}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="csgOD" value="{{$wellbore->csg->CsgOD}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="csgTopMD" value="{{$wellbore->csg->CsgTop * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="csgBottomMD" value="{{$wellbore->csg->CsgBottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="csgID" value="{{$wellbore->csg->CsgID * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="csgOD" value="{{$wellbore->csg->CsgOD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="csgWeight" value="{{$wellbore->csg->CsgWeight}}"></td>
                                         <td class="text-center"> {{__(' ')}} </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center"><input type="text" class="form-control" name="lfirstDescription" value="{{$wellbore->lfirst->L1Description}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lfirstTopMD" value="{{$wellbore->lfirst->L1Top}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lfirstBottomMD" value="{{$wellbore->lfirst->L1Bottom}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lfirstID" value="{{$wellbore->lfirst->L1ID}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lfirstOD" value="{{$wellbore->lfirst->L1OD}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lfirstTopMD" value="{{$wellbore->lfirst->L1Top * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lfirstBottomMD" value="{{$wellbore->lfirst->L1Bottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lfirstID" value="{{$wellbore->lfirst->L1ID * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lfirstOD" value="{{$wellbore->lfirst->L1OD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="lfirstWeight" value="{{$wellbore->lfirst->L1Weight}}"></td>
                                         <td class="text-center"><input type="checkbox" name="lfirstActive" @if($wellbore->lfirst->L1Active) checked @endif value="1"></td>
                                     </tr>
                                     <tr>
                                         <td class="text-center"><input type="text" class="form-control" name="lsecondDescription" value="{{$wellbore->lsecond->L2Description}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lsecondTopMD" value="{{$wellbore->lsecond->L2Top}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lsecondBottomMD" value="{{$wellbore->lsecond->L2Bottom}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lsecondID" value="{{$wellbore->lsecond->L2ID}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lsecondOD" value="{{$wellbore->lsecond->L2OD}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lsecondTopMD" value="{{$wellbore->lsecond->L2Top * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lsecondBottomMD" value="{{$wellbore->lsecond->L2Bottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lsecondID" value="{{$wellbore->lsecond->L2ID * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lsecondOD" value="{{$wellbore->lsecond->L2OD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="lsecondWeight" value="{{$wellbore->lsecond->L2Weight}}"></td>
                                         <td class="text-center"><input type="checkbox" name="lsecondActive" @if($wellbore->lsecond->L2Active) checked @endif value="1"></td>
                                     </tr>
                                     <tr>
                                         <td class="text-center"><input type="text" class="form-control" name="holeDescription" value="{{$wellbore->hole->HoleDescription}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="holeTopMD" value="{{$wellbore->hole->HoleTop}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="holeBottomMD" value="{{$wellbore->hole->HoleBottom}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="holeID" value="{{$wellbore->hole->HoleID}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="holeOD" value="{{$wellbore->hole->HoleOD}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="holeTopMD" value="{{$wellbore->hole->HoleTop * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="holeBottomMD" value="{{$wellbore->hole->HoleBottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="holeID" value="{{$wellbore->hole->HoleID * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="holeOD" value="{{$wellbore->hole->HoleOD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="holeWeight" value="{{$wellbore->hole->HoleWeight}}"></td>
                                         <td class="text-center">{{__(' ')}}</td>
                                     </tr>
@@ -135,8 +198,18 @@
                                                     <option value="{{$key}}" {{$selected}}> {{$item}} </option>
                                                 @endforeach
                                             </select>
-                                            <label for="position" class="form-label">Position(FT)</label>
-                                            <input type="number" class="form-control" id="inputPosition" name="position" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_position}}" @endif>
+                                            <label for="position" class="form-label">Position</label>
+                                            <select name="length" class="setUnitForWellbore">
+                                                @foreach ($lengthUnits as $key => $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitIds))
+                                                            if($item->id == $unitIds->length_id) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="number" class="form-control" id="inputPosition" name="position" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_position * $length}}" @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-7">
@@ -144,21 +217,36 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">No. of Nozzles</th>
-                                                    <th class="text-center">Size(1/32 in)</th>
+                                                    <th class="text-center">Size(1/32)</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="text-center"></th>
+                                                    <th class="text-center">
+                                                        <select name="diameter" class="setUnitForWellbore">
+                                                            @foreach ($diameterUnits as $key => $item)
+                                                                @php
+                                                                    $selected = '';
+                                                                    if(isset($unitIds))
+                                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                                @endphp
+                                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td class="text-center"> <input type="number" class="form-control" name="N0_N" value="{{$selectedDrillStringInfo->N0_N}}"> </td>
-                                                    <td class="text-center"> <input type="number" class="form-control" name="N0_SIZE" value="{{$selectedDrillStringInfo->N0_SIZE}}"> </td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N0_SIZE" value="{{$selectedDrillStringInfo->N0_SIZE * $diameter}}"> </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"> <input type="number" class="form-control" name="N1_N" value="{{$selectedDrillStringInfo->N1_N}}"></td>
-                                                    <td class="text-center"> <input type="number" class="form-control" name="N1_SIZE" value="{{$selectedDrillStringInfo->N1_SIZE}}"> </td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N1_SIZE" value="{{$selectedDrillStringInfo->N1_SIZE * $diameter}}"> </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"> <input type="number" class="form-control" name="N2_N" value="{{$selectedDrillStringInfo->N2_N}}"> </td>
-                                                    <td class="text-center"> <input type="number" class="form-control" name="N2_SIZE" value="{{$selectedDrillStringInfo->N2_SIZE}}"> </td>
+                                                    <td class="text-center"> <input type="number" class="form-control" name="N2_SIZE" value="{{$selectedDrillStringInfo->N2_SIZE * $diameter}}"> </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -166,8 +254,18 @@
                                 </div>
                                 <div class="clearfix">
                                     <div class="float-start col-md-4">
-                                        <label for="size" class="form-label">Size(IN)</label>
-                                        <input type="text" class="form-control" id="inputSize" name="size" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_Size}}" @endif>
+                                        <label for="size" class="form-label">Size</label>
+                                        <select name="diameter" class="setUnitForWellbore">
+                                            @foreach ($diameterUnits as $key => $item)
+                                                @php
+                                                    $selected = '';
+                                                    if(isset($unitIds))
+                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                @endphp
+                                                <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <input type="text" class="form-control" id="inputSize" name="size" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_Size * $diameter}}" @endif>
                                     </div>
                                     <div class="float-end col-md-8 row g-2 align-items-center m-t-4">
                                         <div class="col-auto">
@@ -177,10 +275,20 @@
                                             <input type="checkbox" class="form-check-input" id="tfa_checkbox" name="tfa">
                                         </div>
                                         <div class="col-auto" style="width:45%">
-                                            <input type="text" class="form-control" name="tfain2" id="tfain2" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_TFA}}" @endif>
+                                            <input type="text" class="form-control" name="tfain2" id="tfain2" @if(isset($selectedDrillStringInfo)) value="{{$selectedDrillStringInfo->Bit_TFA * $diameter}}" @endif>
                                         </div>
                                         <div class="col-auto">
-                                            <label for="tfain2" class="col-form-label">in2</label>
+                                            <select name="diameter" class="setUnitForWellbore">
+                                                @foreach ($diameterUnits as $key => $item)
+                                                    @php
+                                                        $selected = '';
+                                                        if(isset($unitIds))
+                                                            if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                    @endphp
+                                                    <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label for="tfain2" class="col-form-label">^2</label>
                                         </div>
                                     </div>
                                 </div>
@@ -202,17 +310,45 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">{{__('#')}}</th>
-                                            <th class="text-center"> {{__('Length(ft)')}} </th>
-                                            <th class="text-center"> {{__('ID(in)')}} </th>
+                                            <th class="text-center"> {{__('Length')}} </th>
+                                            <th class="text-center"> {{__('ID')}} </th>
                                             <th class="text-center"> {{__('Action')}} </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <th class="text-center">
+                                                <select name="length" class="setUnitForWellbore">
+                                                    @foreach ($lengthUnits as $key => $item)
+                                                        @php
+                                                            $selected = '';
+                                                            if(isset($unitIds))
+                                                                if($item->id == $unitIds->length_id) $selected = 'selected';
+                                                        @endphp
+                                                        <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </th>
+                                            <th class="text-center">
+                                                <select name="diameter" class="setUnitForWellbore">
+                                                    @foreach ($diameterUnits as $key => $item)
+                                                        @php
+                                                            $selected = '';
+                                                            if(isset($unitIds))
+                                                                if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                        @endphp
+                                                        <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </th>
+                                            <th class="text-center"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($surfpiping as $item)
                                             <tr>
                                                 <td class="text-center">{{$loop->iteration}}</td>
-                                                <td class="text-center"> {{$item->Length}} </td>
-                                                <td class="text-center"> {{$item->ID}} </td>
+                                                <td class="text-center"> {{$item->Length * $length}} </td>
+                                                <td class="text-center"> {{$item->ID * $diameter}} </td>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"

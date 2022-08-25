@@ -105,12 +105,12 @@ class DrillstringController extends Controller
             'length'     => $length,
             'diameter'   => $diameter,
         );
- 
+
         $unitIds = array(
             'length_id'   => $length_id,
             'diameter_id' => $diameter_id,
         );
- 
+
         $unitValues = json_encode($unitValues);
         $unitIds = json_encode($unitIds);
         Session::put('DSUnitValues', $unitValues);

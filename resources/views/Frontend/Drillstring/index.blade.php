@@ -1,6 +1,7 @@
 @extends('Frontend.layouts.app')
 @section('content')
 <script src="{{ asset('assets/js/wellbore.js') }}"></script>
+
 <section class="home-section" id="home-section">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between mb-3">

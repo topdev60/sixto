@@ -1,6 +1,7 @@
 @extends('Backend.layouts.app')
 @section('content')
 <script src="{{ asset('assets/js/wellbore.js') }}"></script>
+
 <section class="home-section" id="home-section">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between mb-3">
@@ -157,7 +158,7 @@
                                 @foreach ($comps as $item)
                                     <tr>
                                         <td class="text-center">{{$item->Description}}</td>
-                                        <td class="text-center">@if(isset($diameter)) {{$item->ID * $diameter}} @else {{$item->ID}} @endif</td>s
+                                        <td class="text-center">@if(isset($diameter)) {{$item->ID * $diameter}} @else {{$item->ID}} @endif</td>
                                         <td class="text-center">@if(isset($diameter)) {{$item->OD * $diameter}} @else {{$item->OD}} @endif</td>
                                         <td class="text-center">{{$item->Weight}}</td>
                                         <td class="text-center">@if(isset($length)) {{$item->Length * $length}} @else {{$item->Length}} @endif</td>
