@@ -118,17 +118,23 @@ class WellboreController extends Controller
      */
     public function drillStringUpdate(Request $request)
     {
+        if(session()->has('WBUnitValues') && session()->has('WBUnitIds')){
+            $unitValues = json_decode(session()->get('WBUnitValues'));
+            $unitIds    = json_decode(session()->get('WBUnitIds'));
+            $length     = $unitValues->length;
+            $diameter   = $unitValues->diameter;
+        }
         DB::table('drillstring')->where('DS_ID', $request->ds_id)->update([
             'Bit_type'          => $request->bit_type,
-            'Bit_position'      => $request->position,
-            'Bit_size'          => $request->size,
-            'Bit_TFA'           => $request->tfa,
+            'Bit_position'      => $request->position/$length,
+            'Bit_size'          => $request->size/$diameter,
+            'Bit_TFA'           => $request->tfa/$diameter,
             'N0_N'              => $request->N0_N,
-            'N0_SIZE'           => $request->N0_SIZE,
+            'N0_SIZE'           => $request->N0_SIZE/$diameter,
             'N1_N'              => $request->N1_N,
-            'N1_SIZE'           => $request->N1_SIZE,
+            'N1_SIZE'           => $request->N1_SIZE/$diameter,
             'N2_N'              => $request->N2_N,
-            'N2_SIZE'           => $request->N2_SIZE,
+            'N2_SIZE'           => $request->N2_SIZE/$diameter,
         ]);
 
         $drillstring = DB::table('drillstring')->where('DS_ID', $request->ds_id)->first();
@@ -228,44 +234,50 @@ class WellboreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {
+    {   
+        if(session()->has('WBUnitValues') && session()->has('WBUnitIds')){
+            $unitValues = json_decode(session()->get('WBUnitValues'));
+            $unitIds    = json_decode(session()->get('WBUnitIds'));
+            $length     = $unitValues->length;
+            $diameter   = $unitValues->diameter;
+        }
         Wellbore::where('WellboreID', $request->wellbore_id)->update([
             'RiserDescription'      => $request->riserDescription,
-            'RiserOD'               => $request->riserOd,
-            'RiserID'               => $request->riserId,
-            'RiserTop'              => $request->riserTopMD,
-            'RiserBottom'           => $request->riserBottomMD,
+            'RiserOD'               => $request->riserOd/$diameter,
+            'RiserID'               => $request->riserId/$diameter,
+            'RiserTop'              => $request->riserTopMD/$length,
+            'RiserBottom'           => $request->riserBottomMD/$length,
             'RiserWeight'           => $request->riserWeight,
             'RiserActive'           => $request->riserActive,
 
             'CsgDescription'        => $request->csgDescription,
-            'CsgOD'                 => $request->csgOD,
-            'CsgID'                 => $request->csgID,
-            'CsgTop'                => $request->csgTopMD,
-            'CsgBottom'             => $request->csgBottomMD,
+            'CsgOD'                 => $request->csgOD/$diameter,
+            'CsgID'                 => $request->csgID/$diameter,
+            'CsgTop'                => $request->csgTopMD/$length,
+            'CsgBottom'             => $request->csgBottomMD/$length,
             'CsgWeight'             => $request->csgWeight,
 
             'L1Description'         => $request->lfirstDescription,
-            'L1OD'                  => $request->lfirstOD,
-            'L1ID'                  => $request->lfirstID,
-            'L1Top'                 => $request->lfirstTopMD,
-            'L1Bottom'              => $request->lfirstBottomMD,
+            'L1OD'                  => $request->lfirstOD/$diameter,
+            'L1ID'                  => $request->lfirstID/$diameter,
+            'L1Top'                 => $request->lfirstTopMD/$length,
+            'L1Bottom'              => $request->lfirstBottomMD/$length,
             'L1Weight'              => $request->lfirstWeight,
             'L1Active'              => $request->lfirstActive,
 
             'L2Description'         => $request->lsecondDescription,
-            'L2OD'                  => $request->lsecondOD,
-            'L2ID'                  => $request->lsecondID,
-            'L2Top'                 => $request->lsecondTopMD,
-            'L2Bottom'              => $request->lsecondBottomMD,
+            'L2OD'                  => $request->lsecondOD/$diameter,
+            'L2ID'                  => $request->lsecondID/$diameter,
+            'L2Top'                 => $request->lsecondTopMD/$length,
+            'L2Bottom'              => $request->lsecondBottomMD/$length,
             'L2Weight'              => $request->lsecondWeight,
             'L2Active'              => $request->lsecondActive,
 
             'HoleDescription'       => $request->holeDescription,
-            'HoleID'                => $request->holeID,
-            'HoleOD'                => $request->holeOD,
-            'HoleTop'               => $request->holeTopMD,
-            'HoleBottom'            => $request->holeBottomMD,
+            'HoleID'                => $request->holeID/$diameter,
+            'HoleOD'                => $request->holeOD/$diameter,
+            'HoleTop'               => $request->holeTopMD/$length,
+            'HoleBottom'            => $request->holeBottomMD/$length,
             'HoleWeight'            => $request->holeWeight,
         ]);
 

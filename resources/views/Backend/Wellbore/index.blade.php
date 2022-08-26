@@ -44,24 +44,24 @@
                                 <tr>
                                     <th class="text-center"></th>
                                     <th class="text-center">
-                                        <select name="diameter" class="setUnitForWellbore">
-                                            @foreach ($diameterUnits as $key => $item)
+                                        <select name="length" class="setUnitForWellbore">
+                                            @foreach ($lengthUnits as $key => $item)
                                                 @php
                                                     $selected = '';
                                                     if(isset($unitIds))
-                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                        if($item->id == $unitIds->length_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </th>
                                     <th class="text-center">
-                                        <select name="diameter" class="setUnitForWellbore">
-                                            @foreach ($diameterUnits as $key => $item)
+                                        <select name="length" class="setUnitForWellbore">
+                                            @foreach ($lengthUnits as $key => $item)
                                                 @php
                                                     $selected = '';
                                                     if(isset($unitIds))
-                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                        if($item->id == $unitIds->length_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach
@@ -101,8 +101,8 @@
                                     @csrf
                                     <tr @if($rigType == 0 || $rigType == 1 || $rigType == 2) style="display: none" @endif>
                                         <td class="text-center"><input type="text" class="form-control" name="riserDescription" value="{{$wellbore->riser->RiserDescription}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="riserTopMD" value="{{$wellbore->riser->RiserTop * $diameter}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="riserBottomMD" value="{{$wellbore->riser->RiserBottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="riserTopMD" value="{{$wellbore->riser->RiserTop * $length}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="riserBottomMD" value="{{$wellbore->riser->RiserBottom * $length}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="riserId" value="{{$wellbore->riser->RiserID * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="riserOd" value="{{$wellbore->riser->RiserOD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="riserWeight" value="{{$wellbore->riser->RiserWeight}}"></td>
@@ -110,8 +110,8 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center"><input type="text" class="form-control" name="csgDescription" value="{{$wellbore->csg->CsgDescription}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="csgTopMD" value="{{$wellbore->csg->CsgTop * $diameter}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="csgBottomMD" value="{{$wellbore->csg->CsgBottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="csgTopMD" value="{{$wellbore->csg->CsgTop * $length}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="csgBottomMD" value="{{$wellbore->csg->CsgBottom * $length}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="csgID" value="{{$wellbore->csg->CsgID * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="csgOD" value="{{$wellbore->csg->CsgOD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="csgWeight" value="{{$wellbore->csg->CsgWeight}}"></td>
@@ -119,8 +119,8 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center"><input type="text" class="form-control" name="lfirstDescription" value="{{$wellbore->lfirst->L1Description}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lfirstTopMD" value="{{$wellbore->lfirst->L1Top * $diameter}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lfirstBottomMD" value="{{$wellbore->lfirst->L1Bottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lfirstTopMD" value="{{$wellbore->lfirst->L1Top * $length}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lfirstBottomMD" value="{{$wellbore->lfirst->L1Bottom * $length}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="lfirstID" value="{{$wellbore->lfirst->L1ID * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="lfirstOD" value="{{$wellbore->lfirst->L1OD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="lfirstWeight" value="{{$wellbore->lfirst->L1Weight}}"></td>
@@ -128,8 +128,8 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center"><input type="text" class="form-control" name="lsecondDescription" value="{{$wellbore->lsecond->L2Description}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lsecondTopMD" value="{{$wellbore->lsecond->L2Top * $diameter}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="lsecondBottomMD" value="{{$wellbore->lsecond->L2Bottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lsecondTopMD" value="{{$wellbore->lsecond->L2Top * $length}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="lsecondBottomMD" value="{{$wellbore->lsecond->L2Bottom * $length}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="lsecondID" value="{{$wellbore->lsecond->L2ID * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="lsecondOD" value="{{$wellbore->lsecond->L2OD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="lsecondWeight" value="{{$wellbore->lsecond->L2Weight}}"></td>
@@ -137,8 +137,8 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center"><input type="text" class="form-control" name="holeDescription" value="{{$wellbore->hole->HoleDescription}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="holeTopMD" value="{{$wellbore->hole->HoleTop * $diameter}}"></td>
-                                        <td class="text-center"><input type="text" class="form-control" name="holeBottomMD" value="{{$wellbore->hole->HoleBottom * $diameter}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="holeTopMD" value="{{$wellbore->hole->HoleTop * $length}}"></td>
+                                        <td class="text-center"><input type="text" class="form-control" name="holeBottomMD" value="{{$wellbore->hole->HoleBottom * $length}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="holeID" value="{{$wellbore->hole->HoleID * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="holeOD" value="{{$wellbore->hole->HoleOD * $diameter}}"></td>
                                         <td class="text-center"><input type="text" class="form-control" name="holeWeight" value="{{$wellbore->hole->HoleWeight}}"></td>
@@ -410,12 +410,12 @@
                                                                 <div class="row gy-3">
                                                                 <div class="col-md-6">
                                                                     <label for="" class="form-label">Length</label>
-                                                                    <input type="text" class="form-control" name="length" value="{{ $item->Length }}"
+                                                                    <input type="text" class="form-control" name="length" value="{{ $item->Length * $length }}"
                                                                     required>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <label for="" class="form-label">ID</label>
-                                                                    <input type="text" class="form-control" name="id" value="{{ $item->ID }}"
+                                                                    <input type="text" class="form-control" name="id" value="{{ $item->ID * $diameter }}"
                                                                     required>
                                                                 </div>
                                                             </div>

@@ -44,24 +44,24 @@
                                 <tr>
                                     <th class="text-center"></th>
                                     <th class="text-center">
-                                        <select name="diameter" class="setUnitForWellbore">
-                                            @foreach ($diameterUnits as $key => $item)
+                                        <select name="length" class="setUnitForWellbore">
+                                            @foreach ($lengthUnits as $key => $item)
                                                 @php
                                                     $selected = '';
                                                     if(isset($unitIds))
-                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                        if($item->id == $unitIds->length_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </th>
                                     <th class="text-center">
-                                        <select name="diameter" class="setUnitForWellbore">
-                                            @foreach ($diameterUnits as $key => $item)
+                                        <select name="length" class="setUnitForWellbore">
+                                            @foreach ($lengthUnits as $key => $item)
                                                 @php
                                                     $selected = '';
                                                     if(isset($unitIds))
-                                                        if($item->id == $unitIds->diameter_id) $selected = 'selected';
+                                                        if($item->id == $unitIds->length_id) $selected = 'selected';
                                                 @endphp
                                                 <option value="{{$item->id}}" {{$selected}}>{{$item->name}}</option>
                                             @endforeach

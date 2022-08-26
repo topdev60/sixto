@@ -208,14 +208,19 @@ class DrillstringController extends Controller
     }
     public function comp_update(Request $request)
     {
+        $unitValues = json_decode(Session::get('DSUnitValues'));
+        if (isset($unitValues)) {
+            $length     = $unitValues->length;
+            $diameter   = $unitValues->diameter;
+        }
         DsComp::where('Comp_ID', $request->id)->update([
-            'DS_ID' => $request->ds_id,
-            'Description' => $request->comp_decription,
-            'OD' => $request->comp_od,
-            'ID' => $request->comp_id,
-            'TJ' => $request->comp_tj,
-            'Weight' => $request->comp_weight,
-            'Length' => $request->comp_length,
+            'DS_ID'         => $request->ds_id,
+            'Description'   => $request->comp_decription,
+            'OD'            => $request->comp_od/$diameter,
+            'ID'            => $request->comp_id/$diameter,
+            'TJ'            => $request->comp_tj/$diameter,
+            'Weight'        => $request->comp_weight,
+            'Length'        => $request->comp_length/$length,
         ]);
 
         return redirect()->back();

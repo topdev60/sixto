@@ -228,18 +228,18 @@
                                                                 required>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="" class="form-label">OD</label>
-                                                                <input type="text" class="form-control" name="comp_od" value="{{ $item->OD }}"
+                                                                <label for="" class="form-label">ID</label>
+                                                                <input type="text" class="form-control" name="comp_id" value="{{ $item->ID * $diameter }}"
                                                                 required>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="" class="form-label">ID</label>
-                                                                <input type="text" class="form-control" name="comp_id" value="{{ $item->ID }}"
+                                                                <label for="" class="form-label">OD</label>
+                                                                <input type="text" class="form-control" name="comp_od" value="{{ $item->OD * $diameter }}"
                                                                 required>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="" class="form-label">TJ</label>
-                                                                <input type="text" class="form-control" name="comp_tj" value="{{ $item->TJ }}"
+                                                                <input type="text" class="form-control" name="comp_tj" value="{{ $item->TJ * $diameter }}"
                                                                 required>
                                                             </div>
                                                             <div class="col-md-6">
@@ -249,7 +249,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="" class="form-label">Length</label>
-                                                                <input type="text" class="form-control" name="comp_length" value="{{ $item->Length }}"
+                                                                <input type="text" class="form-control" name="comp_length" value="{{ $item->Length * $length }}"
                                                                 required>
                                                             </div>
                                                         </div>
